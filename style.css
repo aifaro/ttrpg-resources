@@ -796,23 +796,3 @@ footer p {
     }
 }
 
-/* ============================================
-   TWINE OVERRIDE — Full viewport
-   ============================================ */
-
-body.twine-page,
-body.twine-page .container {
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
-    background-image: none;
-}
-
-body.twine-page::before {
-    display: none; /* Quita la viñeta */
-}
-
-body.twine-page footer,
-body.twine-page .header {
-    display: none;
-}
