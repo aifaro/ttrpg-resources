@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Marca del Estrecho — The Mark of the Strait</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Special+Elite&display=swap">
+<style>
+:root{
+    color-scheme: dark;
+    --sea:#0D1417;
+    --sea-deep:#080D0F;
+    --card:#141D21;
+    --card-2:#1A2429;
+    --paper:#E9E3D5;
+    --paper-soft:#B9B3A6;
+    --paper-faint:#7C7869;
+    --brass:#C69A4C;
+    --brass-deep:#8E6C2E;
+    --rule:#2A353A;
+    --ink-letter:#D6CFBE;
+  }
+  *{box-sizing:border-box}
+  body{
+    background:var(--sea) !important;
+    color:var(--paper) !important;
+    font-family:"EB Garamond",Georgia,serif !important;
+    font-size:18px;
+    line-height:1.66;
+    -webkit-font-smoothing:antialiased;
+    background-image:none !important;
+    box-shadow:none !important;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 26px 90px}
+
+  /* ---------------- cabecera ---------------- */
+  header{
+    padding:64px 0 40px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:44px;
+  }
+  .eyebrow{
+    font-family:"EB Garamond",Georgia,serif;
+    font-size:13px;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--brass);
+    margin:0 0 26px;
+  }
+  h1{
+    font-family:"Bodoni Moda",Didot,"Times New Roman",serif;
+    font-weight:700;
+    font-size:clamp(46px,9.5vw,96px);
+    line-height:.96;
+    letter-spacing:-.02em;
+    margin:0 0 24px;
+    text-wrap:balance;
+    color:var(--paper);
+  }
+  .hook{
+    font-family:"Bodoni Moda",Didot,serif;
+    font-style:italic;
+    font-size:clamp(21px,3vw,27px);
+    line-height:1.4;
+    color:var(--paper);
+    margin:0;
+    max-width:38ch;
+  }
+  .rulebrass{
+    width:72px;height:2px;background:var(--brass);
+    margin:0 0 26px;
+  }
+
+  /* ---------------- cuerpo ---------------- */
+  section{margin-bottom:56px}
+  .col{max-width:63ch}
+  p{margin:0 0 17px}
+  .col p:last-child{margin-bottom:0}
+  .lead::first-letter{
+    font-family:"Bodoni Moda",Didot,serif;
+    font-size:3.6em;line-height:.82;font-weight:700;
+    float:left;padding:.06em .12em 0 0;
+    color:var(--brass);
+  }
+  h2{
+    font-family:"EB Garamond",Georgia,serif;
+    font-size:13px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--brass);
+    margin:0 0 22px;
+  }
+  strong{color:var(--paper);font-weight:500}
+  em{color:var(--paper)}
+
+  /* ---------------- las cuatro cartas ---------------- */
+  .letters{
+    display:flex;flex-direction:column;gap:2px;
+    margin:0;
+  }
+  .letter{
+    background:var(--card);
+    border-left:2px solid var(--brass-deep);
+    padding:22px 26px;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+  @media (min-width:640px){
+    .letter{grid-template-columns:118px 1fr;gap:26px;align-items:start}
+  }
+  .letter + .letter{border-left-color:var(--brass-deep)}
+  .letter:nth-child(2){background:var(--card)}
+  .letter:nth-child(3){background:var(--card-2)}
+  .letter:nth-child(4){background:var(--card-2);border-left-color:var(--brass)}
+  .l-date{
+    font-family:"Special Elite","Courier New",monospace;
+    font-size:12px;letter-spacing:.04em;
+    color:var(--paper-faint);
+    padding-top:5px;
+    white-space:nowrap;
+  }
+  .l-text{
+    font-family:"Special Elite","Courier New",monospace;
+    font-size:15.5px;line-height:1.72;
+    color:var(--ink-letter);
+    margin:0;
+  }
+  .letter:nth-child(4) .l-text{font-size:17px;color:var(--paper)}
+  .l-note{
+    font-family:"EB Garamond",Georgia,serif;
+    font-style:italic;font-size:15px;
+    color:var(--paper-faint);
+    margin:8px 0 0;
+  }
+  figcaption.letters-cap{
+    font-size:15px;font-style:italic;color:var(--paper-soft);
+    margin-top:18px;max-width:58ch;
+  }
+
+  /* ---------------- ficha ---------------- */
+  .facts{
+    border-top:1px solid var(--rule);
+    display:grid;grid-template-columns:1fr;
+  }
+  @media (min-width:600px){
+    .facts{grid-template-columns:1fr 1fr}
+  }
+  .fact{
+    border-bottom:1px solid var(--rule);
+    padding:16px 0;
+  }
+  @media (min-width:600px){
+    .fact:nth-child(odd){padding-right:28px}
+    .fact:nth-child(even){padding-left:28px;border-left:1px solid var(--rule)}
+  }
+  .fact dt{
+    font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--paper-faint);margin:0 0 4px;
+  }
+  .fact dd{
+    margin:0;font-size:17px;color:var(--paper);
+  }
+
+  /* ---------------- cierre ---------------- */
+  .closer{
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    padding:38px 0;
+    margin-bottom:44px;
+  }
+  .closer p{
+    font-family:"Bodoni Moda",Didot,serif;
+    font-style:italic;
+    font-size:clamp(20px,2.7vw,25px);
+    line-height:1.42;
+    margin:0;max-width:42ch;
+    color:var(--paper);
+  }
+  .smallprint{
+    font-size:15px;color:var(--paper-soft);max-width:60ch;
+  }
+  .smallprint strong{color:var(--paper)}
+  footer{
+    margin-top:52px;padding-top:18px;border-top:1px solid var(--rule);
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--paper-faint);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Pulp Cthulhu &middot; Ceuta, September 1921</p>
+  <h1>La Marca<br>del Estrecho</h1>
+  <div class="rulebrass"></div>
+  <p class="hook">A man wrote to you four times. You never answered him. The fourth letter put you on a steamer.</p>
+</header>
+
+<section class="col">
+  <p class="lead">Spain is bleeding out in Africa. In July, at a dry patch of nothing called Annual, twenty thousand men strung out by a general with more habit than plan came apart in three days; what followed was not a retreat but a rout &mdash; thousands of men throwing away their rifles to run lighter. Only one regiment turned around. The horsemen of Alc&aacute;ntara charged again and again to cover the men who were running, until the horses were so spent they had nothing left but a walk; and then they charged at a walk. Of nearly seven hundred, very few came back.</p>
+  <p>Those who got furthest shut themselves in at Monte Arruit with General Navarro. They held twelve days without water, eating the mules, within sight of Melilla and with nobody coming out of Melilla to fetch them. On the 9th of August they surrendered on a promise that their lives would be spared, and they were killed as soon as they laid down their arms. Navarro is a prisoner in the Rif. The rest, some three thousand of them, are still lying there in the sun, because nobody has yet gone back to bury them.</p>
+  <p>Now they have been counted: more than ten thousand dead, list by list, in the pages of the newspapers. In the caf&eacute;s of Madrid they are demanding an explanation that nobody can give; General Picasso has opened an inquiry that nobody wants to read, and General Silvestre has not been found by anyone, alive or dead.</p>
+  <p>Ceuta is the funnel that war pours through. Fifty thousand inhabitants, fourteen thousand evacuees from Melilla sleeping in the warehouses, hospital beds out in the corridors, and a queue of women at the door of the Comandancia every morning, a list in hand, looking for names. Ships come in with the wounded and go out with conscripts. The city is white and packed tight on its isthmus, held to Africa by a thread of land and to Spain by a strait of sea. It has been Spanish for centuries and it has everything that brings: a garrison, a Comandancia General and paperwork. And it has decided, from top to bottom and without anyone giving the order, <strong>not to look straight at what has just happened.</strong></p>
+  <p>You are not going to Ceuta for the war. You are going because Paco Guerrero wrote to you &mdash; an acquaintance who treats you like his closest friend, and to whom you owe a glass of wine.</p>
+</section>
+
+<section>
+  <h2>Four letters, June to September</h2>
+  <figure>
+    <div class="letters">
+      <div class="letter">
+        <div class="l-date">19 June</div>
+        <p class="l-text">&laquo;One of those stories of yours has landed in my lap. You know the kind: the strange ones. Why don&rsquo;t you come over for a few days? The first glass is on me.&raquo;</p>
+      </div>
+      <div class="letter">
+        <div class="l-date">24 July</div>
+        <p class="l-text">&laquo;I am writing fast and with my stomach turned over. You will have read about Annual. And even so &mdash; forgive me, I am ashamed of it &mdash; that is not what I want to talk to you about. I have pulled at the thread, and the thread does not end.&raquo;</p>
+      </div>
+      <div class="letter">
+        <div class="l-date">21 August</div>
+        <p class="l-text">&laquo;You know I am not a man who frightens easily. I have seen the trenches, I have seen typhus, I have seen politicians up close. That is why this is so hard to write. I write to you by day. At night I no longer trust what I write.&raquo;</p>
+      </div>
+      <div class="letter">
+        <div class="l-date">1 September</div>
+        <p class="l-text">&laquo;No time for a proper letter. Come. Come now. Take the first steamer.&raquo;</p>
+      </div>
+    </div>
+    <figcaption class="letters-cap">A veteran reporter for the <em>Telegrama del Rif</em>. Fifty years old, ink-stained waistcoat, one of those men who call you <em>my dear fellow</em> after meeting you briefly years ago. He wrote to you as one of his own. You owed him a glass of wine.</figcaption>
+  </figure>
+</section>
+
+<section class="col">
+  <h2>And then you cross the Strait</h2>
+  <p>Each of you on your own, with what you are wearing, on a steamer full of reinforcements. Half an hour of coal smoke against the levanter and Africa begins to show through the haze: the Monte Hacho first, a hump of brown rock with the profile of a man lying on his back, and beneath it the city, white and packed tight.</p>
+  <p>You bring an address, four letters each less sane than the one before, a strange drawing in the last of them, and the uncomfortable feeling of having taken three months to do something that cost nothing. What you do not bring is the faintest idea of what you have put your foot into.</p>
+  <p>Because something has been happening in Ceuta for months, and it did not begin with you. This is a whole city so full of a real horror that it has no room left inside to notice there is another one.</p>
+</section>
+
+<section class="closer">
+  <p>Whoever holds Ceuta, the key of the Mediterranean, holds the Strait.</p>
+</section>
+
+<section class="col">
+  <h2>Three thousand years in two kilometres</h2>
+  <p>And it is worth knowing where you are landing, because Ceuta is one of the most extraordinary cities Spain has, and most Spaniards have never set foot in it.</p>
+  <p>Two kilometres of isthmus between two seas, and everyone has built on them. The <strong>Phoenicians</strong> put a trading post here nearly three thousand years ago, at the foot of the mountain the ancients called Abyla and held to be one of the two Pillars of Hercules. The <strong>Romans</strong> called it <em>Septem</em>, for its seven hills, and that number is where the city&rsquo;s name still comes from: Septem, Sabta, Ceuta. It was Byzantine and it was <strong>Visigothic</strong>, and of its governor &mdash; Count Julian &mdash; legend says that in 711 he opened the Strait to the armies that swept away the kingdom of the Goths; a story twelve hundred years have not finished forgetting here. Then it was <strong>Sabta</strong> for seven centuries, one of the great cities of the western Islamic world, with its schools, its libraries and its paper mills.</p>
+  <p>And in <strong>1415</strong> the <strong>Portuguese</strong> came, and that was not just another conquest. The taking of Ceuta is the date from which European expansion by sea is usually counted: the first foot outside Europe, the rehearsal for everything that followed. Among the men who landed that August was a prince of twenty-one who was knighted in this town and who spent the rest of his life sending ships further and further south. He is known as <strong>Henry the Navigator</strong>. The Age of Discovery begins, if it begins anywhere, on this shore.</p>
+  <p>Spanish it is because it chose to be. The two crowns were joined in 1580, and when Portugal broke away again in 1640, the people and the local authorities of Ceuta &mdash; alone, on the far side of the sea, with nobody to compel them &mdash; decided to stay with Madrid. In 1668 it was made official, and the streets had known it for years. Nor did it end there: there were many attempts to take the city, and the greatest of them was the sultan Moulay Ismail&rsquo;s. Between <strong>1694 and 1727</strong> Ceuta withstood <strong>thirty-three years of siege</strong>, cited as the longest in history, and did not fall. From that period is the wall that still crosses the isthmus at its narrowest point, with a moat that is no dry ditch: <strong>you cross it by boat, from one sea to the other, as nowhere else in the world.</strong></p>
+  <p>Today it is called the <strong>City of the Four Cultures</strong>, and that is not exactly a legend. Christians, Muslims, Jews and Hindus, in two kilometres. In 1921 that means you can hear Spanish, Arabic, Ladino and Hebrew in a single morning, walking its streets.</p>
+  <p>And last of all, <strong>this war is not hers.</strong> Annual and Monte Arruit are four hundred kilometres to the east, at the far end of the Spanish Protectorate. Not one shot has been fired here. Everything else has landed here: the wounded, the evacuees, the depots, the relief battalions and the shame. Ceuta is the back yard of a catastrophe that happened to other people, and she is filled to the roof with it. That is exactly what lets her not look.</p>
+</section>
+
+<section class="closer">
+  <p>You are not the first to look. You are the first who came to look on purpose.</p>
+</section>
+
+<section class="col">
+  <h2>What kind of game this is</h2>
+  <p>Cosmic horror with dirty hands. This is <strong>Pulp Cthulhu</strong>, so your investigators are capable people: they take more punishment, they hit more often and they have special talents, and the adventure is built for you to fight, run across rooftops, negotiate with men of rank and climb a mountain at night with whatever you have managed to put together. Nobody goes mad from looking at an odd drawing. Madness comes more slowly, and for better reasons.</p>
+  <p>And real historical horror too, not scenery. Everything underneath it &mdash; Annual, the evacuees, the censorship, the paperwork of an overloaded garrison town, the charge of the Alc&aacute;ntara &mdash; happened. The real part alone is already terrible.</p>
+  <dl class="facts">
+    <div class="fact"><dt>System</dt><dd>Pulp Cthulhu (7th ed.)</dd></div>
+    <div class="fact"><dt>Investigators</dt><dd>Three to five</dd></div>
+    <div class="fact"><dt>Length</dt><dd>Around ten sessions</dd></div>
+    <div class="fact"><dt>Where and when</dt><dd>Ceuta, September 1921</dd></div>
+  </dl>
+</section>
+
+<section class="col">
+  <h2>Before we start</h2>
+  <p class="smallprint">We run a <strong>session zero</strong>, and this adventure genuinely needs one. The material is hard and deliberately present: a military disaster very recent for your characters, murdered prisoners whose bodies have still not been recovered, a father&rsquo;s grief for his son, madness and psychiatric confinement, and the violence of a war upon civilians. We will agree on lines and veils together. Bring along, if you like, an idea of who your character is and of why Paco Guerrero had their name written down in an address book.</p>
+</section>
+
+<footer>
+  An adventure for Pulp Cthulhu &middot; Ceuta, 1921
+</footer>
+
+</div>
+
+</body>
+</html>
