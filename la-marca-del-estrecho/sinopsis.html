@@ -1,283 +1,133 @@
 <!doctype html>
 <html lang="es">
 <head>
+<!-- El worker de rpg.nephei.org inserta twine-theme.css delante del primer cierre de head que encuentra en el fichero. Este comentario contiene ese primer cierre: </head> — así la inserción cae aquí dentro y no se aplica. No borrar. -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>La Marca del Estrecho — Sinopsis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Special+Elite&display=swap">
-<style>
-:root{
-    color-scheme: dark;
-    --sea:#0D1417;
-    --sea-deep:#080D0F;
-    --card:#141D21;
-    --card-2:#1A2429;
-    --paper:#E9E3D5;
-    --paper-soft:#B9B3A6;
-    --paper-faint:#7C7869;
-    --brass:#C69A4C;
-    --brass-deep:#8E6C2E;
-    --rule:#2A353A;
-    --ink-letter:#D6CFBE;
-  }
-  *{box-sizing:border-box}
-  body{
-    background:var(--sea) !important;
-    color:var(--paper) !important;
-    font-family:"EB Garamond",Georgia,serif !important;
-    font-size:18px;
-    line-height:1.66;
-    -webkit-font-smoothing:antialiased;
-    background-image:none !important;
-    box-shadow:none !important;
-  }
-  .wrap{max-width:860px;margin:0 auto;padding:0 26px 90px}
-
-  /* ---------------- cabecera ---------------- */
-  header{
-    padding:64px 0 40px;
-    border-bottom:1px solid var(--rule);
-    margin-bottom:44px;
-  }
-  .eyebrow{
-    font-family:"EB Garamond",Georgia,serif;
-    font-size:13px;letter-spacing:.26em;text-transform:uppercase;
-    color:var(--brass);
-    margin:0 0 26px;
-  }
-  h1{
-    font-family:"Bodoni Moda",Didot,"Times New Roman",serif;
-    font-weight:700;
-    font-size:clamp(46px,9.5vw,96px);
-    line-height:.96;
-    letter-spacing:-.02em;
-    margin:0 0 24px;
-    text-wrap:balance;
-    color:var(--paper);
-  }
-  .hook{
-    font-family:"Bodoni Moda",Didot,serif;
-    font-style:italic;
-    font-size:clamp(21px,3vw,27px);
-    line-height:1.4;
-    color:var(--paper);
-    margin:0;
-    max-width:38ch;
-  }
-  .rulebrass{
-    width:72px;height:2px;background:var(--brass);
-    margin:0 0 26px;
-  }
-
-  /* ---------------- cuerpo ---------------- */
-  section{margin-bottom:56px}
-  .col{max-width:63ch}
-  p{margin:0 0 17px}
-  .col p:last-child{margin-bottom:0}
-  .lead::first-letter{
-    font-family:"Bodoni Moda",Didot,serif;
-    font-size:3.6em;line-height:.82;font-weight:700;
-    float:left;padding:.06em .12em 0 0;
-    color:var(--brass);
-  }
-  h2{
-    font-family:"EB Garamond",Georgia,serif;
-    font-size:13px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;
-    color:var(--brass);
-    margin:0 0 22px;
-  }
-  strong{color:var(--paper);font-weight:500}
-  em{color:var(--paper)}
-
-  /* ---------------- las cuatro cartas ---------------- */
-  .letters{
-    display:flex;flex-direction:column;gap:2px;
-    margin:0;
-  }
-  .letter{
-    background:var(--card);
-    border-left:2px solid var(--brass-deep);
-    padding:22px 26px;
-    display:grid;
-    grid-template-columns:1fr;
-    gap:8px;
-  }
-  @media (min-width:640px){
-    .letter{grid-template-columns:118px 1fr;gap:26px;align-items:start}
-  }
-  .letter + .letter{border-left-color:var(--brass-deep)}
-  .letter:nth-child(2){background:var(--card)}
-  .letter:nth-child(3){background:var(--card-2)}
-  .letter:nth-child(4){background:var(--card-2);border-left-color:var(--brass)}
-  .l-date{
-    font-family:"Special Elite","Courier New",monospace;
-    font-size:12px;letter-spacing:.04em;
-    color:var(--paper-faint);
-    padding-top:5px;
-    white-space:nowrap;
-  }
-  .l-text{
-    font-family:"Special Elite","Courier New",monospace;
-    font-size:15.5px;line-height:1.72;
-    color:var(--ink-letter);
-    margin:0;
-  }
-  .letter:nth-child(4) .l-text{font-size:17px;color:var(--paper)}
-  .l-note{
-    font-family:"EB Garamond",Georgia,serif;
-    font-style:italic;font-size:15px;
-    color:var(--paper-faint);
-    margin:8px 0 0;
-  }
-  figcaption.letters-cap{
-    font-size:15px;font-style:italic;color:var(--paper-soft);
-    margin-top:18px;max-width:58ch;
-  }
-
-  /* ---------------- ficha ---------------- */
-  .facts{
-    border-top:1px solid var(--rule);
-    display:grid;grid-template-columns:1fr;
-  }
-  @media (min-width:600px){
-    .facts{grid-template-columns:1fr 1fr}
-  }
-  .fact{
-    border-bottom:1px solid var(--rule);
-    padding:16px 0;
-  }
-  @media (min-width:600px){
-    .fact:nth-child(odd){padding-right:28px}
-    .fact:nth-child(even){padding-left:28px;border-left:1px solid var(--rule)}
-  }
-  .fact dt{
-    font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--paper-faint);margin:0 0 4px;
-  }
-  .fact dd{
-    margin:0;font-size:17px;color:var(--paper);
-  }
-
-  /* ---------------- cierre ---------------- */
-  .closer{
-    border-top:1px solid var(--rule);
-    border-bottom:1px solid var(--rule);
-    padding:38px 0;
-    margin-bottom:44px;
-  }
-  .closer p{
-    font-family:"Bodoni Moda",Didot,serif;
-    font-style:italic;
-    font-size:clamp(20px,2.7vw,25px);
-    line-height:1.42;
-    margin:0;max-width:42ch;
-    color:var(--paper);
-  }
-  .smallprint{
-    font-size:15px;color:var(--paper-soft);max-width:60ch;
-  }
-  .smallprint strong{color:var(--paper)}
-  footer{
-    margin-top:52px;padding-top:18px;border-top:1px solid var(--rule);
-    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--paper-faint);
-  }
-</style>
+<link rel="stylesheet" href="/style.css?v=20260926">
 </head>
-<body>
+<body class="sinopsis">
 
-<div class="wrap">
-
-<header>
-  <p class="eyebrow">Pulp Cthulhu &middot; Ceuta, septiembre de 1921</p>
-  <h1>La Marca<br>del Estrecho</h1>
-  <div class="rulebrass"></div>
-  <p class="hook">Un hombre os escribió cuatro veces. No le contestasteis. La cuarta carta os hizo coger un vapor.</p>
+<header class="portada corta">
+  <div class="marco" aria-hidden="true"></div>
+  <a class="volver" href="/la-marca-del-estrecho/players">&laquo; Recursos de los jugadores</a>
+  <p class="sello">Pulp Cthulhu &middot; Ceuta, septiembre de 1921</p>
+  <h1>La Marca<span class="del">del</span>Estrecho</h1>
+  <svg class="silueta" viewBox="0 0 620 210" role="img" aria-label="Ceuta vista desde el mar: la ciudad blanca en su istmo y el Monte Hacho; detrás del monte, apenas insinuadas, unas torres que no deberían estar ahí.">
+    <defs>
+      <linearGradient id="pt-cielo" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#2a2217" stop-opacity="0"/>
+        <stop offset="1" stop-color="#6b5520" stop-opacity=".55"/>
+      </linearGradient>
+      <linearGradient id="pt-mar" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3a3222"/>
+        <stop offset="1" stop-color="#0e0c09"/>
+      </linearGradient>
+      <filter id="pt-bruma"><feGaussianBlur stdDeviation="1.6"/></filter>
+    </defs>
+    <rect x="0" y="0" width="620" height="150" fill="url(#pt-cielo)"/>
+    <!-- las torres -->
+    <g fill="#c9a227" opacity=".22" filter="url(#pt-bruma)">
+      <path d="M392 150 L396 38 L400 150 Z"/>
+      <path d="M404 150 L409 18 L414 150 Z"/>
+      <path d="M418 150 L424 52 L427 34 L430 150 Z"/>
+      <path d="M436 150 L441 64 L446 150 Z"/>
+      <path d="M452 150 L455 40 L461 28 L463 150 Z"/>
+      <path d="M470 150 L476 70 L480 150 Z"/>
+      <path d="M380 150 L384 84 L388 150 Z"/>
+    </g>
+    <!-- el Hacho: un hombre tumbado boca arriba -->
+    <path d="M300 150 C318 132 334 126 350 120 C362 114 368 100 382 98 C396 96 404 106 414 104 C428 101 436 88 452 86 C470 84 484 96 500 104 C520 114 540 128 566 150 Z" fill="#1a1510"/>
+    <!-- la ciudad -->
+    <g fill="#e9dfc6" opacity=".85">
+      <rect x="120" y="138" width="10" height="12"/><rect x="132" y="134" width="8" height="16"/><rect x="142" y="140" width="12" height="10"/>
+      <rect x="156" y="132" width="9" height="18"/><rect x="167" y="137" width="14" height="13"/><rect x="183" y="130" width="7" height="20"/>
+      <rect x="192" y="136" width="11" height="14"/><rect x="205" y="141" width="9" height="9"/><rect x="216" y="133" width="12" height="17"/>
+      <rect x="230" y="138" width="8" height="12"/><rect x="240" y="135" width="13" height="15"/><rect x="255" y="140" width="9" height="10"/>
+      <rect x="266" y="136" width="10" height="14"/><rect x="278" y="141" width="12" height="9"/><rect x="292" y="139" width="9" height="11"/>
+      <path d="M186 130 L186.5 116 L187 130 Z"/><path d="M219 133 L222 121 L225 133 Z"/>
+    </g>
+    <path d="M40 150 C80 146 100 144 118 146 L300 150 Z" fill="#1a1510"/>
+    <rect x="0" y="150" width="620" height="60" fill="url(#pt-mar)"/>
+    <g stroke="#c9a227" stroke-opacity=".25" stroke-width="1">
+      <path d="M60 162 h40 M180 170 h60 M330 164 h30 M420 176 h70 M520 166 h40 M110 186 h50 M260 192 h80"/>
+    </g>
+  </svg>
+  <p class="gancho">Un hombre os escribió cuatro veces. No le contestasteis. La cuarta carta os hizo coger un vapor.</p>
 </header>
 
-<section class="col">
-  <h2>Bienvenidos al Rif</h2>  
-  <p class="lead">España se está desangrando en África. En julio, en un secarral llamado Annual, veinte mil hombres mal repartidos por un general con más costumbre que plan se deshicieron en tres días: lo que siguió no fue una retirada, fue una desbandada de miles de hombres tirando el fusil para correr más ligeros. Solo un regimiento se dio la vuelta. Los jinetes de Alcántara cargaron una y otra vez para cubrir a los que huían, hasta que los caballos, reventados, ya no daban más que el paso, y entonces cargaron al paso. De casi setecientos volvieron muy pocos.</p>
+<main class="hoja sinopsis">
+<div class="texto">
+
+<section>
+<h2>Bienvenidos al Rif</h2>
+<div class="cuerpo">
+<p class="capitular">España se está desangrando en África. En julio, en un secarral llamado Annual, veinte mil hombres mal repartidos por un general con más costumbre que plan se deshicieron en tres días: lo que siguió no fue una retirada, fue una desbandada de miles de hombres tirando el fusil para correr más ligeros. Solo un regimiento se dio la vuelta. Los jinetes de Alcántara cargaron una y otra vez para cubrir a los que huían, hasta que los caballos, reventados, ya no daban más que el paso, y entonces cargaron al paso. De casi setecientos volvieron muy pocos.</p>
   <p>Los que llegaron más lejos se encerraron en Monte Arruit con el general Navarro. Aguantaron doce días sin agua, comiéndose las mulas, a la vista de Melilla y sin que de Melilla saliera nadie a buscarlos. El 9 de agosto se rindieron con la promesa de salir con vida, y los mataron en cuanto dejaron las armas. Navarro está preso en el Rif. Los demás, cerca de tres mil, siguen allí, al sol, porque nadie ha vuelto todavía a enterrarlos.</p>
   <p>Ahora sí están contados: más de diez mil muertos, lista a lista, en las páginas de los periódicos. En los cafés de Madrid se pide una explicación que nadie sabe dar: el general Picasso ha abierto un expediente que nadie quiere leer, y al general Silvestre no lo ha encontrado nadie, ni vivo ni muerto.</p>
   <p>Ceuta es el embudo por donde se cuela esa guerra. Cincuenta mil habitantes, catorce mil evacuados de Melilla durmiendo en los almacenes, los hospitales con camas en los pasillos y una cola de mujeres cada mañana a la puerta de la Comandancia, con una lista en la mano, buscando nombres. Llegan barcos con heridos y salen barcos con reclutas. La ciudad es blanca y apretada sobre su istmo, agarrada a África por un hilo de tierra y a España por un estrecho de mar. Es plaza española desde hace siglos, y tiene todo lo que eso trae: guarnición, Comandancia General y papeleo. Y ha decidido en pleno, de arriba abajo y sin que nadie dé la orden, <strong>no mirar de frente lo que acaba de pasar.</strong></p>
   <p>Vosotros no vais a Ceuta por la guerra. Vais porque os escribió Paco Guerrero, periodista, un conocido que os trata como a su mejor amigo, y al que le debéis un vino.</p>
+</div>
 </section>
 
 <section>
-  <h2>Extracto de las cuatro cartas de Paco Guerrero, de junio a septiembre</h2>
-  <figure>
-    <div class="letters">
-      <div class="letter">
-        <div class="l-date">19 de junio</div>
-        <p class="l-text">«Me ha caído en las manos una de esas historias tuyas. Ya me entiendes: de las raras. ¿Por qué no te vienes unos días? Invito yo al primer vino.»</p>
-      </div>
-      <div class="letter">
-        <div class="l-date">24 de julio</div>
-        <p class="l-text">«Escribo deprisa y con el estómago revuelto. Habrás leído lo de Annual. Y aun así —perdóname, que me da vergüenza— no es de eso de lo que quiero hablarte. He tirado del hilo, y el hilo no se acaba.»</p>
-      </div>
-      <div class="letter">
-        <div class="l-date">21 de agosto</div>
-        <p class="l-text">«Ya sabes que no soy hombre de sustos. He visto la trinchera, he visto el tifus, he visto de cerca a los políticos. Por eso me cuesta tanto escribir esto. Te escribo de día. De noche ya no me fío de lo que escribo.»</p>
-      </div>
-      <div class="letter">
-        <div class="l-date">1 de septiembre</div>
-        <p class="l-text">«No hay tiempo para carta en condiciones. Ven. Vente ya. Coge el primer vapor.»</p>
-      </div>
-    </div>
-    <figcaption class="letters-cap">Periodista veterano del <em>Telegrama del Rif</em>. Cincuenta años, chaleco manchado de tinta, de esos que llaman <em>querido</em> a alguien que conocieron brevemente hace años. Os escribía como a su gente. Vosotros le debíais un vino.</figcaption>
-  </figure>
+<h2>Extracto de las cuatro cartas de Paco Guerrero, de junio a septiembre</h2>
+<div class="cartas">
+  <div class="carta"><span class="fecha">19 de junio</span><p>«Me ha caído en las manos una de esas historias tuyas. Ya me entiendes: de las raras. ¿Por qué no te vienes unos días? Invito yo al primer vino.»</p></div>
+  <div class="carta"><span class="fecha">24 de julio</span><p>«Escribo deprisa y con el estómago revuelto. Habrás leído lo de Annual. Y aun así —perdóname, que me da vergüenza— no es de eso de lo que quiero hablarte. He tirado del hilo, y el hilo no se acaba.»</p></div>
+  <div class="carta"><span class="fecha">21 de agosto</span><p>«Ya sabes que no soy hombre de sustos. He visto la trinchera, he visto el tifus, he visto de cerca a los políticos. Por eso me cuesta tanto escribir esto. Te escribo de día. De noche ya no me fío de lo que escribo.»</p></div>
+  <div class="carta"><span class="fecha">1 de septiembre</span><p>«No hay tiempo para carta en condiciones. Ven. Vente ya. Coge el primer vapor.»</p></div>
+</div>
+<p class="pequeno" style="font-style:italic;color:var(--tinta-2)">Periodista veterano del <em>Telegrama del Rif</em>. Cincuenta años, chaleco manchado de tinta, de esos que llaman <em>querido</em> a alguien que conocieron brevemente hace años. Os escribía como a su gente. Vosotros le debíais un vino.</p>
 </section>
 
-<section class="col">
-  <h2>Y entonces, cruzáis el Estrecho</h2>
-  <p>Cada uno por su cuenta, con lo puesto, en un vapor lleno de tropa de refuerzo. Media hora de carbón contra el levante y África empieza a insinuarse en la bruma: primero el Monte Hacho, una joroba de piedra parda con el perfil de un hombre tumbado boca arriba, y debajo la ciudad, blanca y apretada.</p>
+<section>
+<h2>Y entonces, cruzáis el Estrecho</h2>
+<div class="cuerpo">
+<p>Cada uno por su cuenta, con lo puesto, en un vapor lleno de tropa de refuerzo. Media hora de carbón contra el levante y África empieza a insinuarse en la bruma: primero el Monte Hacho, una joroba de piedra parda con el perfil de un hombre tumbado boca arriba, y debajo la ciudad, blanca y apretada.</p>
   <p>Traéis una dirección, cuatro cartas cada vez menos cuerdas, un dibujo extraño en la última, y la incómoda sensación de haber tardado tres meses en hacer algo que no costaba nada. Lo que no traéis es la menor idea de en qué habéis metido el pie.</p>
   <p>Porque en Ceuta lleva meses pasando algo, y no empezó con vosotros. Es una ciudad llena de un horror tan directo y real que ya no le queda sitio dentro para notar que hay otro.</p>
+</div>
 </section>
 
-<section class="closer">
-  <p>Quien controla Ceuta, la llave del Mediterráneo, controla el Estrecho.</p>
-</section>
+<div class="cierre"><p>Quien controla Ceuta, la llave del Mediterráneo, controla el Estrecho.</p></div>
 
-<section class="col">
-  <h2>Tres mil años en dos kilómetros</h2>
-  <p>Y conviene saber a dónde llegáis, porque Ceuta es una de las ciudades más extraordinarias de España y la mayoría de los españoles no la ha visitado nunca.</p>
+<section>
+<h2>Tres mil años en dos kilómetros</h2>
+<div class="cuerpo">
+<p>Y conviene saber a dónde llegáis, porque Ceuta es una de las ciudades más extraordinarias de España y la mayoría de los españoles no la ha visitado nunca.</p>
   <p>Son dos kilómetros de istmo entre dos mares, sobre los que ha construido medio mundo. Los <strong>fenicios</strong> se asentaron aquí hace casi tres mil años, seguidos de los <strong>cartagineses</strong>, al pie del monte que los antiguos llamaron Abyla, una de las dos Columnas de Hércules. Los <strong>griegos</strong> la llamaron <em>Hepta</em> por sus siete colinas, los romanos <em>Septem</em>, y de aquel número sale el nombre que la ciudad sigue llevando: Hepta, Septem, Sabta, Ceuta. De Roma queda además lo que Roma dejaba en una costa como ésta: piletas de salazón que todavía se excavan debajo de la ciudad. Fue bizantina y fue <strong>visigoda</strong>, y de su gobernador —el conde don Julián— cuenta la leyenda que en 711 abrió el Estrecho a los ejércitos que se llevaron por delante el reino de los godos; una historia que aquí no se ha terminado de olvidar en mil doscientos años. Después fue <strong>Sabta</strong> durante siete siglos, gobernada por múltiples dinastías, tanto <strong>árabes</strong> (idrisíes, omeyas) como <strong>bereberes</strong> (almorávides, almohades, meriníes), y una de las grandes ciudades del islam occidental, con sus escuelas, sus bibliotecas y sus talleres de papel.</p>
   <p>Y en <strong>1415</strong> llegaron los <strong>portugueses</strong>, y aquello no fue una conquista más. La toma de Ceuta es la fecha en la que empieza la expansión europea por mar: el primer pie fuera de Europa, el ensayo de todo lo que vino luego. Entre los que desembarcaron aquel agosto había un infante de veintiún años al que armaron caballero en esta plaza y que dedicó el resto de su vida a mandar barcos cada vez más al sur. Se le conoce como <strong>Enrique el Navegante</strong>. La era de los descubrimientos empieza, si empieza en algún sitio, en esta orilla.</p>
   <p>Española es porque quiso. Las dos coronas se juntaron en 1580, y cuando Portugal se separó otra vez en 1640, el pueblo y las autoridades locales de Ceuta —solos, al otro lado del mar y sin nadie que los obligara— decidieron quedarse con Madrid. En 1668 se oficializó lo que ya se respiraba en las calles. Y la cosa no quedó ahí: codiciada por todos, hubo numerosos intentos de tomarla, y el mayor de todos fue el del sultán Muley Ismail. Entre <strong>1694 y 1727</strong>, con apoyo británico desde 1704, la ciudad aguantó <strong>treinta y tres años de asedio</strong>, que se citan como el más largo de la historia, y no cayó. De aquella época es la muralla que todavía cruza el istmo por su punto más estrecho, con un foso que no es un foso seco: <strong>se cruza en barca</strong>, de un mar al otro, como en ningún otro lugar en el mundo.</p>
   <p>Hoy la llaman la <strong>Ciudad de las Cuatro Culturas</strong>, y no es precisamente una leyenda. Cristianos, musulmanes, judíos e hindúes, en un crisol de dos kilómetros. En 1921 eso significa que en una misma mañana se puede oír castellano, árabe, haketía (una variante del judeoespañol que mezcla castellano antiguo, árabe y hebreo) y sindhi paseando por sus calles.</p>
   <p>Y por último, <strong>esta guerra no es la suya.</strong> Annual y Monte Arruit están a cuatrocientos kilómetros al este, en el extremo oriental del Protectorado español. Aquí no ha caído un solo tiro. Lo que ha caído es todo lo demás: los heridos, los evacuados, los depósitos, los batallones de refuerzo y la vergüenza. Ceuta es la trasera de una catástrofe que le ha pasado a otros, y está llena hasta arriba de ella. Eso es exactamente lo que le permite no mirar.</p>
+</div>
 </section>
 
-<section class="closer">
-  <p>No sois los primeros que miran. Sois los primeros que han venido a mirarlo a propósito.</p>
-</section>
+<div class="cierre"><p>No sois los primeros que miran. Sois los primeros que han venido a mirarlo a propósito.</p></div>
 
-<section class="col">
-  <h2>Qué clase de partida es</h2>
-  <p>Horror cósmico con las manos sucias. Esto es <strong>Pulp Cthulhu</strong>, así que vuestros investigadores son gente capaz: aguantan más, aciertan más y tienen talentos especiales, y la aventura está construida para que peleéis, corráis por los tejados, negociéis con cargos importantes y subáis a una montaña de noche con lo que hayáis podido reunir. Nadie enloquece por mirar un dibujo raro. Se enloquece más despacio y por mejores motivos.</p>
+<section>
+<h2>Qué clase de partida es</h2>
+<div class="cuerpo">
+<p>Horror cósmico con las manos sucias. Esto es <strong>Pulp Cthulhu</strong>, así que vuestros investigadores son gente capaz: aguantan más, aciertan más y tienen talentos especiales, y la aventura está construida para que peleéis, corráis por los tejados, negociéis con cargos importantes y subáis a una montaña de noche con lo que hayáis podido reunir. Nadie enloquece por mirar un dibujo raro. Se enloquece más despacio y por mejores motivos.</p>
   <p>Y también horror histórico, real. Todo lo que hay debajo —Annual, los evacuados, la censura, el papeleo de una plaza sobrecargada, la carga del Alcántara— pasó. Solo la parte real ya es terrible.</p>
-  <dl class="facts">
-    <div class="fact"><dt>Sistema</dt><dd>Pulp Cthulhu (7.ª ed.)</dd></div>
-    <div class="fact"><dt>Investigadores</dt><dd>De tres a cinco</dd></div>
-    <div class="fact"><dt>Duración</dt><dd>Unas diez sesiones</dd></div>
-    <div class="fact"><dt>Lugar y fecha</dt><dd>Ceuta, septiembre de 1921</dd></div>
-  </dl>
+  <div class="ficha"><span class="t">La partida</span><dl><dt>Sistema</dt><dd>Pulp Cthulhu (7.ª ed.)</dd><dt>Investigadores</dt><dd>De tres a cinco</dd><dt>Duración</dt><dd>Unas diez sesiones</dd><dt>Lugar y fecha</dt><dd>Ceuta, septiembre de 1921</dd></dl></div>
+</div>
 </section>
 
-<section class="col">
-  <h2>Antes de empezar</h2>
-  <p class="smallprint">Hacemos <strong>sesión cero</strong>, y en esta aventura hace falta de verdad. El material es duro y está deliberadamente presente: un desastre militar muy reciente para vuestros personajes, prisioneros asesinados cuyos cuerpos todavía no se han recogido, el duelo de un padre por un hijo, la locura y el encierro psiquiátrico, y la violencia de una guerra sobre civiles. Acordaremos juntos líneas y velos. Traed también, si os apetece, una idea de quién es vuestro personaje y de por qué Paco Guerrero tenía su nombre apuntado en una agenda.</p>
+<section>
+<h2>Antes de empezar</h2>
+<div class="cuerpo">
+<p>Hacemos <strong>sesión cero</strong>, y en esta aventura hace falta de verdad. El material es duro y está deliberadamente presente: un desastre militar muy reciente para vuestros personajes, prisioneros asesinados cuyos cuerpos todavía no se han recogido, el duelo de un padre por un hijo, la locura y el encierro psiquiátrico, y la violencia de una guerra sobre civiles. Acordaremos juntos líneas y velos. Traed también, si os apetece, una idea de quién es vuestro personaje y de por qué Paco Guerrero tenía su nombre apuntado en una agenda.</p>
+</div>
 </section>
 
-<footer>
-  Una aventura para Pulp Cthulhu &middot; Ceuta, 1921
-</footer>
+<p class="pie-sitio">Una aventura para Pulp Cthulhu &middot; Ceuta, 1921 &middot; <a href="/la-marca-del-estrecho/players">Volver a los recursos de los jugadores</a></p>
 
 </div>
-
+</main>
 </body>
 </html>
