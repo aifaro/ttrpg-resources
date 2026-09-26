@@ -806,3 +806,26 @@ body.libro-guardian{page:libro}
   .portada.corta{height:auto;min-height:0;page:auto;break-after:auto;padding:14mm}
   .hoja.sinopsis{padding:0!important}
 }
+
+/* =====================================================================
+   MODO EDICIÓN DEL LIBRO (botón «Editar texto» del índice lateral)
+   ===================================================================== */
+body.editando [contenteditable]{outline:1px dashed rgba(168,120,15,.38);outline-offset:3px;cursor:text;border-radius:1px}
+body.editando [contenteditable]:hover{outline-color:var(--ocre)}
+body.editando [contenteditable]:focus{outline:2px solid var(--ocre-vivo);background:rgba(255,248,214,.75)}
+body.editando .editado{outline:2px solid var(--mar-suave)!important;background:rgba(63,97,92,.07)}
+#barra-edicion{
+  position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);z-index:60;
+  display:flex;align-items:center;gap:.8rem;padding:.55rem .7rem .55rem 1rem;
+  background:linear-gradient(180deg,#1d1914,#141110);color:#e8dcc0;border:1px solid var(--ocre);
+  box-shadow:0 10px 30px rgba(0,0,0,.35);font-family:var(--f-caja);font-size:.9rem;border-radius:3px;
+}
+#barra-edicion[hidden]{display:none}
+#barra-edicion .modo{font-family:var(--f-caja-sc);font-weight:700;letter-spacing:.12em;font-size:.76rem;color:var(--amarillo)}
+#barra-edicion .n{color:#d8c9a4;min-width:10rem}
+#barra-edicion button{font-family:var(--f-caja);font-weight:700;font-size:.85rem;border-radius:3px;padding:.35rem .8rem;cursor:pointer;border:1px solid #5a4b33;background:transparent;color:#e8dcc0}
+#barra-edicion button.guardar{background:var(--ocre);border-color:var(--ocre-vivo);color:#1b140a}
+#barra-edicion button.guardar:disabled{opacity:.45;cursor:default}
+#barra-edicion button:hover:not(:disabled){filter:brightness(1.15)}
+@media (max-width:700px){#barra-edicion{left:.6rem;right:.6rem;transform:none;flex-wrap:wrap}}
+@media print{#barra-edicion,#btn-editar{display:none!important}}
