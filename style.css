@@ -465,7 +465,13 @@ body.con-indice #abrir-indice{left:13.6rem;top:.85rem;padding:.3rem .5rem;box-sh
   body.libro .hoja{max-width:74rem;padding-right:3.5rem}
   body.libro .texto{max-width:none}
   body.libro .cuerpo{columns:2;column-gap:2.6rem;column-rule:1px solid var(--regla-suave)}
-  body.libro .cuerpo > h4, body.libro .cuerpo > .ancho, body.libro .cuerpo > figure.ancho{column-span:all}
+  /* Nada cruza las dos columnas: un elemento a todo el ancho parte la página y el texto
+     se lee en zigzag (arriba izquierda, arriba derecha, abajo izquierda...). Todo va dentro de su columna. */
+  body.libro .cuerpo > *{column-span:none}
+  body.libro .tabla{font-size:.84rem}
+  body.libro .tabla th,body.libro .tabla td{padding:.32rem .45rem}
+  body.libro .doc{max-width:100%}
+  body.libro .cuerpo:has(.hoja-expo){columns:1}
   body.libro .margen{float:none;width:auto;margin:1rem 0;padding:.7rem .9rem;background:rgba(230,216,180,.5);border-left:3px solid var(--regla)}
   body.libro .cuerpo > *{break-inside:avoid-column}
   body.libro .cuerpo > p{break-inside:auto}
@@ -615,7 +621,16 @@ body.libro-guardian{page:libro}
   .cap-cabecera .entradilla{font-size:11pt}
 
   .cuerpo{columns:2;column-gap:7mm;column-rule:.4pt solid #cdbd97;column-fill:auto}
-  .cuerpo > .ancho, .cuerpo > figure.ancho, .cuerpo > .ficha{column-span:all}
+  /* Nada cruza las dos columnas (ver vista libro): cada columna baja hasta el pie y sigue en la otra.
+     Solo las ayudas de juego, a partir del primer ✂ (que abre página), van a todo el ancho. */
+  .cuerpo > *{column-span:none}
+  .ayuda .cuerpo > .doc-corte, .ayuda .cuerpo > .doc-corte ~ *{column-span:all}
+  .envoltura-tabla{overflow:visible}
+  .tabla th,.tabla td{padding:1.2mm 1.6mm}
+  .cuerpo .dos-col{columns:1}
+  /* Las hojas para imprimir (apéndice C) no caben en media página: van a una sola columna. */
+  .cuerpo:has(.hoja-expo){columns:1}
+  .cuerpo:has(.hoja-expo) .dos-col{columns:2}
   .intro-parte{columns:2;column-gap:7mm;column-rule:.4pt solid #cdbd97}
 
   h4{font-size:13pt;margin:4mm 0 2mm;break-after:avoid}
@@ -640,8 +655,6 @@ body.libro-guardian{page:libro}
   .capitular::first-letter{font-size:3.6em}
 
   .ayuda{break-before:page}
-  .cuerpo > .doc, .cuerpo > .doc-corte, .cuerpo > .dos-col{column-span:all}
-  .cuerpo > h4:has(+ .ancho), .cuerpo > h4:has(+ figure.ancho){column-span:all}
   .leer,.piel,.reglas,.recuadro{break-inside:auto}
   .doc{max-width:150mm;margin-left:auto;margin-right:auto}
   .doc.impreso,.doc.cuaderno,.doc.maquina,.tabla,.hoja-expo{break-inside:auto}
