@@ -2,19 +2,6 @@
 
 /* =====================================================================
    rpg.nephei.org - hoja de estilo unica
-   ---------------------------------------------------------------------
-   La usan TODAS las paginas de los dos repositorios:
-     - las que el worker envuelve (home, players, keepers.html, ayudas,
-       stats y las antiguas generadas desde markdown), via su plantilla;
-     - las autonomas (el Libro del Guardian y las dos sinopsis), que la
-       enlazan con <link rel="stylesheet" href="/style.css?v=...">.
-   Pantalla: pergamino. Impresion: A4 a dos columnas en el libro.
-   ===================================================================== */
-
-/* =====================================================================
-   LA MARCA DEL ESTRECHO — Libro del Guardián
-   Hoja de estilo única. Pantalla: texto + columna de notas al margen.
-   Impresión: A4 a dos columnas.
    ===================================================================== */
 
 :root{
