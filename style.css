@@ -452,9 +452,11 @@ body.con-indice #abrir-indice{left:13.6rem;top:.85rem;padding:.3rem .5rem;box-sh
   body.libro .hoja{max-width:74rem;padding-right:3.5rem}
   body.libro .texto{max-width:none}
   body.libro .cuerpo{columns:2;column-gap:2.6rem;column-rule:1px solid var(--regla-suave)}
-  /* Nada cruza las dos columnas: un elemento a todo el ancho parte la página y el texto
-     se lee en zigzag (arriba izquierda, arriba derecha, abajo izquierda...). Todo va dentro de su columna. */
+  /* Tablas y recuadros van dentro de su columna: a todo el ancho partirían la sección y el texto
+     se leería en zigzag. En pantalla no hay páginas, así que las columnas se cortan en cada título
+     de sección (h4) para no tener que subir un capítulo entero; los mapas y diagramas, a todo el ancho. */
   body.libro .cuerpo > *{column-span:none}
+  body.libro .cuerpo > h4, body.libro .cuerpo > figure.ancho{column-span:all}
   body.libro .tabla{font-size:.84rem}
   body.libro .tabla th,body.libro .tabla td{padding:.32rem .45rem}
   body.libro .doc{max-width:100%}
@@ -608,9 +610,12 @@ body.libro-guardian{page:libro}
   .cap-cabecera .entradilla{font-size:11pt}
 
   .cuerpo{columns:2;column-gap:7mm;column-rule:.4pt solid #cdbd97;column-fill:auto}
-  /* Nada cruza las dos columnas (ver vista libro): cada columna baja hasta el pie y sigue en la otra.
-     Solo las ayudas de juego, a partir del primer ✂ (que abre página), van a todo el ancho. */
+  /* Nada cruza las dos columnas a mitad de página: cada columna baja hasta el pie y sigue en la otra.
+     Los mapas y diagramas van a todo el ancho, pero siempre en cabeza de página (figura arriba, dos
+     columnas debajo). Las ayudas de juego, a partir del primer ✂ (que abre página), también. */
   .cuerpo > *{column-span:none}
+  .cuerpo > figure.ancho{column-span:all}
+  .cuerpo > figure.ancho:not(:first-child){break-before:page}
   .ayuda .cuerpo > .doc-corte, .ayuda .cuerpo > .doc-corte ~ *{column-span:all}
   .envoltura-tabla{overflow:visible}
   .tabla th,.tabla td{padding:1.2mm 1.6mm}
