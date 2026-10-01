@@ -610,12 +610,10 @@ body.libro-guardian{page:libro}
   .cap-cabecera .entradilla{font-size:11pt}
 
   .cuerpo{columns:2;column-gap:7mm;column-rule:.4pt solid #cdbd97;column-fill:auto}
-  /* Nada cruza las dos columnas a mitad de página: cada columna baja hasta el pie y sigue en la otra.
-     Los mapas y diagramas van a todo el ancho, pero siempre en cabeza de página (figura arriba, dos
-     columnas debajo). Las ayudas de juego, a partir del primer ✂ (que abre página), también. */
+  /* Los mapas y diagramas van a todo el ancho, donde caigan: si no caben en lo que queda de página,
+     pasan enteros a la siguiente. Las ayudas de juego, a partir del primer ✂ (que abre página), también. */
   .cuerpo > *{column-span:none}
   .cuerpo > figure.ancho{column-span:all;position:relative;background:#fff;padding-bottom:2mm}
-  .cuerpo > figure.ancho:not(:first-child){break-before:page}
   .ayuda .cuerpo > .doc-corte, .ayuda .cuerpo > .doc-corte ~ *{column-span:all}
   .envoltura-tabla{overflow:visible}
   .tabla th,.tabla td{padding:1.2mm 1.6mm}
@@ -643,14 +641,20 @@ body.libro-guardian{page:libro}
   .stat{box-shadow:2pt 2pt 0 #d9ccaa;background:#faf5e6}
   .tabla{font-size:8.3pt}
   figure svg{box-shadow:none}
+  .cuerpo > figure.ancho{margin:3mm 0 4mm}
+  .cuerpo > figure.ancho svg{max-height:96mm;width:auto;max-width:100%;margin:0 auto}
+  #croquis-cumbre svg{max-height:76mm}  /* así cabe en la media página que deja la ficha de La cumbre */
   .dos-col{columns:2}
   .capitular::first-letter{font-size:3.6em}
 
   .ayuda{break-before:page}
   /* Los recuadros no se parten entre columnas. Si alguno es más alto que una columna y no hay más
      remedio, cada trozo se cierra con su propio borde y relleno, y el rótulo no se queda solo al pie. */
-  .leer,.piel,.reglas,.recuadro,.consejo,.voces,.caja{break-inside:avoid;-webkit-box-decoration-break:clone;box-decoration-break:clone}
-  .caja > .t,.recuadro > .t,.leer > .t,.piel > .t,.reglas > .t,.consejo > .t,.voces > .t{break-after:avoid}
+  .leer,.piel,.reglas,.recuadro,.consejo,.voces,.caja,.margen{break-inside:avoid;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .caja > .t,.recuadro > .t,.leer > .t,.piel > .t,.reglas > .t,.consejo > .t,.voces > .t,.margen > .t{break-after:avoid}
+  /* Los que pasan de media columna (clase «larga», la pone medir-cajas al imprimir) sí pueden partirse:
+     si no, saltan enteros y dejan media página en blanco. Cada trozo se cierra con su borde. */
+  .cuerpo .larga{break-inside:auto;orphans:4;widows:4}
   .doc{max-width:150mm;margin-left:auto;margin-right:auto}
   .doc.impreso,.doc.cuaderno,.doc.maquina,.tabla,.hoja-expo{break-inside:auto}
   .doc-corte{break-after:avoid}
