@@ -614,7 +614,7 @@ body.libro-guardian{page:libro}
      Los mapas y diagramas van a todo el ancho, pero siempre en cabeza de página (figura arriba, dos
      columnas debajo). Las ayudas de juego, a partir del primer ✂ (que abre página), también. */
   .cuerpo > *{column-span:none}
-  .cuerpo > figure.ancho{column-span:all}
+  .cuerpo > figure.ancho{column-span:all;position:relative;background:#fff;padding-bottom:2mm}
   .cuerpo > figure.ancho:not(:first-child){break-before:page}
   .ayuda .cuerpo > .doc-corte, .ayuda .cuerpo > .doc-corte ~ *{column-span:all}
   .envoltura-tabla{overflow:visible}
@@ -647,7 +647,10 @@ body.libro-guardian{page:libro}
   .capitular::first-letter{font-size:3.6em}
 
   .ayuda{break-before:page}
-  .leer,.piel,.reglas,.recuadro{break-inside:auto}
+  /* Los recuadros no se parten entre columnas. Si alguno es más alto que una columna y no hay más
+     remedio, cada trozo se cierra con su propio borde y relleno, y el rótulo no se queda solo al pie. */
+  .leer,.piel,.reglas,.recuadro,.consejo,.voces,.caja{break-inside:avoid;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .caja > .t,.recuadro > .t,.leer > .t,.piel > .t,.reglas > .t,.consejo > .t,.voces > .t{break-after:avoid}
   .doc{max-width:150mm;margin-left:auto;margin-right:auto}
   .doc.impreso,.doc.cuaderno,.doc.maquina,.tabla,.hoja-expo{break-inside:auto}
   .doc-corte{break-after:avoid}
