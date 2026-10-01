@@ -662,6 +662,18 @@ body.libro-guardian{page:libro}
   thead{display:table-header-group}
   .doc{box-shadow:none;border:.5pt solid #9a8f7a;max-width:none;transform:none!important}
   .doc-corte{break-before:page;border-top:0}
+  /* Las ayudas se aprietan un poco al imprimir para que una carta de una página no deje un renglón suelto en la siguiente. */
+  .ayuda .doc-corte{margin:0 0 2mm;padding-top:0}
+  .ayuda .doc{margin-top:0;margin-bottom:4mm}
+  .ayuda .doc.maquina{padding:6mm 8mm 5mm;line-height:1.42}
+  .ayuda .doc.maquina p{margin-bottom:.6em}
+  .ayuda .doc.cuaderno{padding-top:4mm;padding-bottom:3mm}
+  .ayuda .doc.impreso{padding:4mm 5mm}
+  .ayuda .doc.impreso{font-size:.8rem;line-height:1.38}
+  .ayuda .doc.impreso table{font-size:.8rem}
+  .ayuda .doc.impreso th,.ayuda .doc.impreso td{padding:.15rem .35rem}
+  .ayuda .doc.cuaderno{font-size:1.16rem}
+  .ayuda .doc.cuaderno p{margin-bottom:1.1rem}
   .hoja-expo td{height:9mm}
 }
 
