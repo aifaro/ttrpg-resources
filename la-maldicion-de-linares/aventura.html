@@ -8,7 +8,7 @@
 <meta name="description" content="Adaptación de «La maldición de la Casa Corbitt» (La llamada de Cthulhu, 7.ª ed.) al Madrid de 1920: el palacio de los marqueses de Linares, en la plaza de Cibeles.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Alegreya:wght@700;800;900&family=Alegreya+SC:wght@700;800&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500&family=Alegreya+Sans+SC:wght@500;700&family=Zilla+Slab:wght@600;700&family=Federant&family=Oranienbaum&family=Kelly+Slab&family=Marcellus+SC&family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=UnifrakturMaguntia&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Alegreya:wght@700;800;900&family=Alegreya+SC:wght@700;800&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500&family=Alegreya+Sans+SC:wght@500;700&family=Zilla+Slab:wght@600;700&family=Federant&family=Oranienbaum&family=Marcellus+SC&family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=UnifrakturMaguntia&display=swap">
 <style>
 /* =====================================================================
    La maldición del Palacio de Linares
@@ -34,7 +34,7 @@
   --f-titulo:'Federant','Alegreya','Georgia',serif;
   --f-epigrafe:'Oranienbaum','Alegreya SC','Georgia',serif;
   --f-cabecera:'Marcellus SC','Alegreya SC','Georgia',serif;
-  --f-sala:'Kelly Slab','Zilla Slab','Georgia',serif;
+  --f-sala:'Alegreya Sans SC','Alegreya Sans',sans-serif;
   --f-negrita:'Crimson Pro','Georgia',serif;
   --f-caja:'Alegreya Sans','Myriad Pro','Segoe UI',sans-serif;
   --f-caja-sc:'Alegreya Sans SC','Alegreya Sans',sans-serif;
@@ -148,10 +148,11 @@ h4{
   margin:1rem 0 .35rem;line-height:1.15;color:var(--tinta);break-after:avoid;
 }
 h4.sala{
-  font-family:var(--f-sala);font-weight:400;font-size:1.14rem;letter-spacing:.02em;
+  font-family:var(--f-epigrafe);font-weight:400;font-variant:small-caps;font-size:1.38rem;letter-spacing:.01em;
+  -webkit-text-stroke:.02em currentColor;
   margin:1.15rem 0 .4rem;
 }
-h4.sala b{font-weight:400;text-transform:uppercase;letter-spacing:.04em}
+h4.sala b{font-weight:400}
 .subtitulo-loc{font-style:italic;margin-top:-.35rem}
 
 /* capital inicial */
@@ -184,7 +185,7 @@ h4.sala b{font-weight:400;text-transform:uppercase;letter-spacing:.04em}
 .nota::before{
   content:"Nota para el Guardián";
   display:block;margin-bottom:.35rem;
-  font-family:var(--f-sala);font-weight:400;font-size:.92rem;letter-spacing:.06em;text-transform:uppercase;
+  font-family:var(--f-sala);font-weight:700;font-size:.86rem;letter-spacing:.14em;text-transform:none;
   color:#2d2c29;
 }
 .nota::after{content:"";position:absolute;right:-.4rem;bottom:-.9rem;width:5.2rem;height:2rem;
@@ -201,7 +202,7 @@ h4.sala b{font-weight:400;text-transform:uppercase;letter-spacing:.04em}
   background:rgba(255,255,255,.35);
 }
 .dados > .rot{
-  display:block;font-family:var(--f-sala);font-weight:400;letter-spacing:.05em;font-size:.9rem;text-transform:uppercase;
+  display:block;font-family:var(--f-sala);font-weight:700;letter-spacing:.12em;font-size:.84rem;text-transform:none;
   border-bottom:1px solid var(--tinta);padding-bottom:.25rem;margin-bottom:.45rem;
 }
 .dados > .rot b{font-family:var(--f-epigrafe);font-weight:400;font-size:1.3rem;letter-spacing:0;text-transform:none;-webkit-text-stroke:.02em currentColor}
@@ -322,18 +323,23 @@ table.tabla tr:nth-child(even) td{background:rgba(0,0,0,.035)}
 .control .sep{display:inline-block;width:.5em}
 table.anotar td{height:1.9em}
 .opcional{display:inline-block;vertical-align:middle;margin-left:.4rem;padding:.05rem .45rem;border:1.5px solid currentColor;
-  font-family:var(--f-sala);font-variant:normal;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;-webkit-text-stroke:0;color:var(--gris)}
+  font-family:var(--f-sala);font-variant:normal;font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:none;-webkit-text-stroke:0;color:var(--gris)}
 .pregens{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.pregens .pregen:last-child:nth-child(odd){grid-column:1 / -1}
 .pregen{border:2px solid var(--tinta);background:rgba(255,255,255,.4);padding:.7rem .9rem .6rem;font-family:var(--f-caja);font-size:.9rem;line-height:1.35;break-inside:avoid}
 .pregen p{margin:0 0 .35rem}
 .pregen .pg-nombre{font-family:var(--f-epigrafe);font-variant:small-caps;-webkit-text-stroke:.02em currentColor;font-size:1.45rem;line-height:1;margin-bottom:.1rem}
-.pregen .pg-oficio{font-family:var(--f-sala);font-size:.92rem;border-bottom:1px solid var(--tinta);padding-bottom:.25rem}
+.pregen .pg-oficio{font-family:var(--f-negrita);font-style:italic;font-size:1rem;border-bottom:1px solid var(--tinta);padding-bottom:.25rem}
 .pregen .pg-retrato{font-style:italic}
 .pregen table.carac{border-collapse:collapse;margin:.3rem 0;font-size:.9rem}
 .pregen table.carac td{padding:.05rem .9rem .05rem 0}
 .pregen .pg-der{border-top:1px dotted var(--regla);border-bottom:1px dotted var(--regla);padding:.2rem 0}
 @media screen and (max-width:760px){.pregens{grid-template-columns:1fr}}
 @media print{.pregen{font-size:8pt}.pregens{gap:4mm}}
+.ambiente{font-family:var(--f-caja);font-size:.9rem;line-height:1.36;color:var(--tinta-2);
+  border-left:3px solid var(--regla);padding:.1rem 0 .1rem .65rem;margin:.1rem 0 .6rem}
+.ambiente b{font-family:var(--f-caja-sc);font-weight:700;letter-spacing:.06em;color:var(--tinta)}
+@media print{.ambiente{font-size:8.4pt}}
 .creditos{font-family:var(--f-caja);font-size:.86rem;color:var(--tinta-2)}
 .creditos p{margin-bottom:.5em}
 
@@ -649,9 +655,9 @@ table.anotar td{height:1.9em}
   <p class="pie-ilus">El palacio de los marqueses de Linares, en la plaza de Cibeles, una noche de otoño de 1920.</p>
 
   <div class="cols">
-    <p class="capital"><span class="versal">Esta es la vieja aventura</span> de la casa encantada con la que tantos Guardianes empezaron, trasladada a Madrid. La casa es ahora el palacio que el marqués de Linares, don José de Murga y Reolid, levantó en el solar del antiguo Pósito, frente a la diosa Cibeles. Hoy es la sede de la Casa de América; en 1920 es un caserón cerrado del que el vecindario cuenta historias.</p>
+    <p class="capital"><span class="versal">Esta es la vieja aventura</span> de la casa encantada con la que tantos Guardianes empezaron, trasladada a Madrid. La casa es ahora el palacio que el marqués de Linares, don José de Murga y Reolid, levantó en el solar del viejo granero municipal, frente a la diosa Cibeles. Hoy es la sede de la Casa de América; en 1920 es un caserón cerrado del que el vecindario cuenta historias.</p>
     <p>Todo Madrid conoce la leyenda: el fantasma de una niña, Raimundita, la hija que los marqueses nunca reconocieron, vaga por los salones. Los investigadores descubrirán que la niña es lo de menos. Quien sigue en la casa es el propio marqués, que se trató con una secta durante los últimos años de su vida y que dejó dispuesto en su testamento que lo enterraran en el sótano.</p>
-    <p>Esta versión se juega en una sola sesión de unas tres horas, con cuatro investigadores pregenerados listos para imprimir.</p>
+    <p>Esta versión se juega en una sola sesión de unas tres horas, con cinco investigadores pregenerados (tres investigadoras y dos investigadores) listos para imprimir.</p>
     <p>El texto conserva la estructura, las reglas y los consejos de «La maldición de la Casa Corbitt», la aventura de las <em>Reglas de inicio rápido</em> de la 7.ª edición, para que sirva igual que el original como primera partida, para Guardianes y para jugadores.</p>
 
     <h4>Contenido</h4>
@@ -725,7 +731,7 @@ table.anotar td{height:1.9em}
   <figure class="ilus"><svg viewBox="0 0 900 470" role="img" aria-label="Esquema de la investigación: del encargo se pasa a El Imparcial, a la Biblioteca Nacional o al vecindario; del vecindario, de forma opcional, a Ciempozuelos y a la Capilla; todo lleva al palacio.">
 <defs><marker id="dg-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#1b1a18"/></marker>
 <filter id="dg-s" x="-10%" y="-10%" width="130%" height="140%"><feDropShadow dx="2" dy="3" stdDeviation="2" flood-opacity=".25"/></filter></defs>
-<style>.dg-n{font-family:'Oranienbaum',Georgia,serif;font-size:22px}.dg-t{font-family:'Kelly Slab',Georgia,serif;font-size:15px;fill:#1b1a18}.dg-c{font-family:'Alegreya Sans','Segoe UI',sans-serif;font-size:12.5px;fill:#3a3833}.dg-a{stroke:#1b1a18;stroke-width:1.8;fill:none;marker-end:url(#dg-f)}.dg-d{stroke:#6c6a64;stroke-width:1.5;fill:none;stroke-dasharray:5 4;marker-end:url(#dg-f)}</style>
+<style>.dg-n{font-family:'Oranienbaum',Georgia,serif;font-size:22px}.dg-t{font-family:'Oranienbaum',Georgia,serif;font-size:17px;fill:#1b1a18}.dg-c{font-family:'Alegreya Sans','Segoe UI',sans-serif;font-size:12.5px;fill:#3a3833}.dg-a{stroke:#1b1a18;stroke-width:1.8;fill:none;marker-end:url(#dg-f)}.dg-d{stroke:#6c6a64;stroke-width:1.5;fill:none;stroke-dasharray:5 4;marker-end:url(#dg-f)}</style>
 <rect width="900" height="470" fill="#efece4"/>
 <g filter="url(#dg-s)"><rect x="330" y="16" width="240" height="62" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6" /></g>
 <rect x="330" y="16" width="34" height="62" fill="#1b1a18"/>
@@ -812,6 +818,7 @@ table.anotar td{height:1.9em}
   <div class="cols">
     <h3 class="loc" id="loc2">Localización 2: El Imparcial</h3>
     <p class="subtitulo-loc">Diario de la mañana, de los más leídos y respetados de Madrid, con redacción en un palacete de la calle del Duque de Alba.</p>
+    <p class="ambiente"><b>Se ve</b> redactores en mangas de camisa, galeradas colgadas de pinzas, humo de tabaco a media altura. <b>Huele</b> a tinta y al plomo caliente de las linotipias. <b>Se oye</b> el traqueteo de las máquinas, teléfonos y algún grito de «¡original!».</p>
     <div class="nota">
       <p>Cuando los investigadores pregunten en la redacción, interpreta a las personas con las que se crucen: el conserje, un reportero, alguno de los redactores. No olvides mencionar el archivo, el depósito de números atrasados y recortes que el periódico guarda en el sótano.</p>
     </div>
@@ -872,12 +879,13 @@ table.anotar td{height:1.9em}
 <section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU">
   <div class="cols">
     <h3 class="loc" id="loc3">Localización 3: La Biblioteca Nacional</h3>
+    <p class="ambiente"><b>Se ve</b> la gran sala de lectura con lámparas de pantalla verde y porteros de uniforme. <b>Huele</b> a papel viejo y a cera de suelos. <b>Se oye</b> un silencio de iglesia, roto por toses y por el chirrido del carrito de los libros.</p>
     <p>La Biblioteca Nacional ocupa desde 1896 el gran Palacio de Biblioteca y Museos del paseo de Recoletos, a cinco minutos a pie del Palacio de Linares. En su sala de lectura, entre la prensa encuadernada y las memorias del Ayuntamiento, está todo lo que se publicó sobre el marqués y sus pleitos.</p>
     <p>Pide una sola tirada de <strong>Buscar libros</strong> al investigador que dirija la búsqueda (los demás pueden ayudarle: si alguno tiene la habilidad al 50% o más, da un dado de bonificación). Una tarde de trabajo basta. Si fallan, pueden forzar la tirada quedándose hasta el cierre. Si también fallan la forzada, encuentran los papeles igualmente, pero se les echa la noche encima y don Esteban, impaciente, les espera a la salida: tendrán que ir al palacio esa misma noche y a oscuras.</p>
     <p>Con un éxito, entrégales juntas las Ayudas de juego 3 a 6.</p>
     <div class="ayuda">
       <span class="rot">Ayuda de juego 3</span>
-      <p>En 1872, don José de Murga y Reolid, que al año siguiente recibiría de Amadeo I el título de marqués de Linares, compró al Ayuntamiento el solar del antiguo Pósito, el granero de la villa. Las obras empezaron en 1877. Los marqueses se mudaron al palacio en 1884, aunque no se dio por terminado hasta 1900. Una crónica de la obra señala que el marqués mandó conservar bajo los cimientos los viejos silos del Pósito.</p>
+      <p>En 1872, don José de Murga y Reolid, que al año siguiente recibiría de Amadeo I el título de marqués de Linares, compró al Ayuntamiento el solar del viejo granero de la villa. Las obras empezaron en 1877. Los marqueses se mudaron al palacio en 1884, aunque no se dio por terminado hasta 1900. Una crónica de la obra señala que el marqués mandó conservar bajo los cimientos los silos del granero.</p>
     </div>
     <div class="ayuda">
       <span class="rot">Ayuda de juego 4</span>
@@ -903,6 +911,7 @@ table.anotar td{height:1.9em}
 <section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES">
   <div class="cols">
     <h3 class="loc" id="loc4">Localización 4: El vecindario</h3>
+    <p class="ambiente"><b>Se ve</b> la Cibeles, tranvías, coches de punto y algún automóvil; de noche, el chuzo y el farol de Ceferino. <b>Huele</b> a castañas asadas y al estiércol de los caballos. <b>Se oye</b> campanillas de tranvía, vendedores y, al anochecer, palmadas y un «¡sereno!».</p>
     <p>De quienes vivían en el barrio antes de la guerra europea, casi todos se han mudado o han muerto. El paseo de Recoletos y la calle de Alcalá se han llenado de bancos, ministerios y casinos. Al otro lado de Alcalá se alza la mole blanca y recién estrenada del Palacio de Comunicaciones, y enfrente, el Banco de España. Entre todos ellos, el Palacio de Linares, con su jardín cubierto de maleza tras la verja, es la única casa particular de toda la plaza. Si los investigadores hacen preguntas por los alrededores, acabarán dando con Ceferino, el sereno del barrio, un asturiano que lleva treinta años cantando las horas en Cibeles y lo sabe todo de todos.</p>
 
     <div class="dados">
@@ -933,8 +942,9 @@ table.anotar td{height:1.9em}
 <section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU">
   <div class="cols">
     <h3 class="loc" id="loc5">Localización 5: Los manicomios de Ciempozuelos <span class="opcional">opcional</span></h3>
+    <p class="ambiente"><b>Se ve</b> pabellones blancos entre olivos y hermanas con toca almidonada. <b>Huele</b> a lejía y a caldo. <b>Se oye</b> rezos a media voz y, de vez en cuando, un grito lejano que nadie atiende.</p>
     <div class="nota">
-      <p>Esta localización es opcional. Su pista más importante, la frase de don Vicente, también está escrita en el misal del dormitorio de los Montalvo, en el palacio. Juégala si el grupo quiere hablar con los Montalvo o si os sobra tiempo. Con el doctor Ortega en el grupo, la visita es inmediata: él mismo trató a doña Gabriela.</p>
+      <p>Esta localización es opcional. Su pista más importante, la frase de don Vicente, también está escrita en el misal del dormitorio de los Montalvo, en el palacio. Juégala si el grupo quiere hablar con los Montalvo o si os sobra tiempo. Con la doctora Ortega en el grupo, la visita es inmediata: ella misma trató a doña Gabriela.</p>
     </div>
     <p>Ciempozuelos es un pueblo de la vega del Jarama, a una hora larga de tren por la línea de Aranjuez. Allí tienen sus manicomios los Hermanos de San Juan de Dios, para hombres, y las Hermanas Hospitalarias, para mujeres, separados por unos cientos de pasos de tierra y olivar.</p>
     <p>Si los jugadores deciden ir, descubrirán que don Vicente Montalvo está completamente trastornado. Aprieta un misal contra el pecho. En algún momento puede abrirlo por cualquier página (tú decides cuál), señalar un versículo y fingir que lo lee: «¡El diablo será vencido con sus propias armas!». No es una cita auténtica de las Escrituras, pero sí una pista útil: si se acuerdan de ella más adelante, un jugador atento podría darse cuenta de que el marqués puede morir atravesado por su propio puñal. No lo subrayes; deja que sean los jugadores quienes reparen en ella, o no. No se puede sacar nada más de don Vicente.</p>
@@ -943,6 +953,7 @@ table.anotar td{height:1.9em}
     <p>Los dos hijos pequeños de los Montalvo viven con unos tíos en Santander. Los investigadores pueden visitarlos, pero lo único que saben es que echan de menos a sus padres y que en el palacio tenían pesadillas con un señor viejo y raro, con los ojos de lumbre.</p>
 
     <h3 class="loc" id="loc6">Localización 6: La Capilla de la Contemplación <span class="opcional">opcional</span></h3>
+    <p class="ambiente"><b>Se ve</b> zarzas, sillares negros de hollín y la cal reciente del símbolo. <b>Huele</b> a ceniza mojada, de hace años. <b>Se oye</b> perros de los tejares y el viento entre los hornos apagados.</p>
     <div class="nota">
       <p>También es opcional. Sirve para ver la secta con los propios ojos y para descubrir lo del ataúd lleno de piedras, pero lo esencial ya está en las Ayudas 5 y 6. Si vais justos de tiempo, que Ceferino o el agente Rubio cuenten que allí solo quedan escombros, y pasad al palacio.</p>
     </div>
@@ -1084,6 +1095,21 @@ table.anotar td{height:1.9em}
     <div class="nota">
       <p>El palacio tiene muchas más estancias de las que aparecen en el plano. Los Montalvo, como las familias anteriores, vivían solo en el ala de Recoletos y tenían cerrados los grandes salones de la planta principal: el salón de baile, la sala de los tapices, el comedor de gala y la capilla. Si los investigadores entran en ellos, describe muebles cubiertos con sábanas, arañas de cristal envueltas en tela, espejos velados y techos dorados con ninfas y dioses que nadie mira desde hace años. En esas salas no hay nada que encontrar, pero son un buen escenario para los golpes y los pasos del marqués.</p>
     </div>
+    <div class="nota rotulo-propio" data-rotulo="Cómo contar el palacio">
+      <p><strong>Abandono a dos velocidades.</strong> Los Montalvo se fueron deprisa hace unas semanas: platos en la mesa, abrigos en la percha, velas a medio consumir. Los salones cerrados llevan décadas igual: sábanas, polvo, dorados ennegrecidos.</p>
+      <p><strong>Luz.</strong> Persianas echadas: de día entra en rayas finas; de noche, solo la linterna y el resplandor anaranjado de las farolas de la plaza. Hay luz eléctrica en las plantas habitadas, pero no en el sótano.</p>
+      <p><strong>Olores de fondo:</strong> polvo, piedra húmeda, cera, ratón. <strong>El olor del marqués,</strong> a membrillo podrido, solo aparece cuando él actúa: es tu aviso.</p>
+      <p><strong>Sonido.</strong> Los muros apagan los tranvías de Alcalá hasta un rumor. La madera cruje, las ratas corren por los tabiques. Un silencio total es mala señal. La casa está más fría que la calle, y más cuanto más se baja.</p>
+    </div>
+    <table class="tabla">
+      <tr><th>Cuándo</th><th>Qué hace la casa</th></tr>
+      <tr><td>Al entrar</td><td>Nada sobrenatural: ruidos de casa vieja, un reloj parado. Deja que se confíen.</td></tr>
+      <tr><td>Al registrar</td><td>De vez en cuando, algo que no cuadra: pasos arriba cuando están todos abajo, un golpe en el dormitorio 3.</td></tr>
+      <tr><td>Si investigan en serio</td><td>El teatro de Raimundita: el canto, la sangre, los golpes. Quiere que crean en la niña.</td></tr>
+      <tr><td>Si no se lo creen o van al sótano</td><td>Se acaba el teatro: la cama, el hedor, las luces que se apagan.</td></tr>
+      <tr><td>En el sótano</td><td>Silencio. Ratas y la respiración de los investigadores, hasta que se mueve el puñal.</td></tr>
+    </table>
+    <p><strong>¿Raimundita, sí o no?</strong> Sí, pero poco: una o dos veces en toda la partida, siempre lejos, en el dormitorio 3 o en el salón de baile cerrado, y nunca en el sótano. Es una voz de niña algo grave, que desafina siempre en la misma nota y se calla en cuanto alguien abre la puerta. Los ruidos del marqués son otros: arañazos, uñas en el cristal, pasos descalzos que se arrastran, una risa seca. Al principio no los mezcles; que los jugadores tarden en darse cuenta de que la «niña» y los arañazos salen del mismo cuarto.</p>
   </div>
 
   <figure class="ancho" id="plano">
@@ -1179,7 +1205,7 @@ table.anotar td{height:1.9em}
 <path d="M58 568 h-14 M58 580 h-14" stroke="#1d1c1a" stroke-width="2.5"/><path d="M47 568 v12" stroke="#1d1c1a" stroke-width="2.5" stroke-dasharray="2 2"/>
 <path d="M58 594 h-14 M58 606 h-14" stroke="#1d1c1a" stroke-width="2.5"/><path d="M47 594 v12" stroke="#1d1c1a" stroke-width="2.5" stroke-dasharray="2 2"/>
 <path d="M168 574 h14 M168 588 h14" stroke="#1d1c1a" stroke-width="2.5"/><path d="M179 574 v14" stroke="#1d1c1a" stroke-width="2.5" stroke-dasharray="2 2"/>
-<text x="113" y="582" class="p2-c">silos del Pósito</text><text x="113" y="596" class="p2-c">(galerías tapiadas)</text>
+<text x="113" y="582" class="p2-c">silos del granero</text><text x="113" y="596" class="p2-c">(galerías tapiadas)</text>
 <rect x="168" y="620" width="22" height="120" fill="#f6f4ee"/><rect x="168" y="620" width="22" height="120" fill="none" stroke="#1d1c1a" stroke-width="3"/>
 <text x="179" y="732" class="p2-e" style="font-size:16px;font-weight:800">3</text>
 <rect x="190" y="620" width="160" height="120" fill="url(#p2-cuad)"/><rect x="190" y="620" width="160" height="120" fill="none" stroke="#1d1c1a" stroke-width="3"/><text x="270.0" y="698" class="p2-n">1</text><text x="270.0" y="714" class="p2-e">Trastero</text>
@@ -1218,6 +1244,7 @@ table.anotar td{height:1.9em}
   <div class="cols">
     <h3 class="cap">Planta baja</h3>
     <h4 class="sala"><b>Habitación 1,</b> Trastero</h4>
+    <p class="ambiente"><b>Se ve</b> estantes vacíos con la marca de los libros en el polvo. <b>Huele</b> a papel mohoso y a cuero. <b>Se oye</b> la madera del aparador tapiado, que cruje como si dentro hubiera algo más que libros.</p>
     <div class="leer"><p>Fue una biblioteca: aún quedan los estantes vacíos en las paredes. Ahora está llena de cajas y trastos, como un depósito de agua oxidado, rollos de alfombra y una bicicleta vieja. Al fondo, a la derecha, hay un armario aparador con las puertas tapiadas con tablas clavadas.</p></div>
     <p>Si los investigadores arrancan las tablas del aparador, encontrarán dentro tres tomos encuadernados en piel: los diarios de un tal J. de M., según reza la guarda del primero. Los <em>Diarios del marqués</em> están escritos en un castellano llano, aunque a veces con giros extraños, y salpicados de frases en inglés de sus años en Londres, adonde lo mandó su padre de joven. Leer los tres volúmenes lleva dos días, añade un +4% a la habilidad Mitos de Cthulhu y cuesta 1D4 puntos de Cordura. Los diarios describen varios experimentos ocultistas, entre ellos la invocación de algún tipo de espíritu del más allá, y explican con claridad un hechizo llamado «Invocar a Aquel que abre el camino» (otro nombre del hechizo Convocar/Atar a un vagabundo dimensional). No contienen otros hechizos. Una vez leídos, se tarda 2D6 semanas en aprender el hechizo.</p>
     <div class="nota">
@@ -1225,33 +1252,41 @@ table.anotar td{height:1.9em}
     </div>
 
     <h4 class="sala"><b>Habitación 2,</b> Un segundo trastero</h4>
+    <p class="ambiente"><b>Se ve</b> patas de sillas asomando bajo una sábana, como huesos. <b>Huele</b> a polvo y a tiza vieja. <b>Se oye</b> si quieres un primer susto barato, una bola de billar que rueda sola y cae al suelo.</p>
     <div class="leer"><p>Era la sala de billar; la mesa sigue aquí, sin paño, debajo de una montaña de muebles viejos que se podrían romper para echarlos a la estufa.</p></div>
 
     <h4 class="sala"><b>Habitación 3,</b> Vestíbulo</h4>
+    <p class="ambiente"><b>Se ve</b> la escalera blanca en la penumbra y un reloj de pie parado a las tres y diez. Con Descubrir, entre las huellas de los Montalvo en el polvo, otras descalzas y muy largas que van hacia la cocina. <b>Huele</b> a piedra fría y a abrigos húmedos. <b>Se oye</b> el eco de los propios pasos, que tarda demasiado en apagarse.</p>
     <div class="leer"><p>Se entra desde la plaza por la puerta principal. En el centro arranca la gran escalera de mármol blanco, que se abre en dos tramos para subir a la planta principal. En el perchero quedan abrigos, chanclos, sombreros y paraguas, y junto a la pared hay varios sacos de carbón para la estufa del salón. Al fondo, un paso estrecho lleva a la puerta del jardín, y os fijáis en que tiene tres candados y dos cerraduras.</p></div>
 
     <h4 class="sala"><b>Habitación 4,</b> Salón</h4>
+    <p class="ambiente"><b>Se ve</b> decenas de velas consumidas y el cristal del Sagrado Corazón rajado de arriba abajo. <b>Huele</b> a cera y a incienso rancios. <b>Se oye</b> nada, hasta que alguien toca el gramófono: tiene puesta «La verbena de la Paloma» y suena hasta que se le acaba la cuerda.</p>
     <div class="leer"><p>Era el salón de música de los marqueses, de estilo Luis XVI. Ahora tiene toda clase de muebles y objetos corrientes: un gramófono, un sofá, sillas pasadas de moda y vitrinas llenas de chucherías. Hasta para una casa de Madrid os llama la atención la cantidad de crucifijos, estampas de la Virgen, escapularios y pilas de agua bendita que hay por todas partes; sobre la chimenea preside un Sagrado Corazón entronizado.</p></div>
     <div class="nota">
       <p>Procura crear un ambiente inquietante a medida que los jugadores exploran la casa. Recuerda que el marqués está en todas partes y que en cualquier momento puede oírse algún ruido procedente de la planta principal (Dormitorio 3).</p>
     </div>
 
     <h4 class="sala"><b>Habitación 5,</b> Comedor</h4>
+    <p class="ambiente"><b>Se ve</b> moho verde en la sopera, una silla volcada, una servilleta en el suelo, como si alguien se hubiera levantado de golpe. <b>Huele</b> a fideos agrios. <b>Se oye</b> moscas.</p>
     <div class="leer"><p>Es el comedor de diario, con una mesa larga de caoba, un aparador empotrado y siete sillas. En la mesa hay tres cubiertos puestos que nadie llegó a usar, y en una sopera se pudre una sopa de fideos.</p></div>
 
     <h4 class="sala"><b>Habitación 6,</b> Cocina</h4>
+    <p class="ambiente"><b>Se ve</b> cagadas de rata y, junto a la caja de plomos, un fusible quitado y dejado al lado, muy bien alineado. <b>Huele</b> a grasa rancia y a carbón. <b>Se oye</b> tras la puerta del sótano, un aire que sube y baja, como si abajo respirara algo.</p>
     <p>Las cocinas de verdad están en el sótano, pero los Montalvo convirtieron el antiguo <em>office</em> en una cocina corriente, con una fresquera, una cocina económica de carbón con horno y una despensa poco surtida. En la pared está la caja de plomos de la instalación eléctrica.</p>
     <p>Algunos alimentos aún se pueden comer: latas de sardinas y de carne, garbanzos, arroz, fideos y unas botellas de Valdepeñas. Lo que no se ha estropeado se lo han comido las ratas, a juzgar por el rastro que han dejado.</p>
 
     <h3 class="cap">Planta principal</h3>
     <h4 class="sala"><b>Habitación 1,</b> Dormitorio principal</h4>
+    <p class="ambiente"><b>Se ve</b> la cama deshecha, cera derramada por el suelo, cruces clavadas hasta en el cabecero. <b>Huele</b> a cera y a sudor de enfermo. <b>Se oye</b> los tranvías de Cibeles a través del balcón: lo único que suena normal en toda la casa.</p>
     <div class="leer"><p>Un dormitorio corriente, con una cama de matrimonio, una librería y un balcón que da a la plaza de Cibeles. Parece el cuarto de don Vicente y doña Gabriela. Aquí hay más crucifijos y muchas velas, y sobre una de las mesillas de noche descansan un rosario y un misal abierto. En el margen, con letra temblorosa, alguien ha escrito: «¡El diablo será vencido con sus propias armas!».</p></div>
     <p>Lo escribió don Vicente antes de que se lo llevaran. Es la misma pista que da en Ciempozuelos: el marqués puede morir atravesado por su propio puñal. No la subrayes.</p>
 
     <h4 class="sala"><b>Habitación 2,</b> Dormitorio de los niños</h4>
+    <p class="ambiente"><b>Se ve</b> un caballo de cartón tumbado y los dibujos. <b>Huele</b> a polvos de talco. <b>Se oye</b> nada. Los jugadores empezarán a hablar en voz baja sin que se lo pidas.</p>
     <div class="leer"><p>Esta habitación tiene dos camas pequeñas, juguetes y cómodas. Los dibujos de aeroplanos y de toreros clavados en la pared dejan claro que era el cuarto de los niños. En el papel pintado, a la altura de un crío, alguien ha dibujado con lápices de cera un hombre muy alto y muy flaco, con dos redondeles amarillos en lugar de ojos.</p></div>
 
     <h4 class="sala"><b>Habitación 3,</b> Dormitorio de invitados</h4>
+    <p class="ambiente"><b>Se ve</b> en el polvo, las marcas de las patas de la cama. La cama no está donde marcan las patas. <b>Huele</b> a nada, y hace más frío que en el resto de la casa; el hedor llega cuando el marqués actúa. <b>Se oye</b> aquí, y solo aquí, canta Raimundita.</p>
     <div class="leer"><p>En esta habitación solo hay el bastidor de una cama de hierro con los muelles al aire y una cómoda vacía. Aunque no se usa, se parece a los otros dos dormitorios. La ventana da al jardín.</p></div>
     <p>Este fue el dormitorio del propio marqués en sus últimos años. Pasó tanto tiempo en él que su influencia psíquica perdura y puede hacer que aquí ocurran ciertas cosas. Cada vez que eso suceda se notará un hedor espantoso: ¡una señal característica de los Mitos de Cthulhu! Las criadas de los Montalvo lo llamaban «el cuarto de la niña», y se negaban a entrar.</p>
   </div>
@@ -1587,9 +1622,11 @@ table.anotar td{height:1.9em}
     </div>
 
     <h4 class="sala"><b>Habitación 4,</b> Cuarto de baño</h4>
+    <p class="ambiente"><b>Se ve</b> vaho en el espejo, aunque nadie se ha bañado, y un cerco oscuro en la bañera. <b>Huele</b> a agua estancada y a jabón de olor. <b>Se oye</b> el goteo del grifo, que a ratos parece llevar la cuenta.</p>
     <div class="leer"><p>Un cuarto de baño con lavabo, una bañera de patas y un inodoro con cisterna alta y cadena. Todavía quedan toallas y otras cosas propias de una familia de cuatro personas. En la bañera se ha formado un charco de agua turbia que gotea de un grifo que no cierra del todo.</p></div>
 
     <h3 class="cap">El jardín y la casa de muñecas</h3>
+    <p class="ambiente"><b>Se ve</b> estatuas verdes de musgo y setos sin podar; la casa de muñecas, extrañamente limpia. <b>Huele</b> a tierra mojada y hojas podridas: aire limpio, después de la casa. <b>Se oye</b> el tráfico de la plaza. Aquí se respira.</p>
     <div class="leer"><p>Detrás del palacio, entre setos sin podar y estatuas verdes de musgo, hay una casita de juguete con su tejado, sus ventanas y su puerta pequeña, como un palacio de bolsillo. Dentro hay muebles a escala infantil, una mesa de té con sus tazas y una muñeca de porcelana sentada en una silla.</p></div>
     <p>Todo Madrid dice que el marqués la mandó construir para Raimundita. Los hijos de los Montalvo jugaban aquí; en la pared, con la letra torcida de un niño, alguien ha escrito a lápiz: «AQUÍ NO ENTRA».</p>
     <div class="nota">
@@ -1604,6 +1641,7 @@ table.anotar td{height:1.9em}
   <div class="cols">
     <h3 class="cap">El sótano</h3>
     <h4 class="sala"><b>Habitación 1:</b> Trastero</h4>
+    <p class="ambiente"><b>Se ve</b> los fogones de hierro de las cocinas viejas y ganchos vacíos de colgar carne. <b>Huele</b> a humedad, a óxido y, muy flojo, a algo dulzón. <b>Se oye</b> goteo, y patitas dentro de las paredes.</p>
     <p>La puerta del sótano, junto a la cocina, tiene una cerradura y tres candados que solo se pueden abrir desde la planta baja. Abajo están las antiguas cocinas del palacio, convertidas en el trastero principal. La escalera de servicio está en mal estado y la bombilla no funciona. Las paredes están cubiertas de estantes repletos de cosas.</p>
     <p>El marqués ha cortado la luz del sótano en la caja de plomos de la cocina. Si los investigadores la vuelven a dar, el marqués podrá cortarla otra vez cuando más le convenga.</p>
     <p>La escalera es peligrosa, sobre todo porque el marqués puede hacer que se mueva. De uno en uno, pide a los investigadores que bajen una tirada de <strong>DES</strong> o de <strong>Trepar</strong>. Trátala como una tirada combinada: el jugador tira una sola vez y compara el resultado con su DES y con su Trepar. Basta con sacar un resultado igual o menor que cualquiera de los dos.</p>
@@ -1660,6 +1698,7 @@ table.anotar td{height:1.9em}
     <p><strong>Retener el puñal.</strong> Si un investigador consigue atraparlo, el marqués puede intentar soltarlo a tirones en los asaltos siguientes, gastando otro Punto de Magia por asalto. Para retenerlo, el jugador tiene que ganar una tirada enfrentada de su FUE contra el POD del marqués.</p>
 
     <h4 class="sala"><b>Habitación 2:</b> Carbonera vacía</h4>
+    <p class="ambiente"><b>Se ve</b> polvo de carbón que se pega a la ropa y a la piel. <b>Huele</b> a hollín. <b>Se oye</b> el tráfico de la calle, muy lejos, por la trampilla clavada.</p>
     <p>Un depósito donde antes se guardaba el carbón. La trampilla de la bajada del carbón, que da a la calle, está bien clavada.</p>
 
     <figure class="ilus"><svg viewBox="0 0 600 680" role="img" aria-label="Grabado: en el sótano, a la luz de un farol caído, un enjambre de ratas sale por un agujero de la pared de tablas y trepa por las piernas y el abrigo de un investigador que se tambalea.">
@@ -2098,6 +2137,7 @@ table.anotar td{height:1.9em}
 <rect width="600" height="680" filter="url(#icgrano)" opacity=".9"/><rect width="600" height="680" filter="url(#iccarbon)" opacity=".5"/><rect x="2" y="2" width="596" height="676" fill="none" stroke="#141312" stroke-width="5" filter="url(#ictosco)"/>
 </svg></figure>
     <h4 class="sala"><b>Habitación 3:</b> La ratonera</h4>
+    <p class="ambiente"><b>Se ve</b> ojos pequeños que brillan a la luz de la linterna. <b>Huele</b> a orines de rata; da náuseas. <b>Se oye</b> un chillido que no para.</p>
     <p>Si se rompen o arrancan los tablones del trastero, aparece un hueco entre dos tabiques de madera. De él sale un olor repugnante: el de las ratas que anidan dentro.</p>
     <p>Una camada de ratas vive entre estas paredes. Si los investigadores no les dejan sitio para escapar, atacarán a quien intente meterse en el hueco. Las ratas usan su ataque de Abrumar contra un investigador. En cuanto muere una, las demás huyen.</p>
 
@@ -2477,7 +2517,8 @@ table.anotar td{height:1.9em}
 </svg></figure>
   <div class="cols">
     <h4 class="sala"><b>Habitación 4:</b> El escondrijo del marqués</h4>
-    <p>Al otro lado del tabique empieza una galería abovedada de ladrillo viejo, uno de los silos del antiguo Pósito que el marqués mandó conservar bajo los cimientos. Más allá, tapiadas, se adivinan otras bocas de galería.</p>
+    <p class="ambiente"><b>Se ve</b> el resplandor de los ojos antes que el cuerpo. <b>Huele</b> a tierra removida y a membrillo podrido, tan fuerte que da arcadas. <b>Se oye</b> nada. Ni las ratas entran aquí.</p>
+    <p>Al otro lado del tabique empieza una galería abovedada de ladrillo viejo, uno de los silos del viejo granero que el marqués mandó conservar bajo los cimientos. Más allá, tapiadas, se adivinan otras bocas de galería.</p>
     <div class="leer"><p>Inmóvil, y al parecer muerto, dentro de un ataúd sin tapa y medio podrido, inclinado contra un túmulo de tierra en el centro de la bóveda, hay un hombre marchito, acartonado y macilento de casi un metro ochenta, consumido y desnudo, con unos ojos espantosos, grandes y brillantes, y una nariz afilada como la hoja de un cuchillo. Lleva una especie de cadena al cuello, de la que cuelga una cruz esmaltada. Ha perdido casi todo el pelo, y las encías resecas hacen que sus dientes parezcan larguísimos. De él sale un olor entre acre y dulzón, como de membrillo podrido.</p>
     <p>El suelo es de tierra. En el rincón del suroeste hay una mesa con varios papeles enrollados.</p></div>
     <p>La cruz es la de la Orden de Carlos III, que el marqués lucía en vida; un investigador que supere una tirada de Historia, o con Crédito 50 o más, la reconocerá.</p>
@@ -2558,7 +2599,7 @@ table.anotar td{height:1.9em}
   <div class="cols">
     <h3 class="cap">Ampliar la aventura</h3>
     <p>El Guardián recordará el símbolo pintado hace poco en las ruinas de la capilla, el ataúd lleno de piedras de San Justo y las pruebas del encubrimiento que siguió a la operación de 1912. ¿Quién llamó a <em>El Imparcial</em> en 1918 para que no saliera la crónica? ¿Quién protegió a los fieles de la Capilla en el sumario? Y ¿dónde está ahora el capellán Tomé? Estas conexiones con lo que podría ser una gran conspiración quedan a su disposición para aventuras futuras.</p>
-    <p>Recuerda también el extraño documento podrido que parecía un horóscopo: ¿tiene que ver con la conspiración o es algo completamente distinto? Y las galerías tapiadas del Pósito siguen ahí, debajo de la plaza de Cibeles, camino de quién sabe qué otros sótanos.</p>
+    <p>Recuerda también el extraño documento podrido que parecía un horóscopo: ¿tiene que ver con la conspiración o es algo completamente distinto? Y las galerías tapiadas del granero siguen ahí, debajo de la plaza de Cibeles, camino de quién sabe qué otros sótanos.</p>
     <p>Cualquiera de estas pistas puede llevar a otras aventuras de tu propia invención para este grupo de investigadores.</p>
 
     <div class="ficha">
@@ -2633,7 +2674,7 @@ table.anotar td{height:1.9em}
     <div class="historia">
       <h4>Historia y leyenda</h4>
       <p>El palacio y sus dueños son reales; lo demás es ficción. José de Murga y Reolid (Madrid, 1833-1902), primer marqués de Linares y vizconde de Llanteno, fue banquero, senador por Segovia y gran filántropo, heredero de una fortuna vasca hecha en Cuba y en los ferrocarriles. Se casó en 1858 con Raimunda de Osorio y Ortega, que murió en octubre de 1901; él la siguió el 9 de abril de 1902, en su palacio. No tuvieron hijos reconocidos.</p>
-      <p>El palacio se levantó entre 1877 y 1900 en el solar del Pósito, con proyecto de Carlos Colubí sobre trazas de Adolf Ombrecht. Tiene sótano y un subsótano con galerías tapiadas bajo el jardín, y en el jardín, una casa de muñecas. La leyenda de Raimundita (que los marqueses eran hermanastros sin saberlo, que obtuvieron una bula para vivir en castidad, que tuvieron una hija y la hicieron desaparecer) no tiene base documental, y se hizo famosa en 1990 con unas supuestas psicofonías grabadas en el palacio abandonado. En la aventura se da por conocida ya en 1920: es una licencia.</p>
+      <p>El palacio se levantó entre 1877 y 1900 en el solar del Pósito Real, el granero municipal de Madrid, con proyecto de Carlos Colubí sobre trazas de Adolf Ombrecht. Tiene sótano y un subsótano con galerías tapiadas bajo el jardín, y en el jardín, una casa de muñecas. La leyenda de Raimundita (que los marqueses eran hermanastros sin saberlo, que obtuvieron una bula para vivir en castidad, que tuvieron una hija y la hicieron desaparecer) no tiene base documental, y se hizo famosa en 1990 con unas supuestas psicofonías grabadas en el palacio abandonado. En la aventura se da por conocida ya en 1920: es una licencia.</p>
       <p>En la realidad, los marqueses fueron enterrados en la Sacramental de San Justo, y en 1918 sus restos se trasladaron a la cripta del Hospital de San José y San Raimundo, que ellos fundaron. La redacción de <em>El Imparcial</em> estaba en la calle del Duque de Alba, la Biblioteca Nacional en Recoletos desde 1896 y el Ministerio de la Gobernación en la Puerta del Sol. La Capilla de la Contemplación, don Esteban Nogales, los Montalvo y el capellán Tomé son inventados.</p>
     </div>
   </div>
@@ -2643,18 +2684,9 @@ table.anotar td{height:1.9em}
 <!-- ============================================================ PREGENERADOS -->
 <section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES" id="pregenerados">
   <h3 class="cap" style="margin-top:.2rem">Investigadores pregenerados</h3>
-  <p>Cuatro madrileños de 1920 con un motivo para meterse en el palacio. Repártelos al empezar, lee a cada jugador su párrafo «En esta historia» y que se presenten entre ellos en una frase. Las habilidades que no aparecen están a su valor base.</p>
+  <p>Tres madrileñas y dos madrileños de 1920 con un motivo para meterse en el palacio. Repártelos al empezar, lee a cada jugador su párrafo «En esta historia» y que se presenten entre ellos en una frase. Las habilidades que no aparecen están a su valor base.</p>
   <div class="pregens">
     <div class="pregen">
-      <p class="pg-nombre">Ramón Valcárcel</p>
-      <p class="pg-oficio">Reportero de <em>El Heraldo de Madrid</em>, 32 años</p>
-      <p class="pg-retrato">Lengua rápida, sombrero ladeado y una libreta siempre a medio llenar. Sueña con la exclusiva que le saque de la sección de sucesos.</p>
-      <p class="pg-gancho"><b>En esta historia:</b> En 1918 escribió sobre la leyenda de Raimundita y no le publicaron una línea. Don Esteban leyó el borrador y lo ha buscado. Don Arturo Villegas, de <em>El Imparcial</em>, le tiene ojeriza: dado de penalización con él, salvo que otro lleve la conversación.</p>
-      <table class="carac"><tr><td><b>FUE</b> 50</td><td><b>CON</b> 60</td><td><b>TAM</b> 65</td><td><b>DES</b> 60</td></tr><tr><td><b>APA</b> 60</td><td><b>INT</b> 70</td><td><b>POD</b> 55</td><td><b>EDU</b> 75</td></tr></table>
-      <p class="pg-der"><b>PV</b> 12 &middot; <b>PM</b> 11 &middot; <b>COR</b> 55 &middot; <b>Suerte</b> 50 &middot; <b>MOV</b> 7 &middot; <b>BD</b> 0 &middot; <b>Corp.</b> 0</p>
-      <p class="pg-hab"><b>Habilidades:</b> Buscar libros 60%, Charlatanería 55%, Crédito 25%, Descubrir 55%, Escuchar 50%, Fotografía 45%, Historia 40%, Persuasión 45%, Psicología 50%, Otras lenguas (Francés) 30%, Conducir automóvil 30%, Esquivar 30%, Combatir (Pelea) 25%, Armas de fuego (Arma corta) 20%. El resto, a su valor base.</p>
-      <p class="pg-hab"><b>Equipo:</b> cámara de cajón, libreta, linterna eléctrica, una petaca de coñac.</p>
-    </div><div class="pregen">
       <p class="pg-nombre">Elena Arrieta</p>
       <p class="pg-oficio">Estudiante de Ciencias, interna en la Residencia de Señoritas, 23 años</p>
       <p class="pg-retrato">Sobrina de don Esteban. Lee latín con soltura, discute con todo el mundo y no cree en fantasmas, todavía.</p>
@@ -2663,16 +2695,38 @@ table.anotar td{height:1.9em}
       <p class="pg-der"><b>PV</b> 10 &middot; <b>PM</b> 13 &middot; <b>COR</b> 65 &middot; <b>Suerte</b> 60 &middot; <b>MOV</b> 8 &middot; <b>BD</b> 0 &middot; <b>Corp.</b> 0</p>
       <p class="pg-hab"><b>Habilidades:</b> Buscar libros 70%, Ciencias (Química) 50%, Otras lenguas (Latín) 50%, Otras lenguas (Inglés) 45%, Descubrir 60%, Encanto 45%, Primeros auxilios 45%, Historia 35%, Psicología 35%, Saltar 40%, Crédito 20%, Esquivar 45%, Combatir (Pelea) 25%. El resto, a su valor base.</p>
       <p class="pg-hab"><b>Equipo:</b> bolso con cuaderno de laboratorio, cerillas, velas, una lupa.</p>
-    </div><div class="pregen">
-      <p class="pg-nombre">Doctor Julián Ortega</p>
-      <p class="pg-oficio">Médico de la Beneficencia municipal, 45 años</p>
-      <p class="pg-retrato">Viudo, cansado y meticuloso. Ha visto morir a mucha gente en las casas de vecindad del sur de Madrid y no se asusta con facilidad.</p>
-      <p class="pg-gancho"><b>En esta historia:</b> Atendió a doña Gabriela Montalvo antes de que la internaran en Ciempozuelos, y ella le habló de «un hombre» que se inclinaba sobre su cama. Las monjas le dejan pasar sin preguntas.</p>
-      <table class="carac"><tr><td><b>FUE</b> 55</td><td><b>CON</b> 60</td><td><b>TAM</b> 70</td><td><b>DES</b> 50</td></tr><tr><td><b>APA</b> 50</td><td><b>INT</b> 75</td><td><b>POD</b> 60</td><td><b>EDU</b> 85</td></tr></table>
-      <p class="pg-der"><b>PV</b> 13 &middot; <b>PM</b> 12 &middot; <b>COR</b> 60 &middot; <b>Suerte</b> 45 &middot; <b>MOV</b> 6 &middot; <b>BD</b> +1D4 &middot; <b>Corp.</b> 1</p>
-      <p class="pg-hab"><b>Habilidades:</b> Medicina 65%, Primeros auxilios 65%, Otras lenguas (Latín) 55%, Ciencias (Farmacia) 45%, Ciencias (Biología) 40%, Psicología 50%, Persuasión 40%, Crédito 45%, Buscar libros 45%, Descubrir 40%, Conducir automóvil 25%, Esquivar 25%, Combatir (Pelea) 30%. El resto, a su valor base.</p>
-      <p class="pg-hab"><b>Equipo:</b> maletín de médico (vendas, láudano, bisturí), un Ford T de segunda mano.</p>
-    </div><div class="pregen">
+    </div>
+    <div class="pregen">
+      <p class="pg-nombre">Doctora Julia Ortega</p>
+      <p class="pg-oficio">Médica de la Casa de Socorro del distrito de Buenavista, 45 años</p>
+      <p class="pg-retrato">Una de las pocas médicas de Madrid. Viuda, cansada y meticulosa; se licenció en San Carlos sin que nadie le regalara nada y no se asusta con facilidad.</p>
+      <p class="pg-gancho"><b>En esta historia:</b> Atendió a doña Gabriela Montalvo antes de que la internaran en Ciempozuelos, y ella le habló de «un hombre» que se inclinaba sobre su cama. Las hermanas del sanatorio le dejan pasar sin preguntas.</p>
+      <table class="carac"><tr><td><b>FUE</b> 50</td><td><b>CON</b> 60</td><td><b>TAM</b> 55</td><td><b>DES</b> 55</td></tr><tr><td><b>APA</b> 55</td><td><b>INT</b> 75</td><td><b>POD</b> 60</td><td><b>EDU</b> 85</td></tr></table>
+      <p class="pg-der"><b>PV</b> 11 &middot; <b>PM</b> 12 &middot; <b>COR</b> 60 &middot; <b>Suerte</b> 45 &middot; <b>MOV</b> 6 &middot; <b>BD</b> 0 &middot; <b>Corp.</b> 0</p>
+      <p class="pg-hab"><b>Habilidades:</b> Medicina 65%, Primeros auxilios 65%, Otras lenguas (Latín) 55%, Ciencias (Farmacia) 45%, Ciencias (Biología) 40%, Psicología 55%, Persuasión 45%, Crédito 40%, Buscar libros 45%, Descubrir 40%, Esquivar 30%, Combatir (Pelea) 25%. El resto, a su valor base.</p>
+      <p class="pg-hab"><b>Equipo:</b> maletín de médico (vendas, láudano, bisturí, sales), linterna eléctrica.</p>
+    </div>
+    <div class="pregen">
+      <p class="pg-nombre">Pilar Lozano</p>
+      <p class="pg-oficio">Telegrafista del turno de noche en el Palacio de Comunicaciones, 27 años</p>
+      <p class="pg-retrato">Hija de un guardafrenos de la línea de Zaragoza. Rápida, curiosa y con buen oído; sabe arreglar casi cualquier cosa que lleve cables.</p>
+      <p class="pg-gancho"><b>En esta historia:</b> Desde la ventana de la sala de aparatos se ve el Palacio de Linares, al otro lado de Alcalá. Varias noches, con la casa vacía, ha visto luz en una ventana del piso principal, y una vez una cara pálida detrás del cristal. Fue ella quien escribió a don Esteban. Con su Electricidad puede devolver la luz al sótano.</p>
+      <table class="carac"><tr><td><b>FUE</b> 45</td><td><b>CON</b> 60</td><td><b>TAM</b> 55</td><td><b>DES</b> 65</td></tr><tr><td><b>APA</b> 60</td><td><b>INT</b> 70</td><td><b>POD</b> 60</td><td><b>EDU</b> 60</td></tr></table>
+      <p class="pg-der"><b>PV</b> 11 &middot; <b>PM</b> 12 &middot; <b>COR</b> 60 &middot; <b>Suerte</b> 55 &middot; <b>MOV</b> 8 &middot; <b>BD</b> 0 &middot; <b>Corp.</b> 0</p>
+      <p class="pg-hab"><b>Habilidades:</b> Escuchar 65%, Descubrir 55%, Electricidad 50%, Mecánica 35%, Encanto 50%, Persuasión 40%, Buscar libros 40%, Sigilo 40%, Psicología 35%, Otras lenguas (Francés) 30%, Crédito 15%, Esquivar 40%, Combatir (Pelea) 25%. El resto, a su valor base.</p>
+      <p class="pg-hab"><b>Equipo:</b> bolso con alicates, cinta aislante y fusibles de repuesto, linterna eléctrica, gemelos de teatro.</p>
+    </div>
+    <div class="pregen">
+      <p class="pg-nombre">Ramón Valcárcel</p>
+      <p class="pg-oficio">Reportero de <em>El Heraldo de Madrid</em>, 32 años</p>
+      <p class="pg-retrato">Lengua rápida, sombrero ladeado y una libreta siempre a medio llenar. Sueña con la exclusiva que le saque de la sección de sucesos.</p>
+      <p class="pg-gancho"><b>En esta historia:</b> En 1918 escribió sobre la leyenda de Raimundita y no le publicaron una línea. Don Arturo Villegas, de <em>El Imparcial</em>, le tiene ojeriza: dado de penalización con él, salvo que otro lleve la conversación.</p>
+      <table class="carac"><tr><td><b>FUE</b> 50</td><td><b>CON</b> 60</td><td><b>TAM</b> 65</td><td><b>DES</b> 60</td></tr><tr><td><b>APA</b> 60</td><td><b>INT</b> 70</td><td><b>POD</b> 55</td><td><b>EDU</b> 75</td></tr></table>
+      <p class="pg-der"><b>PV</b> 12 &middot; <b>PM</b> 11 &middot; <b>COR</b> 55 &middot; <b>Suerte</b> 50 &middot; <b>MOV</b> 7 &middot; <b>BD</b> 0 &middot; <b>Corp.</b> 0</p>
+      <p class="pg-hab"><b>Habilidades:</b> Buscar libros 60%, Charlatanería 55%, Crédito 25%, Descubrir 55%, Escuchar 50%, Fotografía 45%, Historia 40%, Persuasión 45%, Psicología 50%, Otras lenguas (Francés) 30%, Conducir automóvil 30%, Esquivar 30%, Combatir (Pelea) 25%, Armas de fuego (Arma corta) 20%. El resto, a su valor base.</p>
+      <p class="pg-hab"><b>Equipo:</b> cámara de cajón, libreta, linterna eléctrica, una petaca de coñac.</p>
+    </div>
+    <div class="pregen">
       <p class="pg-nombre">Anselmo Rubio</p>
       <p class="pg-oficio">Agente retirado del Cuerpo de Vigilancia, 52 años</p>
       <p class="pg-retrato">Grandullón, bigote gris y un abrigo que ha conocido tiempos mejores. Dejó el Cuerpo con una pensión corta y muchas preguntas sin contestar.</p>
@@ -2770,7 +2824,7 @@ table.anotar td{height:1.9em}
 
     <div class="ayuda">
       <span class="rot">Ayuda de juego 3</span>
-      <p>En 1872, don José de Murga y Reolid, que al año siguiente recibiría de Amadeo I el título de marqués de Linares, compró al Ayuntamiento el solar del antiguo Pósito, el granero de la villa. Las obras empezaron en 1877. Los marqueses se mudaron al palacio en 1884, aunque no se dio por terminado hasta 1900. Una crónica de la obra señala que el marqués mandó conservar bajo los cimientos los viejos silos del Pósito.</p>
+      <p>En 1872, don José de Murga y Reolid, que al año siguiente recibiría de Amadeo I el título de marqués de Linares, compró al Ayuntamiento el solar del viejo granero de la villa. Las obras empezaron en 1877. Los marqueses se mudaron al palacio en 1884, aunque no se dio por terminado hasta 1900. Una crónica de la obra señala que el marqués mandó conservar bajo los cimientos los silos del granero.</p>
     </div>
 
     <div class="ayuda">
