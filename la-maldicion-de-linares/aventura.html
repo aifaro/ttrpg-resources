@@ -281,6 +281,7 @@ figcaption{font-family:var(--f-caja);font-size:.86rem;font-style:italic;color:va
 table.tabla{width:100%;border-collapse:collapse;font-family:var(--f-caja);font-size:.92rem;margin:.6rem 0 1rem}
 table.tabla th{font-family:var(--f-caja-sc);font-weight:700;letter-spacing:.08em;text-align:left;border-bottom:2px solid var(--tinta);padding:.25rem .4rem}
 table.tabla td{border-bottom:1px solid var(--hoja-borde);padding:.3rem .4rem;vertical-align:top}
+table.tabla td:first-child{white-space:nowrap}
 table.tabla tr:nth-child(even) td{background:rgba(0,0,0,.035)}
 
 /* tabla de locura */
@@ -320,6 +321,19 @@ table.tabla tr:nth-child(even) td{background:rgba(0,0,0,.035)}
 .control .c.ancha{width:2.6em}
 .control .sep{display:inline-block;width:.5em}
 table.anotar td{height:1.9em}
+.opcional{display:inline-block;vertical-align:middle;margin-left:.4rem;padding:.05rem .45rem;border:1.5px solid currentColor;
+  font-family:var(--f-sala);font-variant:normal;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;-webkit-text-stroke:0;color:var(--gris)}
+.pregens{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.pregen{border:2px solid var(--tinta);background:rgba(255,255,255,.4);padding:.7rem .9rem .6rem;font-family:var(--f-caja);font-size:.9rem;line-height:1.35;break-inside:avoid}
+.pregen p{margin:0 0 .35rem}
+.pregen .pg-nombre{font-family:var(--f-epigrafe);font-variant:small-caps;-webkit-text-stroke:.02em currentColor;font-size:1.45rem;line-height:1;margin-bottom:.1rem}
+.pregen .pg-oficio{font-family:var(--f-sala);font-size:.92rem;border-bottom:1px solid var(--tinta);padding-bottom:.25rem}
+.pregen .pg-retrato{font-style:italic}
+.pregen table.carac{border-collapse:collapse;margin:.3rem 0;font-size:.9rem}
+.pregen table.carac td{padding:.05rem .9rem .05rem 0}
+.pregen .pg-der{border-top:1px dotted var(--regla);border-bottom:1px dotted var(--regla);padding:.2rem 0}
+@media screen and (max-width:760px){.pregens{grid-template-columns:1fr}}
+@media print{.pregen{font-size:8pt}.pregens{gap:4mm}}
 .creditos{font-family:var(--f-caja);font-size:.86rem;color:var(--tinta-2)}
 .creditos p{margin-bottom:.5em}
 
@@ -367,6 +381,9 @@ table.anotar td{height:1.9em}
   #portada{break-after:page}
   #ayudas{break-before:page}
   #plano{break-inside:avoid}
+  #pregenerados,#control{break-before:page}
+  .nota::before,.dados > .rot{font-size:8.4pt}
+  .dados > .rot b{font-size:11pt}
   .nota,.ayuda,.marco-titulo{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   a{color:inherit;border:0}
 }
@@ -634,6 +651,7 @@ table.anotar td{height:1.9em}
   <div class="cols">
     <p class="capital"><span class="versal">Esta es la vieja aventura</span> de la casa encantada con la que tantos Guardianes empezaron, trasladada a Madrid. La casa es ahora el palacio que el marqués de Linares, don José de Murga y Reolid, levantó en el solar del antiguo Pósito, frente a la diosa Cibeles. Hoy es la sede de la Casa de América; en 1920 es un caserón cerrado del que el vecindario cuenta historias.</p>
     <p>Todo Madrid conoce la leyenda: el fantasma de una niña, Raimundita, la hija que los marqueses nunca reconocieron, vaga por los salones. Los investigadores descubrirán que la niña es lo de menos. Quien sigue en la casa es el propio marqués, que se trató con una secta durante los últimos años de su vida y que dejó dispuesto en su testamento que lo enterraran en el sótano.</p>
+    <p>Esta versión se juega en una sola sesión de unas tres horas, con cuatro investigadores pregenerados listos para imprimir.</p>
     <p>El texto conserva la estructura, las reglas y los consejos de «La maldición de la Casa Corbitt», la aventura de las <em>Reglas de inicio rápido</em> de la 7.ª edición, para que sirva igual que el original como primera partida, para Guardianes y para jugadores.</p>
 
     <h4>Contenido</h4>
@@ -643,18 +661,17 @@ table.anotar td{height:1.9em}
       <li><a href="#resumen">La investigación de un vistazo</a><span>2</span></li>
       <li><a href="#loc2">Localización 2: El Imparcial</a><span>3</span></li>
       <li><a href="#loc3">Localización 3: Biblioteca Nacional</a><span>4</span></li>
-      <li><a href="#loc4">Localización 4: Archivo de Villa</a><span>4</span></li>
-      <li><a href="#loc5">Localización 5: Audiencia y Gobernación</a><span>5</span></li>
-      <li><a href="#loc6">Localización 6: El vecindario</a><span>5</span></li>
-      <li><a href="#loc7">Localización 7: Ciempozuelos</a><span>6</span></li>
-      <li><a href="#loc8">Localización 8: La Capilla</a><span>6</span></li>
-      <li><a href="#loc9">Localización 9: El palacio</a><span>7</span></li>
+      <li><a href="#loc4">Localización 4: El vecindario</a><span>5</span></li>
+      <li><a href="#loc5">Localización 5: Ciempozuelos (opcional)</a><span>6</span></li>
+      <li><a href="#loc6">Localización 6: La Capilla (opcional)</a><span>6</span></li>
+      <li><a href="#loc7">Localización 7: El palacio</a><span>7</span></li>
       <li><a href="#sotano">El sótano</a><span>10</span></li>
       <li><a href="#conclusion">Conclusión y recompensas</a><span>13</span></li>
       <li><a href="#marques">El marqués de Linares</a><span>14</span></li>
       <li><a href="#historia">Historia y leyenda</a><span>15</span></li>
-      <li><a href="#control">Hoja de control del Guardián</a><span>16</span></li>
-      <li><a href="#ayudas">Ayudas de juego</a><span>17</span></li>
+      <li><a href="#pregenerados">Investigadores pregenerados</a><span>16</span></li>
+      <li><a href="#control">Hoja de control del Guardián</a><span>17</span></li>
+      <li><a href="#ayudas">Ayudas de juego</a><span>18</span></li>
     </ul>
   </div>
 </section>
@@ -675,6 +692,9 @@ table.anotar td{height:1.9em}
     <p>Para resolver el misterio, los investigadores tendrán que descubrir que el marqués sigue allí. En cuanto lo hagan, el marqués notará su presencia e intentará confundirlos y asustarlos. Su engaño favorito es la leyenda de Raimundita: prefiere que lo tomen por el fantasma de una niña. Si nada de eso funciona, intentará matarlos.</p>
 
     <h3 class="cap">Preparación de la partida</h3>
+    <div class="nota rotulo-propio" data-rotulo="Una sola sesión">
+      <p>Esta versión está pensada para jugarse en unas tres horas. Para no gastar la primera hora creando personajes, usad los <a href="#pregenerados">investigadores pregenerados</a>: cada uno tiene un motivo para estar en la historia y alguna puerta que abrir. Si preferís crear los vuestros, reservad una sesión aparte o contad con cuatro horas largas.</p>
+    </div>
     <p>Acompaña a los jugadores mientras crean a sus investigadores. Los jugadores novatos entenderán mejor las reglas y a sus personajes si pasan por todo el proceso.</p>
     <p>Cuéntales la premisa de la aventura:</p>
     <div class="leer"><p>Os van a contratar para investigar un viejo palacio de Madrid, en el año 1920. ¡Dicen que está encantado!</p></div>
@@ -689,11 +709,11 @@ table.anotar td{height:1.9em}
     <div class="ayuda maquina">
       <span class="rot">Ayuda de juego 1</span>
       <p>Don Esteban Nogales, propietario, os pide que examinéis un viejo palacio que acaba de heredar en la plaza de Cibeles, conocido en todo Madrid como el Palacio de Linares. Los últimos inquilinos, la familia Montalvo, se vieron envueltos en una tragedia, y el propietario quiere entender lo que ocurrió allí y aclarar las cosas. Desde entonces no ha conseguido alquilar la casa, y espera que vosotros podáis explicar lo sucedido y devolverle el buen nombre. Os ofrece una compensación por vuestro tiempo y vuestras molestias, y os entrega las llaves, unas señas y ciento cincuenta pesetas en billetes como adelanto.</p>
-      <p>Como buenos profesionales, querréis hacer algunas averiguaciones antes de presentaros en el palacio. Podéis consultar los números atrasados en la redacción de <em>El Imparcial</em>, acercaros a la Biblioteca Nacional o pasar por el Archivo de Villa. La decisión es vuestra.</p>
+      <p>Como buenos profesionales, querréis hacer algunas averiguaciones antes de presentaros en el palacio. Podéis consultar los números atrasados en la redacción de <em>El Imparcial</em> o acercaros a la Biblioteca Nacional; y en el barrio siempre hay quien sabe cosas. La decisión es vuestra.</p>
     </div>
     <p>Entrega la Ayuda de juego 1 a los jugadores por si quieren consultarla más adelante. Dales tiempo para asimilar la información, comentarla y decidir qué hacen. Algunos querrán ir directamente al palacio; sugiéreles que les convendría investigar un poco antes.</p>
     <p>Don Esteban Nogales ha heredado el palacio hace poco, por una rama lejana de la familia, y quiere sacarle provecho, sea alquilándolo o vendiéndolo. La reputación de la casa se lo ha impedido hasta ahora.</p>
-    <p>Pasa a la Localización 2, 3 o 4, según lo que decidan hacer los jugadores.</p>
+    <p>Pasa a la Localización 2, 3 o 4 según lo que decidan hacer los jugadores, o a la 7 si se van derechos al palacio.</p>
   </div>
   <span class="folio">1</span>
 </section>
@@ -701,92 +721,85 @@ table.anotar td{height:1.9em}
 <!-- ============================================================ RESUMEN -->
 <section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES" id="resumen">
   <h3 class="cap" style="margin-top:.2rem">La investigación de un vistazo</h3>
-  <p>Este esquema resume por dónde pueden moverse los investigadores y qué saca cada localización. Ninguna pista es imprescindible: con dos o tres, y una visita a Ciempozuelos o a la Capilla, el grupo llega al sótano sabiendo a qué se enfrenta.</p>
-  <figure class="ilus"><svg viewBox="0 0 900 560" role="img" aria-label="Esquema de la investigación: del encargo se pasa a El Imparcial, la Biblioteca Nacional y el Archivo de Villa; del archivo a la Audiencia y la DGS; del vecindario a Ciempozuelos y a la Capilla; todas las pistas llevan al palacio y a su sótano.">
+  <p>Este esquema resume por dónde pueden moverse los investigadores y qué saca cada localización. Ninguna pista es imprescindible: con dos de las tres primeras paradas, el grupo llega al sótano sabiendo a qué se enfrenta.</p>
+  <figure class="ilus"><svg viewBox="0 0 900 470" role="img" aria-label="Esquema de la investigación: del encargo se pasa a El Imparcial, a la Biblioteca Nacional o al vecindario; del vecindario, de forma opcional, a Ciempozuelos y a la Capilla; todo lleva al palacio.">
 <defs><marker id="dg-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#1b1a18"/></marker>
 <filter id="dg-s" x="-10%" y="-10%" width="130%" height="140%"><feDropShadow dx="2" dy="3" stdDeviation="2" flood-opacity=".25"/></filter></defs>
-<style>.dg-n{font-family:'Oranienbaum',Georgia,serif;font-size:22px;fill:#1b1a18}.dg-t{font-family:'Kelly Slab',Georgia,serif;font-size:15px;fill:#1b1a18}.dg-c{font-family:'Alegreya Sans','Segoe UI',sans-serif;font-size:12.5px;fill:#3a3833}.dg-a{stroke:#1b1a18;stroke-width:1.8;fill:none;marker-end:url(#dg-f)}.dg-d{stroke:#6c6a64;stroke-width:1.5;fill:none;stroke-dasharray:5 4;marker-end:url(#dg-f)}</style>
-<rect width="900" height="560" fill="#efece4"/>
-<g filter="url(#dg-s)"><rect x="330" y="18" width="240" height="46" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6"/></g>
-<rect x="330" y="18" width="34" height="46" fill="#1b1a18"/>
-<text x="347" y="42" class="dg-n" text-anchor="middle" fill="#f6f3ec" style="fill:#f6f3ec">1</text>
-<text x="374" y="38" class="dg-t">El encargo</text>
-<text x="374" y="56" class="dg-c">Don Esteban Nogales · Ayuda 1</text>
-<g filter="url(#dg-s)"><rect x="22" y="118" width="270" height="62" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6"/></g>
-<rect x="22" y="118" width="34" height="62" fill="#1b1a18"/>
-<text x="39" y="142" class="dg-n" text-anchor="middle" fill="#f6f3ec" style="fill:#f6f3ec">2</text>
-<text x="66" y="138" class="dg-t">El Imparcial</text>
-<text x="66" y="156" class="dg-c">Persuadir a don Arturo</text>
-<text x="66" y="172" class="dg-c">Ayuda 2: tres familias desgraciadas</text>
-<g filter="url(#dg-s)"><rect x="315" y="118" width="270" height="78" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6"/></g>
-<rect x="315" y="118" width="34" height="78" fill="#1b1a18"/>
-<text x="332" y="142" class="dg-n" text-anchor="middle" fill="#f6f3ec" style="fill:#f6f3ec">3</text>
-<text x="359" y="138" class="dg-t">Biblioteca Nacional</text>
-<text x="359" y="156" class="dg-c">Buscar libros, medio día por tirada</text>
-<text x="359" y="172" class="dg-c">Ayudas 3-6: el marqués, los pleitos,</text>
-<text x="359" y="188" class="dg-c">el entierro en San Justo</text>
-<g filter="url(#dg-s)"><rect x="608" y="118" width="270" height="62" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6"/></g>
-<rect x="608" y="118" width="34" height="62" fill="#1b1a18"/>
-<text x="625" y="142" class="dg-n" text-anchor="middle" fill="#f6f3ec" style="fill:#f6f3ec">4</text>
-<text x="652" y="138" class="dg-t">Archivo de Villa</text>
-<text x="652" y="156" class="dg-c">Buscar libros · Ayuda 7:</text>
-<text x="652" y="172" class="dg-c">el albacea, capellán de la Capilla</text>
-<g filter="url(#dg-s)"><rect x="22" y="262" width="270" height="78" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6"/></g>
-<rect x="22" y="262" width="34" height="78" fill="#1b1a18"/>
-<text x="39" y="286" class="dg-n" text-anchor="middle" fill="#f6f3ec" style="fill:#f6f3ec">6</text>
-<text x="66" y="282" class="dg-t">El vecindario</text>
-<text x="66" y="300" class="dg-c">Ceferino el sereno (APA o Crédito)</text>
-<text x="66" y="316" class="dg-c">Los Montalvo, Raimundita,</text>
-<text x="66" y="332" class="dg-c">dónde estaba la Capilla</text>
-<g filter="url(#dg-s)"><rect x="608" y="262" width="270" height="62" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6"/></g>
-<rect x="608" y="262" width="34" height="62" fill="#1b1a18"/>
-<text x="625" y="286" class="dg-n" text-anchor="middle" fill="#f6f3ec" style="fill:#f6f3ec">5</text>
-<text x="652" y="282" class="dg-t">Audiencia y DGS</text>
-<text x="652" y="300" class="dg-c">Derecho, Crédito, Persuasión…</text>
-<text x="652" y="316" class="dg-c">Ayuda 8: la redada de 1912</text>
-<g filter="url(#dg-s)"><rect x="22" y="392" width="270" height="62" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6"/></g>
-<rect x="22" y="392" width="34" height="62" fill="#1b1a18"/>
-<text x="39" y="416" class="dg-n" text-anchor="middle" fill="#f6f3ec" style="fill:#f6f3ec">7</text>
-<text x="66" y="412" class="dg-t">Ciempozuelos</text>
-<text x="66" y="430" class="dg-c">«El diablo será vencido</text>
-<text x="66" y="446" class="dg-c">con sus propias armas»</text>
-<g filter="url(#dg-s)"><rect x="608" y="392" width="270" height="78" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6"/></g>
-<rect x="608" y="392" width="34" height="78" fill="#1b1a18"/>
-<text x="625" y="416" class="dg-n" text-anchor="middle" fill="#f6f3ec" style="fill:#f6f3ec">8</text>
-<text x="652" y="412" class="dg-t">La Capilla</text>
-<text x="652" y="430" class="dg-c">Suerte/Saltar, Descubrir</text>
-<text x="652" y="446" class="dg-c">Diario: enterrado bajo su casa</text>
-<text x="652" y="462" class="dg-c">+ Liber Ivonis</text>
-<g filter="url(#dg-s)"><rect x="315" y="470" width="270" height="62" fill="#e9e4d6" stroke="#1b1a18" stroke-width="1.6"/></g>
-<rect x="315" y="470" width="34" height="62" fill="#1b1a18"/>
-<text x="332" y="494" class="dg-n" text-anchor="middle" fill="#f6f3ec" style="fill:#f6f3ec">9</text>
-<text x="359" y="490" class="dg-t">El Palacio de Linares</text>
-<text x="359" y="508" class="dg-c">Diarios, la cama, el puñal,</text>
-<text x="359" y="524" class="dg-c">las ratas y el escondrijo</text>
-<path d="M450 64 Q304 91 157 118" class="dg-a"/>
-<path d="M450 64 Q450 91 450 118" class="dg-a"/>
-<path d="M450 64 Q596 91 743 118" class="dg-a"/>
-<path d="M330 41 Q124 152 157 262" class="dg-d"/>
-<path d="M743 180 Q743 221 743 262" class="dg-a"/>
-<path d="M157 180 Q157 221 157 262" class="dg-d"/>
-<path d="M157 340 Q157 366 157 392" class="dg-a"/>
-<path d="M292 301 Q450 366 608 431" class="dg-a"/>
-<path d="M743 324 Q743 358 743 392" class="dg-a"/>
-<path d="M450 196 Q450 333 450 470" class="dg-d"/>
-<path d="M292 423 Q314 462 315 501" class="dg-a"/>
-<path d="M608 431 Q586 466 585 501" class="dg-a"/>
-<text x="450" y="550" class="dg-c" text-anchor="middle" style="font-style:italic">Las flechas de trazo son caminos posibles, no obligatorios. Los jugadores pueden presentarse en el palacio en cualquier momento.</text>
+<style>.dg-n{font-family:'Oranienbaum',Georgia,serif;font-size:22px}.dg-t{font-family:'Kelly Slab',Georgia,serif;font-size:15px;fill:#1b1a18}.dg-c{font-family:'Alegreya Sans','Segoe UI',sans-serif;font-size:12.5px;fill:#3a3833}.dg-a{stroke:#1b1a18;stroke-width:1.8;fill:none;marker-end:url(#dg-f)}.dg-d{stroke:#6c6a64;stroke-width:1.5;fill:none;stroke-dasharray:5 4;marker-end:url(#dg-f)}</style>
+<rect width="900" height="470" fill="#efece4"/>
+<g filter="url(#dg-s)"><rect x="330" y="16" width="240" height="62" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6" /></g>
+<rect x="330" y="16" width="34" height="62" fill="#1b1a18"/>
+<text x="347" y="40" class="dg-n" text-anchor="middle" style="fill:#f6f3ec">1</text>
+<text x="374" y="36" class="dg-t">El encargo</text>
+<text x="374" y="54" class="dg-c">Don Esteban Nogales · Ayuda 1</text>
+<text x="374" y="70" class="dg-c">~15 minutos</text>
+<g filter="url(#dg-s)"><rect x="22" y="120" width="270" height="62" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6" /></g>
+<rect x="22" y="120" width="34" height="62" fill="#1b1a18"/>
+<text x="39" y="144" class="dg-n" text-anchor="middle" style="fill:#f6f3ec">2</text>
+<text x="66" y="140" class="dg-t">El Imparcial</text>
+<text x="66" y="158" class="dg-c">Persuadir a don Arturo · Ayuda 2</text>
+<text x="66" y="174" class="dg-c">Rosario: el atestado de 1912 (Ayuda 7)</text>
+<g filter="url(#dg-s)"><rect x="315" y="120" width="270" height="78" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6" /></g>
+<rect x="315" y="120" width="34" height="78" fill="#1b1a18"/>
+<text x="332" y="144" class="dg-n" text-anchor="middle" style="fill:#f6f3ec">3</text>
+<text x="359" y="140" class="dg-t">Biblioteca Nacional</text>
+<text x="359" y="158" class="dg-c">Una tirada de Buscar libros</text>
+<text x="359" y="174" class="dg-c">Ayudas 3-6: el marqués, el pleito,</text>
+<text x="359" y="190" class="dg-c">el entierro y el albacea</text>
+<g filter="url(#dg-s)"><rect x="608" y="120" width="270" height="78" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6" /></g>
+<rect x="608" y="120" width="34" height="78" fill="#1b1a18"/>
+<text x="625" y="144" class="dg-n" text-anchor="middle" style="fill:#f6f3ec">4</text>
+<text x="652" y="140" class="dg-t">El vecindario</text>
+<text x="652" y="158" class="dg-c">Ceferino el sereno (APA o Crédito)</text>
+<text x="652" y="174" class="dg-c">Los Montalvo, Raimundita,</text>
+<text x="652" y="190" class="dg-c">dónde estaba la Capilla</text>
+<g filter="url(#dg-s)"><rect x="470" y="262" width="200" height="62" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6" stroke-dasharray="6 4"/></g>
+<rect x="470" y="262" width="34" height="62" fill="#6c6a64"/>
+<text x="487" y="286" class="dg-n" text-anchor="middle" style="fill:#f6f3ec">5</text>
+<text x="514" y="282" class="dg-t">Ciempozuelos</text>
+<text x="514" y="300" class="dg-c">Doña Gabriela: «un hombre»</text>
+<text x="514" y="316" class="dg-c">opcional</text>
+<g filter="url(#dg-s)"><rect x="690" y="262" width="188" height="62" fill="#fbf9f3" stroke="#1b1a18" stroke-width="1.6" stroke-dasharray="6 4"/></g>
+<rect x="690" y="262" width="34" height="62" fill="#6c6a64"/>
+<text x="707" y="286" class="dg-n" text-anchor="middle" style="fill:#f6f3ec">6</text>
+<text x="734" y="282" class="dg-t">La Capilla</text>
+<text x="734" y="300" class="dg-c">Diario y Liber Ivonis</text>
+<text x="734" y="316" class="dg-c">opcional</text>
+<g filter="url(#dg-s)"><rect x="250" y="360" width="400" height="62" fill="#e9e4d6" stroke="#1b1a18" stroke-width="1.6" /></g>
+<rect x="250" y="360" width="34" height="62" fill="#1b1a18"/>
+<text x="267" y="384" class="dg-n" text-anchor="middle" style="fill:#f6f3ec">7</text>
+<text x="294" y="380" class="dg-t">El Palacio de Linares</text>
+<text x="294" y="398" class="dg-c">Diarios, el misal, la cama, el puñal, las ratas</text>
+<text x="294" y="414" class="dg-c">y el escondrijo · ~1 h 30 min</text>
+<path d="M450 78 Q304 99 157 120" class="dg-a"/>
+<path d="M450 78 Q450 99 450 120" class="dg-a"/>
+<path d="M450 78 Q596 99 743 120" class="dg-a"/>
+<path d="M743 198 Q656 230 570 262" class="dg-d"/>
+<path d="M743 198 Q764 230 784 262" class="dg-d"/>
+<path d="M157 182 Q164 286 250 391" class="dg-a"/>
+<path d="M450 198 Q450 279 450 360" class="dg-a"/>
+<path d="M570 324 Q640 358 650 391" class="dg-d"/>
+<path d="M784 324 Q777 358 650 391" class="dg-d"/>
+<text x="450" y="458" class="dg-c" text-anchor="middle" style="font-style:italic">Basta con dos de las paradas 2, 3 y 4. Las cajas de trazo son opcionales. Los jugadores pueden ir al palacio en cualquier momento.</text>
 </svg></figure>
   <div class="cols">
     <h4>Lo que deberían descubrir</h4>
     <ul class="vinetas">
-      <li><strong>Que el marqués no está en San Justo.</strong> Pidió ser enterrado en su casa (Ayuda 5), hubo pleito (Ayuda 6) y el diario de la Capilla dice que el ataúd del cementerio iba lleno de piedras.</li>
-      <li><strong>Que el marqués se trató con una secta.</strong> Su albacea era el capellán de la Capilla de la Contemplación (Ayuda 7), asaltada en 1912 por raptos de niños (Ayuda 8).</li>
+      <li><strong>Que el marqués no está en San Justo.</strong> Pidió ser enterrado en su casa y hubo pleito (Ayudas 5 y 6). El diario de la Capilla añade que el ataúd del cementerio iba lleno de piedras.</li>
+      <li><strong>Que el marqués se trató con una secta.</strong> Su albacea era el capellán de la Capilla de la Contemplación (Ayuda 6), asaltada en 1912 por raptos de niños (Ayuda 7).</li>
       <li><strong>Que lo que hay en la casa es un hombre.</strong> Lo dicen doña Gabriela y los dibujos de los niños; el rumor de Raimundita apunta en la dirección equivocada.</li>
-      <li><strong>Cómo acabar con él.</strong> «El diablo será vencido con sus propias armas»: el puñal del sótano.</li>
+      <li><strong>Cómo acabar con él.</strong> «El diablo será vencido con sus propias armas», escrito en el misal del dormitorio: el puñal del sótano.</li>
     </ul>
-    <h4>Ritmo recomendado</h4>
-    <p>Una sesión de tres o cuatro horas da para dos o tres localizaciones de investigación y el palacio entero. Si el grupo se atasca en las bibliotecas, que don Esteban les meta prisa; si va directo al palacio, deja que la casa les asuste y que encuentren los diarios en el trastero: ahí está casi todo lo que necesitan.</p>
+    <h4>Una sesión de tres horas</h4>
+    <table class="tabla">
+      <tr><th>Tiempo</th><th>Qué se juega</th></tr>
+      <tr><td>0:00-0:15</td><td>Reparto de pregenerados y el encargo (Localización 1)</td></tr>
+      <tr><td>0:15-1:15</td><td>Dos o tres de: El Imparcial, la Biblioteca, Ceferino; Ciempozuelos o la Capilla solo si van sobrados</td></tr>
+      <tr><td>1:15-2:00</td><td>El palacio: planta baja y planta principal, el ataque de la cama</td></tr>
+      <tr><td>2:00-2:50</td><td>El sótano: la escalera, el puñal, las ratas y el marqués</td></tr>
+      <tr><td>2:50-3:00</td><td>Conclusión, recompensas y epílogos</td></tr>
+    </table>
+    <p>Si a la hora de juego aún no han pisado el palacio, que don Esteban se presente con las llaves y prisa. Si van directos, deja que la casa les asuste y que encuentren los diarios en el trastero y el misal del dormitorio: ahí está casi todo lo que necesitan.</p>
     <div class="nota">
       <p>La «Hoja de control del Guardián», al final de la aventura, reúne los Puntos de Magia del marqués, las tiradas de Cordura y las tiradas clave de cada localización. Imprímela y tenla a mano durante la partida.</p>
     </div>
@@ -843,7 +856,14 @@ table.anotar td{height:1.9em}
       <p>Galerada de <em>El Imparcial</em>, de este mismo año, con una crónica que nunca llegó a publicarse. Cuenta que en 1903, recién muerto el marqués, la familia de un secretario de la Embajada de Francia alquiló el palacio, pero lo dejó tras una serie de accidentes violentos que costaron la vida a los padres y dejaron impedidos a los niños. El palacio estuvo cerrado mucho tiempo.</p>
       <p>En 1909 se instaló allí la familia de un naviero bilbaíno, y sus miembros no tardaron en caer enfermos. En 1914 el hijo mayor perdió el juicio y se quitó la vida con un cuchillo de cocina, y la familia, deshecha, se marchó. En 1918 una tercera familia, los Montalvo, alquiló el palacio, y hace unas semanas lo ha abandonado en circunstancias misteriosas.</p>
     </div>
-    <p>Si un investigador coquetea o hace buenas migas con Rosario Blanco (no hace falta tirar; la información no es crucial), ella le comentará que el archivo empieza en 1867, el año en que se fundó el periódico. Si alguien escribió sobre el solar del Pósito antes de esa fecha, aquí no hay nada. También le dirá, bajando la voz, que la crónica no salió porque «alguien de arriba» llamó a la redacción esa misma noche.</p>
+    <p>Si un investigador se interesa por Rosario Blanco o le pregunta por qué no salió la crónica (no hace falta tirar), ella bajará la voz: «alguien de arriba» llamó a la redacción esa misma noche, igual que en 1912. Entonces sacará de un cajón la carpeta de lo que nunca se publicó y les dejará leer la copia de un atestado que un reportero consiguió aquel año. Entrega la Ayuda de juego 7.</p>
+    <div class="ayuda maquina">
+      <span class="rot">Ayuda de juego 7</span>
+      <p style="text-align:center;letter-spacing:.08em">DIRECCIÓN GENERAL DE SEGURIDAD<br>— RESERVADO —</p>
+      <p>El atestado describe una operación reservada contra la Capilla de la Contemplación, en los tejares que hay detrás del Retiro. La motivaron varias denuncias juradas que acusaban a los fieles de la capilla de la desaparición de algunos niños del barrio. Durante el asalto murieron tres guardias de Seguridad y diecisiete miembros de la secta, por los disparos o por el fuego. Los informes de las autopsias son extrañamente vagos, como si el forense no hubiera llegado a examinar los cuerpos.</p>
+      <p>Aunque se detuvo a cincuenta y cuatro miembros de la secta, todos menos ocho quedaron en libertad. Los informes dan a entender que un alto cargo intervino de forma irregular en el sumario, lo que explicaría que los periódicos no publicaran una sola línea sobre la operación, la mayor que ha visto Madrid.</p>
+      <p>El capellán, don Miguel Tomé, fue detenido y condenado a cadena perpetua por cinco asesinatos. En agosto de 1917, aprovechando los motines de los días de la huelga general, se fugó del penal de Ocaña y se le perdió la pista.</p>
+    </div>
   </div>
   <span class="folio">3</span>
 </section>
@@ -852,8 +872,9 @@ table.anotar td{height:1.9em}
 <section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU">
   <div class="cols">
     <h3 class="loc" id="loc3">Localización 3: La Biblioteca Nacional</h3>
-    <p>La Biblioteca Nacional ocupa desde 1896 el gran Palacio de Biblioteca y Museos del paseo de Recoletos, a cinco minutos a pie del Palacio de Linares. En su sala de lectura se guardan, bien custodiados, varios documentos interesantes. Por cada media jornada que pasen investigando en la biblioteca, pide a cada jugador una tirada de <strong>Buscar libros</strong> (tienen que sacar un resultado igual o menor que su puntuación en esa habilidad con 1D100). Si fallan, no hace falta forzar la tirada: pueden volver a intentarlo tantas veces como quieran, pero cada intento les cuesta otra media jornada. Si la investigación se alarga más de un día, haz que don Esteban Nogales les mande recado para preguntar cómo van y meterles prisa; al fin y al cabo, el tiempo es oro.</p>
-    <p>Entrégales una de las siguientes ayudas de juego por cada éxito, por este orden.</p>
+    <p>La Biblioteca Nacional ocupa desde 1896 el gran Palacio de Biblioteca y Museos del paseo de Recoletos, a cinco minutos a pie del Palacio de Linares. En su sala de lectura, entre la prensa encuadernada y las memorias del Ayuntamiento, está todo lo que se publicó sobre el marqués y sus pleitos.</p>
+    <p>Pide una sola tirada de <strong>Buscar libros</strong> al investigador que dirija la búsqueda (los demás pueden ayudarle: si alguno tiene la habilidad al 50% o más, da un dado de bonificación). Una tarde de trabajo basta. Si fallan, pueden forzar la tirada quedándose hasta el cierre. Si también fallan la forzada, encuentran los papeles igualmente, pero se les echa la noche encima y don Esteban, impaciente, les espera a la salida: tendrán que ir al palacio esa misma noche y a oscuras.</p>
+    <p>Con un éxito, entrégales juntas las Ayudas de juego 3 a 6.</p>
     <div class="ayuda">
       <span class="rot">Ayuda de juego 3</span>
       <p>En 1872, don José de Murga y Reolid, que al año siguiente recibiría de Amadeo I el título de marqués de Linares, compró al Ayuntamiento el solar del antiguo Pósito, el granero de la villa. Las obras empezaron en 1877. Los marqueses se mudaron al palacio en 1884, aunque no se dio por terminado hasta 1900. Una crónica de la obra señala que el marqués mandó conservar bajo los cimientos los viejos silos del Pósito.</p>
@@ -868,19 +889,12 @@ table.anotar td{height:1.9em}
     </div>
     <div class="ayuda">
       <span class="rot">Ayuda de juego 6</span>
-      <p>No consta cómo terminó el segundo pleito. Las crónicas de sociedad solo dicen que el féretro salió del palacio camino de la Sacramental de San Justo.</p>
+      <p>No consta cómo terminó el segundo pleito. Las crónicas de sociedad solo dicen que el féretro salió del palacio camino de la Sacramental de San Justo, y que presidió el duelo el albacea del marqués, el presbítero don Miguel Tomé, capellán de la Capilla de la Contemplación e Iglesia de Nuestro Señor Dador de Secretos. Una nota posterior de la Memoria del Obispado de Madrid-Alcalá recoge que esa capilla fue clausurada en 1912.</p>
     </div>
     <div class="nota">
       <p>El ataúd que se enterró en San Justo iba lleno de piedras. La familia ganó el pleito por la vía discreta: un auto que nunca se publicó permitió dar sepultura al marqués «en la capilla de su casa», y los fieles de la Capilla de la Contemplación lo bajaron de noche a las galerías del sótano. Para salvar las apariencias se celebró un entierro público, y en 1918, cuando «los restos» se trasladaron a la cripta del hospital que fundaron los marqueses, nadie abrió el ataúd. Si los investigadores consiguen que se abra ese ataúd, tendrán una prueba excelente y un problema con la Justicia; no es necesario para resolver la aventura.</p>
     </div>
 
-    <h3 class="loc" id="loc4">Localización 4: El Archivo de Villa</h3>
-    <p>En la Casa de la Villa, en la plaza del mismo nombre, el Ayuntamiento guarda sus expedientes, sus pleitos y sus padrones. Pide una tirada de <strong>Buscar libros</strong>. Si la superan, entrega a los jugadores la Ayuda de juego 7. Usa las mismas indicaciones que en la Biblioteca Nacional.</p>
-    <div class="ayuda">
-      <span class="rot">Ayuda de juego 7</span>
-      <p>Las actas del pleito municipal muestran que el albacea testamentario del marqués de Linares fue el presbítero don Miguel Tomé, capellán de la Capilla de la Contemplación e Iglesia de Nuestro Señor Dador de Secretos. Un oficio del Obispado de Madrid-Alcalá, unido al expediente, deja constancia de que la Capilla de la Contemplación fue clausurada en 1912.</p>
-    </div>
-    <p>Si a los investigadores se les ocurre buscar la Capilla de la Contemplación en los libros de la Policía municipal, encontrarán referencias a ciertas actuaciones de 1912, pero los expedientes no están aquí. Si han tratado bien al oficial del archivo, este les explicará que los delitos graves pasan a la Audiencia, y que los atestados de los agentes que participaron en las detenciones y registros se archivan en la Dirección General de Seguridad, en el Ministerio de la Gobernación de la Puerta del Sol. Se puede obtener la misma información con una tirada de <strong>Derecho</strong>.</p>
   </div>
   <span class="folio">4</span>
 </section>
@@ -888,24 +902,7 @@ table.anotar td{height:1.9em}
 <!-- ============================================================ HOJA 4 -->
 <section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES">
   <div class="cols">
-    <h3 class="loc" id="loc5">Localización 5: La Audiencia y la Dirección General de Seguridad</h3>
-    <p>Desde el incendio que arrasó el palacio de las Salesas en 1915, la Audiencia despacha en dependencias provisionales, entre cajas de legajos medio chamuscados. En la Puerta del Sol, los atestados de la Policía se guardan bajo llave. Llegar hasta esos papeles será difícil, y exigirá que al menos un jugador supere una tirada de habilidad. Pueden usar una de estas:</p>
-    <ul class="vinetas">
-      <li><strong>Derecho:</strong> para establecer que el investigador tiene un conocido en la Audiencia que puede abrirles la puerta. Si falla, el jugador puede pedir forzar la tirada de Derecho para conseguir un contacto. En ese caso, haz tú la tirada en secreto por el jugador y no le digas el resultado. Pase lo que pase, el investigador conocerá a Carmen Bruno, oficial de la secretaría de la Audiencia. Si la tirada tiene éxito, Carmen será amable y les dejará ver el expediente (Ayuda de juego 8). Si falla, Carmen no tendrá escrúpulos: les pedirá una «gratificación», no cumplirá su parte y después jurará que no los ha visto en su vida.</li>
-      <li><strong>Crédito:</strong> si el jugador supera la tirada y su investigador tiene Crédito 75 o más, impresiona al funcionario lo bastante como para que le deje pasar.</li>
-      <li><strong>Persuasión:</strong> el jugador debería dar una buena razón para que les dejen consultar los papeles.</li>
-      <li><strong>Encanto:</strong> una mirada lánguida y un poco de conversación pueden abrirle la puerta a un investigador coqueto.</li>
-      <li><strong>Charlatanería:</strong> quizá enseñando de pasada una credencial falsa, maniobra arriesgada en pleno Ministerio de la Gobernación. Si la tirada tiene éxito, entrega al jugador la Ayuda de juego 8.</li>
-    </ul>
-    <div class="ayuda maquina">
-      <span class="rot">Ayuda de juego 8</span>
-      <p>El atestado describe una operación reservada contra la Capilla de la Contemplación, en los tejares que hay detrás del Retiro. La motivaron varias denuncias juradas que acusaban a los fieles de la capilla de la desaparición de algunos niños del barrio. Durante el asalto murieron tres guardias de Seguridad y diecisiete miembros de la secta, por los disparos o por el fuego. Los informes de las autopsias son extrañamente vagos, como si el forense no hubiera llegado a examinar los cuerpos.</p>
-      <p>Aunque se detuvo a cincuenta y cuatro miembros de la secta, todos menos ocho quedaron en libertad. Los informes dan a entender que un alto cargo intervino de forma irregular en el sumario, lo que explicaría que los periódicos no publicaran una sola línea sobre la operación, la mayor que ha visto Madrid.</p>
-      <p>El capellán, don Miguel Tomé, fue detenido y condenado a cadena perpetua por cinco asesinatos. En agosto de 1917, aprovechando los motines de los días de la huelga general, se fugó del penal de Ocaña y se le perdió la pista.</p>
-    </div>
-    <p>Si los jugadores fallan, pregúntales si quieren redoblar sus esfuerzos. Tendrán que justificar la tirada forzada. Si usan Crédito, Persuasión o Encanto, corren el riesgo de pasarse de la raya, con consecuencias como ofender a quien no deben y ganarse la antipatía de la Policía (y quizá una reprimenda o una advertencia).</p>
-
-    <h3 class="loc" id="loc6">Localización 6: El vecindario</h3>
+    <h3 class="loc" id="loc4">Localización 4: El vecindario</h3>
     <p>De quienes vivían en el barrio antes de la guerra europea, casi todos se han mudado o han muerto. El paseo de Recoletos y la calle de Alcalá se han llenado de bancos, ministerios y casinos. Al otro lado de Alcalá se alza la mole blanca y recién estrenada del Palacio de Comunicaciones, y enfrente, el Banco de España. Entre todos ellos, el Palacio de Linares, con su jardín cubierto de maleza tras la verja, es la única casa particular de toda la plaza. Si los investigadores hacen preguntas por los alrededores, acabarán dando con Ceferino, el sereno del barrio, un asturiano que lleva treinta años cantando las horas en Cibeles y lo sabe todo de todos.</p>
 
     <div class="dados">
@@ -935,17 +932,23 @@ table.anotar td{height:1.9em}
 <!-- ============================================================ HOJA 5 -->
 <section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU">
   <div class="cols">
-    <h3 class="loc" id="loc7">Localización 7: Los manicomios de Ciempozuelos</h3>
+    <h3 class="loc" id="loc5">Localización 5: Los manicomios de Ciempozuelos <span class="opcional">opcional</span></h3>
+    <div class="nota">
+      <p>Esta localización es opcional. Su pista más importante, la frase de don Vicente, también está escrita en el misal del dormitorio de los Montalvo, en el palacio. Juégala si el grupo quiere hablar con los Montalvo o si os sobra tiempo. Con el doctor Ortega en el grupo, la visita es inmediata: él mismo trató a doña Gabriela.</p>
+    </div>
     <p>Ciempozuelos es un pueblo de la vega del Jarama, a una hora larga de tren por la línea de Aranjuez. Allí tienen sus manicomios los Hermanos de San Juan de Dios, para hombres, y las Hermanas Hospitalarias, para mujeres, separados por unos cientos de pasos de tierra y olivar.</p>
     <p>Si los jugadores deciden ir, descubrirán que don Vicente Montalvo está completamente trastornado. Aprieta un misal contra el pecho. En algún momento puede abrirlo por cualquier página (tú decides cuál), señalar un versículo y fingir que lo lee: «¡El diablo será vencido con sus propias armas!». No es una cita auténtica de las Escrituras, pero sí una pista útil: si se acuerdan de ella más adelante, un jugador atento podría darse cuenta de que el marqués puede morir atravesado por su propio puñal. No lo subrayes; deja que sean los jugadores quienes reparen en ella, o no. No se puede sacar nada más de don Vicente.</p>
     <p>Doña Gabriela Montalvo está lúcida y se puede hablar con ella. Contará que en su casa vivía una presencia maligna. Algunas noches, al despertar, la encontraba inclinada sobre ella: un hombre, nada de una niña, por mucho que dijeran en el barrio. Cuando se enfurecía, aquella cosa podía hacer volar los platos y otros objetos por la habitación. A quien más odiaba era a su marido, y contra él dirigía casi toda su rabia.</p>
     <p>El Guardián puede responder a más preguntas, pero doña Gabriela no sabrá dar detalles más concretos. Termina pronto la entrevista: las preguntas de los investigadores la alteran mucho, y la hermana que los acompaña acabará pidiéndoles que se marchen.</p>
     <p>Los dos hijos pequeños de los Montalvo viven con unos tíos en Santander. Los investigadores pueden visitarlos, pero lo único que saben es que echan de menos a sus padres y que en el palacio tenían pesadillas con un señor viejo y raro, con los ojos de lumbre.</p>
 
-    <h3 class="loc" id="loc8">Localización 8: La Capilla de la Contemplación</h3>
+    <h3 class="loc" id="loc6">Localización 6: La Capilla de la Contemplación <span class="opcional">opcional</span></h3>
+    <div class="nota">
+      <p>También es opcional. Sirve para ver la secta con los propios ojos y para descubrir lo del ataúd lleno de piedras, pero lo esencial ya está en las Ayudas 5 y 6. Si vais justos de tiempo, que Ceferino o el agente Rubio cuenten que allí solo quedan escombros, y pasad al palacio.</p>
+    </div>
     <p>Lee lo siguiente a los jugadores:</p>
     <div class="leer"><p>Los restos de la vieja capilla están al final de una calleja sucia y retorcida, entre los hornos apagados de los tejares que se extienden detrás del Retiro. Las ruinas han sufrido tanto la intemperie y están tan comidas por las zarzas que los escombros grises parecen más piedra del terreno que muros y cimientos. Pasáis junto a una pared inclinada en la que alguien ha pintado con cal unos símbolos que parecen recientes: tres letras «Y» dispuestas en triángulo, de modo que los brazos de cada una tocan a las otras dos. Entre las tres rodean un ojo que mira fijamente.</p></div>
-    <p>La Ayuda de juego 9 reproduce este símbolo. Enséñasela a los jugadores.</p>
+    <p>La Ayuda de juego 8 reproduce este símbolo. Enséñasela a los jugadores.</p>
     <figure style="max-width:11rem;margin:.6rem auto 1rem"><svg viewBox="0 0 240 240" role="img" aria-label="Tres letras Y dispuestas en triángulo, tocándose por los brazos, alrededor de un ojo abierto, pintadas con cal sobre piedra.">
 <defs>
 <filter id="sim0-cal" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
@@ -958,7 +961,7 @@ table.anotar td{height:1.9em}
 <path d="M108,122 Q120,112 132,122 Q120,132 108,122 Z" stroke-width="3.5"/>
 <circle cx="120" cy="122" r="3.8" fill="#f1eee6" stroke="none"/>
 </g>
-</svg><figcaption style="text-align:center">Ayuda de juego 9</figcaption></figure>
+</svg><figcaption style="text-align:center">Ayuda de juego 8</figcaption></figure>
     <p>Cuando los investigadores se acerquen a los símbolos, describe con sutileza cómo empiezan a notar un cosquilleo en la frente, parecido a un dolor de cabeza pero no del todo igual. La molestia desaparece en cuanto se alejan.</p>
     <p>Anima a los jugadores a explorar las ruinas; describe la escena y pregúntales qué hacen. Dentro de la capilla encontrarán sobre todo sillares de granito, vigas a medio quemar y basura vieja. En algún momento deberían darse cuenta de que la tierra que pisan cubre unos tablones podridos. Pide una tirada de <strong>Suerte</strong>; quienes la fallen deberán hacer una tirada de <strong>Saltar</strong> para apartarse a tiempo, o caerán cuando ceda el suelo. Hay tres metros hasta el sótano.</p>
     <ul class="vinetas">
@@ -1072,7 +1075,7 @@ table.anotar td{height:1.9em}
 <rect width="900" height="470" filter="url(#iagrano)" opacity=".9"/><rect width="900" height="470" filter="url(#iacarbon)" opacity=".5"/><rect x="2" y="2" width="896" height="466" fill="none" stroke="#141312" stroke-width="5" filter="url(#iatosco)"/>
 </svg></figure>
   <div class="cols">
-    <h3 class="loc" id="loc9">Localización 9: El Palacio de Linares</h3>
+    <h3 class="loc" id="loc7">Localización 7: El Palacio de Linares</h3>
     <p>Lee lo siguiente a los jugadores:</p>
     <div class="leer"><p>El palacio ocupa la esquina del paseo de Recoletos con la calle de Alcalá, detrás de una verja de hierro y de un jardín invadido por la maleza. Es un edificio enorme, de piedra clara ennegrecida por el humo de los tranvías, con torreones de pizarra en las esquinas y la fachada principal mirando a la Cibeles. Las dependencias de servicio y la cochera dan al jardín de atrás, al que se llega por dos portillos laterales; uno de ellos cuelga de una sola bisagra.</p></div>
     <p>Quien lo observe con atención notará que el palacio parece encogerse a la sombra de los edificios nuevos que lo rodean, sobre todo del Palacio de Comunicaciones, y que tiene todas las persianas echadas y las cortinas corridas, de modo que no se ve nada del interior.</p>
@@ -1242,7 +1245,8 @@ table.anotar td{height:1.9em}
 
     <h3 class="cap">Planta principal</h3>
     <h4 class="sala"><b>Habitación 1,</b> Dormitorio principal</h4>
-    <div class="leer"><p>Un dormitorio corriente, con una cama de matrimonio, una librería y un balcón que da a la plaza de Cibeles. Parece el cuarto de don Vicente y doña Gabriela. Aquí hay más crucifijos y muchas velas, y sobre una de las mesillas de noche descansan un rosario y un devocionario.</p></div>
+    <div class="leer"><p>Un dormitorio corriente, con una cama de matrimonio, una librería y un balcón que da a la plaza de Cibeles. Parece el cuarto de don Vicente y doña Gabriela. Aquí hay más crucifijos y muchas velas, y sobre una de las mesillas de noche descansan un rosario y un misal abierto. En el margen, con letra temblorosa, alguien ha escrito: «¡El diablo será vencido con sus propias armas!».</p></div>
+    <p>Lo escribió don Vicente antes de que se lo llevaran. Es la misma pista que da en Ciempozuelos: el marqués puede morir atravesado por su propio puñal. No la subrayes.</p>
 
     <h4 class="sala"><b>Habitación 2,</b> Dormitorio de los niños</h4>
     <div class="leer"><p>Esta habitación tiene dos camas pequeñas, juguetes y cómodas. Los dibujos de aeroplanos y de toreros clavados en la pared dejan claro que era el cuarto de los niños. En el papel pintado, a la altura de un crío, alguien ha dibujado con lápices de cera un hombre muy alto y muy flaco, con dos redondeles amarillos en lugar de ojos.</p></div>
@@ -2636,6 +2640,52 @@ table.anotar td{height:1.9em}
   <span class="folio">15</span>
 </section>
 
+<!-- ============================================================ PREGENERADOS -->
+<section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES" id="pregenerados">
+  <h3 class="cap" style="margin-top:.2rem">Investigadores pregenerados</h3>
+  <p>Cuatro madrileños de 1920 con un motivo para meterse en el palacio. Repártelos al empezar, lee a cada jugador su párrafo «En esta historia» y que se presenten entre ellos en una frase. Las habilidades que no aparecen están a su valor base.</p>
+  <div class="pregens">
+    <div class="pregen">
+      <p class="pg-nombre">Ramón Valcárcel</p>
+      <p class="pg-oficio">Reportero de <em>El Heraldo de Madrid</em>, 32 años</p>
+      <p class="pg-retrato">Lengua rápida, sombrero ladeado y una libreta siempre a medio llenar. Sueña con la exclusiva que le saque de la sección de sucesos.</p>
+      <p class="pg-gancho"><b>En esta historia:</b> En 1918 escribió sobre la leyenda de Raimundita y no le publicaron una línea. Don Esteban leyó el borrador y lo ha buscado. Don Arturo Villegas, de <em>El Imparcial</em>, le tiene ojeriza: dado de penalización con él, salvo que otro lleve la conversación.</p>
+      <table class="carac"><tr><td><b>FUE</b> 50</td><td><b>CON</b> 60</td><td><b>TAM</b> 65</td><td><b>DES</b> 60</td></tr><tr><td><b>APA</b> 60</td><td><b>INT</b> 70</td><td><b>POD</b> 55</td><td><b>EDU</b> 75</td></tr></table>
+      <p class="pg-der"><b>PV</b> 12 &middot; <b>PM</b> 11 &middot; <b>COR</b> 55 &middot; <b>Suerte</b> 50 &middot; <b>MOV</b> 7 &middot; <b>BD</b> 0 &middot; <b>Corp.</b> 0</p>
+      <p class="pg-hab"><b>Habilidades:</b> Buscar libros 60%, Charlatanería 55%, Crédito 25%, Descubrir 55%, Escuchar 50%, Fotografía 45%, Historia 40%, Persuasión 45%, Psicología 50%, Otras lenguas (Francés) 30%, Conducir automóvil 30%, Esquivar 30%, Combatir (Pelea) 25%, Armas de fuego (Arma corta) 20%. El resto, a su valor base.</p>
+      <p class="pg-hab"><b>Equipo:</b> cámara de cajón, libreta, linterna eléctrica, una petaca de coñac.</p>
+    </div><div class="pregen">
+      <p class="pg-nombre">Elena Arrieta</p>
+      <p class="pg-oficio">Estudiante de Ciencias, interna en la Residencia de Señoritas, 23 años</p>
+      <p class="pg-retrato">Sobrina de don Esteban. Lee latín con soltura, discute con todo el mundo y no cree en fantasmas, todavía.</p>
+      <p class="pg-gancho"><b>En esta historia:</b> Su tío le ha pedido que acompañe al grupo «para que alguien de la familia esté presente». Puede leer el <em>Liber Ivonis</em> sin tirada (Latín 50%).</p>
+      <table class="carac"><tr><td><b>FUE</b> 45</td><td><b>CON</b> 55</td><td><b>TAM</b> 50</td><td><b>DES</b> 70</td></tr><tr><td><b>APA</b> 65</td><td><b>INT</b> 80</td><td><b>POD</b> 65</td><td><b>EDU</b> 70</td></tr></table>
+      <p class="pg-der"><b>PV</b> 10 &middot; <b>PM</b> 13 &middot; <b>COR</b> 65 &middot; <b>Suerte</b> 60 &middot; <b>MOV</b> 8 &middot; <b>BD</b> 0 &middot; <b>Corp.</b> 0</p>
+      <p class="pg-hab"><b>Habilidades:</b> Buscar libros 70%, Ciencias (Química) 50%, Otras lenguas (Latín) 50%, Otras lenguas (Inglés) 45%, Descubrir 60%, Encanto 45%, Primeros auxilios 45%, Historia 35%, Psicología 35%, Saltar 40%, Crédito 20%, Esquivar 45%, Combatir (Pelea) 25%. El resto, a su valor base.</p>
+      <p class="pg-hab"><b>Equipo:</b> bolso con cuaderno de laboratorio, cerillas, velas, una lupa.</p>
+    </div><div class="pregen">
+      <p class="pg-nombre">Doctor Julián Ortega</p>
+      <p class="pg-oficio">Médico de la Beneficencia municipal, 45 años</p>
+      <p class="pg-retrato">Viudo, cansado y meticuloso. Ha visto morir a mucha gente en las casas de vecindad del sur de Madrid y no se asusta con facilidad.</p>
+      <p class="pg-gancho"><b>En esta historia:</b> Atendió a doña Gabriela Montalvo antes de que la internaran en Ciempozuelos, y ella le habló de «un hombre» que se inclinaba sobre su cama. Las monjas le dejan pasar sin preguntas.</p>
+      <table class="carac"><tr><td><b>FUE</b> 55</td><td><b>CON</b> 60</td><td><b>TAM</b> 70</td><td><b>DES</b> 50</td></tr><tr><td><b>APA</b> 50</td><td><b>INT</b> 75</td><td><b>POD</b> 60</td><td><b>EDU</b> 85</td></tr></table>
+      <p class="pg-der"><b>PV</b> 13 &middot; <b>PM</b> 12 &middot; <b>COR</b> 60 &middot; <b>Suerte</b> 45 &middot; <b>MOV</b> 6 &middot; <b>BD</b> +1D4 &middot; <b>Corp.</b> 1</p>
+      <p class="pg-hab"><b>Habilidades:</b> Medicina 65%, Primeros auxilios 65%, Otras lenguas (Latín) 55%, Ciencias (Farmacia) 45%, Ciencias (Biología) 40%, Psicología 50%, Persuasión 40%, Crédito 45%, Buscar libros 45%, Descubrir 40%, Conducir automóvil 25%, Esquivar 25%, Combatir (Pelea) 30%. El resto, a su valor base.</p>
+      <p class="pg-hab"><b>Equipo:</b> maletín de médico (vendas, láudano, bisturí), un Ford T de segunda mano.</p>
+    </div><div class="pregen">
+      <p class="pg-nombre">Anselmo Rubio</p>
+      <p class="pg-oficio">Agente retirado del Cuerpo de Vigilancia, 52 años</p>
+      <p class="pg-retrato">Grandullón, bigote gris y un abrigo que ha conocido tiempos mejores. Dejó el Cuerpo con una pensión corta y muchas preguntas sin contestar.</p>
+      <p class="pg-gancho"><b>En esta historia:</b> Fue uno de los guardias que asaltaron la Capilla de la Contemplación en 1912 y nunca ha contado lo que vio en el sótano. Conoce a Ceferino de toda la vida: con él no hace falta tirar.</p>
+      <table class="carac"><tr><td><b>FUE</b> 70</td><td><b>CON</b> 65</td><td><b>TAM</b> 75</td><td><b>DES</b> 55</td></tr><tr><td><b>APA</b> 45</td><td><b>INT</b> 60</td><td><b>POD</b> 50</td><td><b>EDU</b> 55</td></tr></table>
+      <p class="pg-der"><b>PV</b> 14 &middot; <b>PM</b> 10 &middot; <b>COR</b> 50 &middot; <b>Suerte</b> 55 &middot; <b>MOV</b> 5 &middot; <b>BD</b> +1D4 &middot; <b>Corp.</b> 1</p>
+      <p class="pg-hab"><b>Habilidades:</b> Combatir (Pelea) 65%, Armas de fuego (Arma corta) 55%, Descubrir 60%, Escuchar 50%, Intimidar 55%, Psicología 45%, Derecho 35%, Cerrajería 35%, Sigilo 35%, Crédito 30%, Conducir automóvil 20%, Esquivar 30%. El resto, a su valor base.</p>
+      <p class="pg-hab"><b>Equipo:</b> revólver Smith &amp; Wesson del 38 (1D10, 6 balas y una caja), porra, farol de aceite, una palanca.</p>
+    </div>
+  </div>
+  <span class="folio">16</span>
+</section>
+
 <!-- ============================================================ CONTROL -->
 <section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU" id="control">
   <h3 class="cap" style="margin-top:.2rem">Hoja de control del Guardián</h3>
@@ -2672,10 +2722,8 @@ table.anotar td{height:1.9em}
       <h4>Tiradas clave</h4>
       <table class="tabla">
         <tr><th>Dónde</th><th>Tirada</th><th>Si sale bien</th></tr>
-        <tr><td>El Imparcial</td><td>Encanto, Intimidar, Persuasión o Charlatanería (Normal)</td><td>Ayuda 2</td></tr>
-        <tr><td>Biblioteca</td><td>Buscar libros, medio día</td><td>Ayudas 3-6</td></tr>
-        <tr><td>Archivo de Villa</td><td>Buscar libros</td><td>Ayuda 7</td></tr>
-        <tr><td>Audiencia / DGS</td><td>Derecho, Crédito 75+, Persuasión, Encanto, Charlatanería</td><td>Ayuda 8</td></tr>
+        <tr><td>El Imparcial</td><td>Encanto, Intimidar, Persuasión o Charlatanería (Normal)</td><td>Ayuda 2; Rosario, Ayuda 7</td></tr>
+        <tr><td>Biblioteca</td><td>Buscar libros, una tirada (forzarla cuesta la tarde)</td><td>Ayudas 3-6</td></tr>
         <tr><td>Ceferino</td><td>APA o Crédito</td><td>Habla</td></tr>
         <tr><td>Capilla</td><td>Suerte, luego Saltar (caída 1D6); Descubrir</td><td>Diario y libro</td></tr>
         <tr><td>Escalera del sótano</td><td>DES o Trepar (combinada)</td><td>Bajan; si no, 1D6</td></tr>
@@ -2695,7 +2743,7 @@ table.anotar td{height:1.9em}
       </table>
     </div>
   </div>
-  <span class="folio">16</span>
+  <span class="folio">17</span>
 </section>
 
 <!-- ============================================================ AYUDAS -->
@@ -2706,7 +2754,7 @@ table.anotar td{height:1.9em}
     <div class="ayuda maquina">
       <span class="rot">Ayuda de juego 1</span>
       <p>Don Esteban Nogales, propietario, os pide que examinéis un viejo palacio que acaba de heredar en la plaza de Cibeles, conocido en todo Madrid como el Palacio de Linares. Los últimos inquilinos, la familia Montalvo, se vieron envueltos en una tragedia, y el propietario quiere entender lo que ocurrió allí y aclarar las cosas. Desde entonces no ha conseguido alquilar la casa, y espera que vosotros podáis explicar lo sucedido y devolverle el buen nombre. Os ofrece una compensación por vuestro tiempo y vuestras molestias, y os entrega las llaves, unas señas y ciento cincuenta pesetas en billetes como adelanto.</p>
-      <p>Como buenos profesionales, querréis hacer algunas averiguaciones antes de presentaros en el palacio. Podéis consultar los números atrasados en la redacción de <em>El Imparcial</em>, acercaros a la Biblioteca Nacional o pasar por el Archivo de Villa.</p>
+      <p>Como buenos profesionales, querréis hacer algunas averiguaciones antes de presentaros en el palacio. Podéis consultar los números atrasados en la redacción de <em>El Imparcial</em> o acercaros a la Biblioteca Nacional; y en el barrio siempre hay quien sabe cosas.</p>
       <p>La decisión es vuestra.</p>
     </div>
 
@@ -2742,10 +2790,10 @@ table.anotar td{height:1.9em}
 
     <div class="ayuda">
       <span class="rot">Ayuda de juego 6</span>
-      <p>No consta cómo terminó el segundo pleito. Las crónicas de sociedad solo dicen que el féretro salió del palacio camino de la Sacramental de San Justo.</p>
+      <p>No consta cómo terminó el segundo pleito. Las crónicas de sociedad solo dicen que el féretro salió del palacio camino de la Sacramental de San Justo, y que presidió el duelo el albacea del marqués, el presbítero don Miguel Tomé, capellán de la Capilla de la Contemplación e Iglesia de Nuestro Señor Dador de Secretos. Una nota posterior de la Memoria del Obispado de Madrid-Alcalá recoge que esa capilla fue clausurada en 1912.</p>
     </div>
   </div>
-  <span class="folio">17</span>
+  <span class="folio">18</span>
 </section>
 
 <section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES">
@@ -2753,11 +2801,6 @@ table.anotar td{height:1.9em}
   <div class="cols">
     <div class="ayuda maquina">
       <span class="rot">Ayuda de juego 7</span>
-      <p>Las actas del pleito municipal muestran que el albacea testamentario del marqués de Linares fue el presbítero don Miguel Tomé, capellán de la Capilla de la Contemplación e Iglesia de Nuestro Señor Dador de Secretos. Un oficio del Obispado de Madrid-Alcalá, unido al expediente, deja constancia de que la Capilla de la Contemplación fue clausurada en 1912.</p>
-    </div>
-
-    <div class="ayuda maquina">
-      <span class="rot">Ayuda de juego 8</span>
       <p style="text-align:center;letter-spacing:.08em">DIRECCIÓN GENERAL DE SEGURIDAD<br>— RESERVADO —</p>
       <p>El atestado describe una operación reservada contra la Capilla de la Contemplación, en los tejares que hay detrás del Retiro. La motivaron varias denuncias juradas que acusaban a los fieles de la capilla de la desaparición de algunos niños del barrio. Durante el asalto murieron tres guardias de Seguridad y diecisiete miembros de la secta, por los disparos o por el fuego. Los informes de las autopsias son extrañamente vagos, como si el forense no hubiera llegado a examinar los cuerpos.</p>
       <p>Aunque se detuvo a cincuenta y cuatro miembros de la secta, todos menos ocho quedaron en libertad. Los informes dan a entender que un alto cargo intervino de forma irregular en el sumario, lo que explicaría que los periódicos no publicaran una sola línea sobre la operación, la mayor que ha visto Madrid.</p>
@@ -2765,7 +2808,7 @@ table.anotar td{height:1.9em}
     </div>
 
     <div class="ayuda" style="text-align:center">
-      <span class="rot">Ayuda de juego 9</span>
+      <span class="rot">Ayuda de juego 8</span>
       <div style="max-width:15rem;margin:.4rem auto .2rem"><svg viewBox="0 0 240 240" role="img" aria-label="Tres letras Y dispuestas en triángulo, tocándose por los brazos, alrededor de un ojo abierto, pintadas con cal sobre piedra.">
 <defs>
 <filter id="sim1-cal" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
@@ -2787,7 +2830,7 @@ table.anotar td{height:1.9em}
     <p><em>La llamada de Cthulhu</em> es una marca registrada de Chaosium Inc. Este material es una creación de aficionados, gratuita y sin ánimo de lucro, no publicada ni avalada por Chaosium Inc. ni por Edge Entertainment. Para jugarla necesitas las reglas de inicio rápido o el <em>Manual del Guardián</em>, que puedes conseguir en <a href="https://www.chaosium.com/">chaosium.com</a>.</p>
     <p>Adaptación y maquetación: rpg.nephei.org, 2026.</p>
   </div>
-  <span class="folio">18</span>
+  <span class="folio">19</span>
 </section>
 
 
