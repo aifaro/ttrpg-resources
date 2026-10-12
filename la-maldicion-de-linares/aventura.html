@@ -1,0 +1,1404 @@
+<!doctype html>
+<html lang="es">
+<head>
+<!-- El worker de rpg.nephei.org inserta twine-theme.css delante del primer cierre de head que encuentra en el fichero. Este comentario contiene ese primer cierre: </head> — así la inserción cae aquí dentro y no se aplica. No borrar. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La maldición del Palacio de Linares</title>
+<meta name="description" content="Adaptación de «La maldición de la Casa Corbitt» (La llamada de Cthulhu, 7.ª ed.) al Madrid de 1920: el palacio de los marqueses de Linares, en la plaza de Cibeles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Alegreya:wght@700;800;900&family=Alegreya+SC:wght@700;800&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500&family=Alegreya+Sans+SC:wght@500;700&family=Zilla+Slab:wght@600;700&family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=UnifrakturMaguntia&display=swap">
+<style>
+/* =====================================================================
+   La maldición del Palacio de Linares
+   Maquetación inspirada en las Reglas de inicio rápido de La llamada
+   de Cthulhu (7.ª ed.): hojas a dos columnas, notas para el Guardián
+   en gris, textos para leer en voz alta en cursiva, ayudas de juego
+   a máquina de escribir.
+   ===================================================================== */
+:root{
+  --mesa:#2c2b28;
+  --hoja:#f6f3ec;
+  --hoja-borde:#d9d4c8;
+  --tinta:#1b1a18;
+  --tinta-2:#3a3833;
+  --gris:#6c6a64;
+  --nota:#d9d7d1;
+  --nota-borde:#4a4844;
+  --regla:#9d988c;
+  --rojo:#6e1a14;
+  --papel-ayuda:#efe6cf;
+  --papel-ayuda-2:#e6d9b8;
+  --f-texto:'Crimson Pro','Minion Pro','Georgia',serif;
+  --f-titulo:'Alegreya','Goudy Old Style','Georgia',serif;
+  --f-cabecera:'Alegreya SC','Alegreya','Georgia',serif;
+  --f-sala:'Zilla Slab','Rockwell','Georgia',serif;
+  --f-caja:'Alegreya Sans','Myriad Pro','Segoe UI',sans-serif;
+  --f-caja-sc:'Alegreya Sans SC','Alegreya Sans',sans-serif;
+  --f-maquina:'Special Elite','Courier Prime','Courier New',monospace;
+  --f-impreso:'Courier Prime','Courier New',monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--mesa) radial-gradient(ellipse at 50% 0%,#46443f,transparent 70%);
+  color:var(--tinta);
+  font-family:var(--f-texto);
+  font-size:1.08rem;
+  line-height:1.42;
+  hyphens:auto;-webkit-hyphens:auto;
+  font-kerning:normal;
+  text-rendering:optimizeLegibility;
+}
+a{color:var(--rojo);text-decoration:none;border-bottom:1px solid rgba(110,26,20,.3)}
+a:hover{border-bottom-color:currentColor}
+p{margin:0 0 .62em}
+strong{font-weight:700}
+
+/* ---------------------------------------------------------- barra superior */
+.barra{
+  max-width:60rem;margin:0 auto;padding:1rem 1rem .4rem;
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-family:var(--f-caja);font-size:.9rem;color:#bdb8ad;
+}
+.barra a{color:#e4dccb;border-bottom-color:rgba(228,220,203,.3)}
+
+/* ------------------------------------------------------------------ hojas */
+.hoja{
+  position:relative;
+  max-width:60rem;
+  margin:1.4rem auto 2.4rem;
+  padding:3.6rem 3.4rem 3.4rem;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(255,255,255,0) 62%, rgba(120,112,98,.20) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35  0 0 0 0 .32  0 0 0 0 .27  0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23r)'/%3E%3C/svg%3E"),
+    var(--hoja);
+  box-shadow:0 20px 50px -20px rgba(0,0,0,.75), 0 0 0 1px rgba(0,0,0,.25);
+}
+/* cabecera corrida, como en el libro */
+.hoja::before{
+  content:attr(data-cabecera);
+  position:absolute;top:1.25rem;left:3.4rem;right:3.4rem;
+  text-align:center;
+  font-family:var(--f-cabecera);font-weight:700;font-size:.82rem;letter-spacing:.16em;
+  color:var(--tinta-2);
+  background:
+    linear-gradient(90deg,transparent 0,var(--regla) 4%,var(--regla) 34%,transparent 34%) left center/100% 2px no-repeat,
+    linear-gradient(90deg,transparent 66%,var(--regla) 66%,var(--regla) 96%,transparent 100%) left center/100% 2px no-repeat;
+}
+.hoja[data-cabecera=""]::before{display:none}
+.folio{
+  position:absolute;bottom:1.1rem;
+  font-family:var(--f-texto);font-size:.9rem;color:var(--gris);
+}
+.hoja:nth-of-type(odd) .folio{left:3.4rem}
+.hoja:nth-of-type(even) .folio{right:3.4rem}
+
+.cols{column-count:2;column-gap:2.4rem;column-fill:balance}
+.cols > *{break-inside:avoid-column}
+.cols p, .cols li{break-inside:auto}
+.cols .corta{break-before:column}
+
+/* ----------------------------------------------------------------- títulos */
+.marco-titulo{
+  position:relative;
+  margin:-.6rem -.6rem 2rem;
+  padding:2.2rem 2rem 2rem;
+  text-align:center;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018 .05' numOctaves='5' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .3  0 0 0 0 .3  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg,#e9e7e2,#c9c6bf 55%,#b7b3ab);
+  border:3px solid #1d1c1a;
+  outline:1px solid #1d1c1a;outline-offset:5px;
+  box-shadow:inset 0 0 0 1px #efede8, inset 0 0 28px rgba(0,0,0,.45), 0 6px 14px -6px rgba(0,0,0,.6);
+}
+.marco-titulo::before,.marco-titulo::after{
+  content:"";position:absolute;width:3.2rem;height:3.2rem;
+  border:3px solid #1d1c1a;border-radius:50%;
+  background:radial-gradient(circle,#57544e 0 28%,#c9c6bf 30% 52%,#1d1c1a 54% 58%,transparent 60%);
+  top:-1.4rem;
+}
+.marco-titulo::before{left:-1.4rem}
+.marco-titulo::after{right:-1.4rem}
+.marco-titulo h1,.marco-titulo h2{
+  margin:0;
+  font-family:var(--f-titulo);font-weight:800;
+  font-size:clamp(2rem,5vw,3.15rem);line-height:1.04;
+  color:#1d1c1a;
+  text-shadow:0 1px 0 rgba(255,255,255,.65), 0 0 12px rgba(255,255,255,.4);
+}
+.marco-titulo .sub{
+  margin:.6rem 0 0;
+  font-family:var(--f-cabecera);font-weight:700;letter-spacing:.14em;font-size:.95rem;color:#34322e;
+}
+h3.loc, h3.cap{
+  font-family:var(--f-cabecera);font-weight:800;
+  font-size:1.62rem;line-height:1.08;
+  margin:1.1rem 0 .55rem;
+  color:var(--tinta);
+  letter-spacing:.01em;
+  break-after:avoid;
+}
+h4{
+  font-family:var(--f-titulo);font-weight:800;font-size:1.22rem;
+  margin:1rem 0 .35rem;line-height:1.15;color:var(--tinta);break-after:avoid;
+}
+h4.sala{
+  font-family:var(--f-sala);font-weight:700;font-size:1.06rem;letter-spacing:.02em;
+  margin:1.15rem 0 .4rem;
+}
+h4.sala b{text-transform:uppercase;letter-spacing:.06em}
+.subtitulo-loc{font-style:italic;margin-top:-.35rem}
+
+/* capital inicial */
+.capital::first-letter{
+  float:left;font-family:var(--f-titulo);font-weight:800;
+  font-size:3.9em;line-height:.8;margin:.06em .1em 0 0;color:var(--tinta);
+}
+.capital .versal{font-variant:small-caps;letter-spacing:.06em}
+
+/* ------------------------------------------------------- texto para leer */
+.leer{
+  font-family:var(--f-caja);font-style:italic;font-size:.98rem;line-height:1.42;
+  margin:.4rem 0 .9rem;padding:0 0 0 1.3rem;color:var(--tinta-2);
+}
+.leer p{margin:0 0 .5em}
+
+/* ------------------------------------------------- nota para el Guardián */
+.nota{
+  position:relative;
+  font-family:var(--f-caja);font-size:.96rem;line-height:1.4;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .2  0 0 0 0 .2  0 0 0 0 .2  0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    var(--nota);
+  border-top:4px solid var(--nota-borde);
+  border-bottom:1px solid var(--nota-borde);
+  padding:.7rem 1rem .55rem;
+  margin:.9rem 0 1.1rem;
+  box-shadow:0 4px 10px -6px rgba(0,0,0,.4);
+}
+.nota::before{
+  content:"Nota para el Guardián";
+  display:block;margin-bottom:.35rem;
+  font-family:var(--f-caja-sc);font-weight:700;font-size:.8rem;letter-spacing:.14em;
+  color:#2d2c29;
+}
+.nota.rotulo-propio::before{content:attr(data-rotulo)}
+.nota p{margin:0 0 .45em}
+.nota.en-linea::before{display:inline;margin-right:.6rem}
+
+/* -------------------------------------------- utilizar los dados para... */
+.dados{
+  margin:1rem 0;padding:.65rem .9rem .5rem;
+  border:2px solid var(--tinta);
+  background:rgba(255,255,255,.35);
+}
+.dados > .rot{
+  display:block;font-family:var(--f-caja-sc);font-weight:700;letter-spacing:.12em;font-size:.82rem;
+  border-bottom:1px solid var(--tinta);padding-bottom:.25rem;margin-bottom:.45rem;
+}
+.dados > .rot b{font-family:var(--f-titulo);font-weight:800;font-size:1.12rem;letter-spacing:0;text-transform:none;font-variant:normal}
+
+/* --------------------------------------------------------------- listas */
+ul.vinetas{list-style:none;padding:0;margin:.3rem 0 .8rem}
+ul.vinetas > li{position:relative;padding-left:1.25rem;margin:0 0 .35rem}
+ul.vinetas > li::before{
+  content:"";position:absolute;left:.15rem;top:.5em;width:.5rem;height:.5rem;
+  background:var(--tinta);transform:rotate(45deg);
+}
+ul.puntos{margin:.25rem 0 .6rem;padding-left:1.2rem}
+ul.puntos li{margin-bottom:.25rem}
+
+/* ---------------------------------------------------- ayudas en el texto */
+.ayuda{
+  position:relative;
+  margin:1rem 0 1.2rem;
+  padding:1.05rem 1.1rem .9rem;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .45  0 0 0 0 .36  0 0 0 0 .2  0 0 0 .12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 30% 20%,#f6eedb,var(--papel-ayuda) 60%,var(--papel-ayuda-2));
+  border:1px solid #b9a77d;
+  box-shadow:0 8px 16px -10px rgba(0,0,0,.55);
+  font-family:var(--f-impreso);font-size:.9rem;line-height:1.38;color:#24201a;
+  hyphens:manual;
+}
+.ayuda > .rot{
+  display:block;text-align:center;margin:-.15rem 0 .6rem;
+  font-family:var(--f-caja-sc);font-weight:700;font-size:.8rem;letter-spacing:.16em;color:#4a4135;
+}
+.ayuda p{margin:0 0 .5em}
+.ayuda.maquina{font-family:var(--f-maquina);font-size:.92rem}
+.ayuda .sello-dia{display:block;text-align:right;font-style:italic}
+
+/* recorte de prensa */
+.recorte{font-family:var(--f-texto);font-size:.98rem;line-height:1.3;text-align:justify;hyphens:auto}
+.recorte .cab{font-family:'UnifrakturMaguntia',var(--f-titulo);font-size:1.6rem;text-align:center;line-height:1;margin:.1rem 0 .15rem;letter-spacing:.02em}
+.recorte .fecha{font-family:var(--f-caja-sc);font-size:.72rem;letter-spacing:.14em;text-align:center;border-top:1px solid #6b5f4b;border-bottom:1px solid #6b5f4b;padding:.12rem 0;margin-bottom:.45rem}
+.recorte .tit{font-family:var(--f-titulo);font-weight:800;text-align:center;font-size:1.06rem;line-height:1.15;margin:.2rem 0 .4rem;text-transform:uppercase;letter-spacing:.03em}
+.recorte .tachado{text-decoration:line-through;text-decoration-color:rgba(130,20,15,.75);text-decoration-thickness:2px}
+.recorte .lapiz{font-family:var(--f-maquina);color:#8a1d14;font-size:.85rem;display:block;text-align:right;transform:rotate(-2deg);margin-top:.3rem}
+
+/* esquela */
+.esquela{
+  font-family:var(--f-texto);text-align:center;line-height:1.25;
+  border:5px double #111;outline:2px solid #111;outline-offset:-11px;
+  padding:1.1rem 1.1rem .9rem;
+}
+.esquela .cruz{font-size:1.5rem;line-height:1}
+.esquela .rip{font-family:var(--f-cabecera);letter-spacing:.2em;font-size:.82rem}
+.esquela .nombre{font-family:var(--f-titulo);font-weight:800;font-size:1.12rem;text-transform:uppercase;letter-spacing:.04em;margin:.3rem 0}
+.esquela .letra-menuda{font-size:.86rem;text-align:justify;margin-top:.6rem;hyphens:auto}
+
+/* ------------------------------------------------------------ figuras */
+figure{margin:1rem 0 1.2rem}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-family:var(--f-caja);font-size:.86rem;font-style:italic;color:var(--gris);margin-top:.35rem}
+.ancho{column-span:none}
+
+/* ------------------------------------------------------- fichas (stats) */
+.ficha{margin:.6rem 0 1rem;font-family:var(--f-caja);font-size:.95rem;line-height:1.38}
+.ficha .nombre{font-family:var(--f-caja);font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.03em;margin:0}
+.ficha .epiteto{font-style:italic;margin:0 0 .5rem}
+.ficha table.carac{border-collapse:collapse;margin:.2rem 0 .45rem;font-size:.95rem}
+.ficha table.carac td{padding:.05rem 1.1rem .05rem 0}
+.ficha table.carac b{font-weight:800}
+.ficha .lin{margin:0 0 .18rem}
+.ficha .lin b{font-weight:800}
+.ficha .rot{font-family:var(--f-caja);font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin:.6rem 0 .2rem;font-size:.95rem}
+.ficha .sangria{padding-left:1rem;text-indent:-1rem}
+
+/* --------------------------------------------------------------- tablas */
+table.tabla{width:100%;border-collapse:collapse;font-family:var(--f-caja);font-size:.92rem;margin:.6rem 0 1rem}
+table.tabla th{font-family:var(--f-caja-sc);font-weight:700;letter-spacing:.08em;text-align:left;border-bottom:2px solid var(--tinta);padding:.25rem .4rem}
+table.tabla td{border-bottom:1px solid var(--hoja-borde);padding:.3rem .4rem;vertical-align:top}
+table.tabla tr:nth-child(even) td{background:rgba(0,0,0,.035)}
+
+/* tabla de locura */
+.locura{border:2px solid var(--tinta);padding:.8rem 1rem .6rem;background:rgba(255,255,255,.4);font-family:var(--f-caja);font-size:.93rem}
+.locura h4{text-align:center;font-family:var(--f-cabecera);font-size:1.18rem;margin:.1rem 0 0}
+.locura .tira{text-align:center;font-style:italic;margin:0 0 .5rem}
+.locura ol{margin:0;padding-left:1.4rem}
+.locura li{margin-bottom:.38rem}
+.locura li b{font-weight:800}
+
+/* recuadro de historia */
+.historia{
+  border:1px solid var(--tinta);border-left:6px solid var(--rojo);
+  padding:.75rem 1rem .55rem;margin:1rem 0;background:rgba(110,26,20,.04);
+  font-size:1rem;
+}
+.historia h4{margin-top:0;font-family:var(--f-cabecera)}
+
+/* índice de la portada */
+.indice{font-family:var(--f-caja);font-size:.95rem;columns:2;column-gap:2rem;margin:.4rem 0 0;padding:0;list-style:none}
+.indice li{break-inside:avoid;border-bottom:1px dotted var(--regla);padding:.2rem 0;display:flex;justify-content:space-between;gap:.5rem}
+.indice a{border:0;color:var(--tinta)}
+.indice a:hover{color:var(--rojo)}
+
+/* ilustración de portada */
+.portada-ilus{margin:0 0 1.4rem;border:2px solid var(--tinta);background:#e9e5dc}
+.portada-ilus svg{display:block;width:100%;height:auto}
+.pie-ilus{font-family:var(--f-caja);font-size:.85rem;font-style:italic;color:var(--gris);text-align:center;margin:.35rem 0 0}
+
+/* tijeras para la sección de ayudas */
+.tijeras{display:flex;align-items:center;gap:.6rem;color:var(--gris);font-family:var(--f-caja);font-size:.8rem;margin:.2rem 0 1rem}
+.tijeras::before,.tijeras::after{content:"";flex:1;border-top:1px dashed var(--regla)}
+
+.creditos{font-family:var(--f-caja);font-size:.86rem;color:var(--tinta-2)}
+.creditos p{margin-bottom:.5em}
+
+/* --------------------------------------------------------------- móvil */
+@media (max-width:760px){
+  body{font-size:1.04rem}
+  .hoja{margin:.6rem 0 1.4rem;padding:2.9rem 1rem 2.8rem}
+  .hoja::before{left:1rem;right:1rem;font-size:.7rem}
+  .hoja:nth-of-type(even) .folio,.hoja:nth-of-type(odd) .folio{left:auto;right:1rem}
+  .cols{column-count:1}
+  .cols .corta{break-before:auto}
+  .marco-titulo{margin:-.2rem 0 1.4rem;padding:1.6rem 1rem 1.4rem}
+  .marco-titulo::before,.marco-titulo::after{width:2.2rem;height:2.2rem;top:-1rem}
+  .marco-titulo::before{left:-.5rem}
+  .marco-titulo::after{right:-.5rem}
+  .indice{columns:1}
+  table.tabla{font-size:.86rem}
+}
+
+/* ---------------------------------------------------------- impresión */
+@page{size:A4;margin:12mm 13mm 14mm}
+@media print{
+  body{background:none;font-size:10.4pt}
+  .barra{display:none}
+  .hoja{max-width:none;margin:0;padding:8mm 0 10mm;box-shadow:none;background:none;break-after:page}
+  .hoja::before{top:0;left:0;right:0}
+  .hoja .folio{bottom:0}
+  .hoja:nth-of-type(odd) .folio{left:0}
+  .hoja:nth-of-type(even) .folio{right:0}
+  .nota,.ayuda,.marco-titulo{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a{color:inherit;border:0}
+}
+</style>
+</head>
+<body>
+
+<nav class="barra">
+  <a href="/">&laquo; rpg.nephei.org</a>
+  <span>La llamada de Cthulhu &middot; 7.ª edición &middot; Madrid, 1920</span>
+</nav>
+
+<!-- ============================================================ PORTADA -->
+<section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU" id="portada">
+  <div class="marco-titulo">
+    <h1>La maldición del<br>Palacio de Linares</h1>
+    <p class="sub">Una aventura para Guardianes noveles &middot; Madrid, 1920</p>
+  </div>
+
+  <figure class="portada-ilus">
+    <svg viewBox="0 0 900 470" role="img" aria-label="Fachada del Palacio de Linares de noche: un palacio de piedra con torreones de pizarra en las esquinas, tras una verja; a la derecha, la torre del Palacio de Comunicaciones. Una sola ventana de la planta principal tiene una luz amarillenta.">
+<defs>
+<linearGradient id="fa-cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1c1f"/><stop offset=".7" stop-color="#4a4a4c"/><stop offset="1" stop-color="#6d6b66"/></linearGradient>
+<radialGradient id="fa-luna" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f3f0e6"/><stop offset=".6" stop-color="#d9d5c8"/><stop offset="1" stop-color="#d9d5c8" stop-opacity="0"/></radialGradient>
+<radialGradient id="fa-luz" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e2b23a" stop-opacity=".85"/><stop offset="1" stop-color="#e2b23a" stop-opacity="0"/></radialGradient>
+<pattern id="fa-sillar" width="24" height="12" patternUnits="userSpaceOnUse"><rect width="24" height="12" fill="#a9a59c"/><path d="M0 11.5H24M12 0V12" stroke="#7c786f" stroke-width="1"/></pattern>
+<pattern id="fa-rayado" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0V5" stroke="#2a2927" stroke-width="1.4"/></pattern>
+<filter id="fa-grano"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="5"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .22 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+</defs>
+<rect width="900" height="470" fill="url(#fa-cielo)"/>
+<circle cx="760" cy="70" r="48" fill="url(#fa-luna)"/><circle cx="760" cy="70" r="22" fill="#eeebe1"/>
+<ellipse cx="120" cy="60" rx="110.0" ry="9" fill="#2b2b2e" opacity=".55"/>
+<ellipse cx="560" cy="110" rx="130.0" ry="9" fill="#2b2b2e" opacity=".55"/>
+<ellipse cx="700" cy="40" rx="75.0" ry="9" fill="#2b2b2e" opacity=".55"/>
+<g fill="#5a5955" opacity=".85"><rect x="770" y="190" width="140" height="230"/><rect x="805" y="120" width="56" height="300"/><path d="M805 120 L833 78 L861 120 Z"/><rect x="828" y="56" width="10" height="24"/><path d="M770 190 l6 -22 l6 22Z M898 190 l6 -22 l6 22Z M800 120 l5 -20 l5 20Z M856 120 l5 -20 l5 20Z"/></g>
+<rect x="814" y="140" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="140" width="8" height="14" fill="#3f3e3b"/>
+<rect x="814" y="166" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="166" width="8" height="14" fill="#3f3e3b"/>
+<rect x="814" y="192" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="192" width="8" height="14" fill="#3f3e3b"/>
+<rect x="814" y="218" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="218" width="8" height="14" fill="#3f3e3b"/>
+<rect x="814" y="244" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="244" width="8" height="14" fill="#3f3e3b"/>
+<rect x="814" y="270" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="270" width="8" height="14" fill="#3f3e3b"/>
+<rect x="814" y="296" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="296" width="8" height="14" fill="#3f3e3b"/>
+<rect x="814" y="322" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="322" width="8" height="14" fill="#3f3e3b"/>
+<rect x="814" y="348" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="348" width="8" height="14" fill="#3f3e3b"/>
+<rect x="814" y="374" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="374" width="8" height="14" fill="#3f3e3b"/>
+<rect x="814" y="400" width="8" height="14" fill="#3f3e3b"/>
+<rect x="838" y="400" width="8" height="14" fill="#3f3e3b"/>
+<circle cx="40" cy="300" r="70" fill="#262624"/>
+<circle cx="110" cy="330" r="55" fill="#262624"/>
+<circle cx="0" cy="350" r="60" fill="#262624"/>
+<circle cx="150" cy="360" r="40" fill="#262624"/>
+<rect x="36" y="320" width="8" height="100" fill="#1f1f1d"/><rect x="108" y="340" width="6" height="80" fill="#1f1f1d"/>
+<rect x="180" y="150" width="120" height="250" fill="url(#fa-sillar)"/>
+<rect x="180" y="150" width="120" height="250" fill="#000" opacity=".12"/>
+<path d="M174 150 C184 110 200 92 210 84 L270 84 C280 92 296 110 306 150 Z" fill="#33332f"/>
+<path d="M174 150 C184 110 200 92 210 84 L270 84 C280 92 296 110 306 150 Z" fill="url(#fa-rayado)" opacity=".5"/>
+<rect x="210" y="78" width="60" height="6" fill="#222"/>
+<path d="M214 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M223 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M232 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M241 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M250 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M259 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M268 78 l2 -9 l2 9 Z" fill="#222"/>
+<ellipse cx="240.0" cy="120" rx="13" ry="16" fill="#cfcabd" stroke="#222" stroke-width="3"/><ellipse cx="240.0" cy="120" rx="8" ry="11" fill="#2a2a2a"/>
+<rect x="172" y="146" width="136" height="9" fill="#d3cfc4" stroke="#55524b"/>
+<rect x="600" y="150" width="120" height="250" fill="url(#fa-sillar)"/>
+<rect x="600" y="150" width="120" height="250" fill="#000" opacity=".12"/>
+<path d="M594 150 C604 110 620 92 630 84 L690 84 C700 92 716 110 726 150 Z" fill="#33332f"/>
+<path d="M594 150 C604 110 620 92 630 84 L690 84 C700 92 716 110 726 150 Z" fill="url(#fa-rayado)" opacity=".5"/>
+<rect x="630" y="78" width="60" height="6" fill="#222"/>
+<path d="M634 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M643 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M652 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M661 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M670 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M679 78 l2 -9 l2 9 Z" fill="#222"/>
+<path d="M688 78 l2 -9 l2 9 Z" fill="#222"/>
+<ellipse cx="660.0" cy="120" rx="13" ry="16" fill="#cfcabd" stroke="#222" stroke-width="3"/><ellipse cx="660.0" cy="120" rx="8" ry="11" fill="#2a2a2a"/>
+<rect x="592" y="146" width="136" height="9" fill="#d3cfc4" stroke="#55524b"/>
+<rect x="300" y="185" width="300" height="215" fill="url(#fa-sillar)"/>
+<path d="M296 185 L314 150 L586 150 L604 185 Z" fill="#33332f"/>
+<path d="M296 185 L314 150 L586 150 L604 185 Z" fill="url(#fa-rayado)" opacity=".5"/>
+<path d="M329 182 V164 Q340 150 351 164 V182 Z" fill="#cfcabd" stroke="#222" stroke-width="2.5"/><rect x="334" y="164" width="12" height="16" fill="#2a2a2a"/>
+<path d="M389 182 V164 Q400 150 411 164 V182 Z" fill="#cfcabd" stroke="#222" stroke-width="2.5"/><rect x="394" y="164" width="12" height="16" fill="#2a2a2a"/>
+<path d="M449 182 V164 Q460 150 471 164 V182 Z" fill="#cfcabd" stroke="#222" stroke-width="2.5"/><rect x="454" y="164" width="12" height="16" fill="#2a2a2a"/>
+<path d="M509 182 V164 Q520 150 531 164 V182 Z" fill="#cfcabd" stroke="#222" stroke-width="2.5"/><rect x="514" y="164" width="12" height="16" fill="#2a2a2a"/>
+<rect x="294" y="182" width="312" height="8" fill="#d3cfc4" stroke="#55524b"/>
+<rect x="172" y="320" width="556" height="80" fill="#9b978d"/>
+<path d="M172 320H728" stroke="#6f6b62" stroke-width="2"/>
+<path d="M172 334H728" stroke="#6f6b62" stroke-width="2"/>
+<path d="M172 348H728" stroke="#6f6b62" stroke-width="2"/>
+<path d="M172 362H728" stroke="#6f6b62" stroke-width="2"/>
+<path d="M172 376H728" stroke="#6f6b62" stroke-width="2"/>
+<path d="M172 390H728" stroke="#6f6b62" stroke-width="2"/>
+<rect x="168" y="314" width="564" height="8" fill="#d3cfc4" stroke="#55524b"/>
+<rect x="196" y="197" width="38" height="36" fill="#d9d5ca" stroke="#55524b"/><rect x="200" y="200" width="30" height="30" fill="#1d1d1c"/><path d="M215.0 200V230M200 212.6H230" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="246" y="197" width="38" height="36" fill="#d9d5ca" stroke="#55524b"/><rect x="250" y="200" width="30" height="30" fill="#1d1d1c"/><path d="M265.0 200V230M250 212.6H280" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="318" y="202" width="38" height="36" fill="#d9d5ca" stroke="#55524b"/><rect x="322" y="205" width="30" height="30" fill="#1d1d1c"/><path d="M337.0 205V235M322 217.6H352" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="378" y="202" width="38" height="36" fill="#d9d5ca" stroke="#55524b"/><rect x="382" y="205" width="30" height="30" fill="#1d1d1c"/><path d="M397.0 205V235M382 217.6H412" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="438" y="202" width="38" height="36" fill="#d9d5ca" stroke="#55524b"/><rect x="442" y="205" width="30" height="30" fill="#1d1d1c"/><path d="M457.0 205V235M442 217.6H472" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="498" y="202" width="38" height="36" fill="#d9d5ca" stroke="#55524b"/><rect x="502" y="205" width="30" height="30" fill="#1d1d1c"/><path d="M517.0 205V235M502 217.6H532" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="558" y="202" width="38" height="36" fill="#d9d5ca" stroke="#55524b"/><rect x="562" y="205" width="30" height="30" fill="#1d1d1c"/><path d="M577.0 205V235M562 217.6H592" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="616" y="197" width="38" height="36" fill="#d9d5ca" stroke="#55524b"/><rect x="620" y="200" width="30" height="30" fill="#1d1d1c"/><path d="M635.0 200V230M620 212.6H650" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="666" y="197" width="38" height="36" fill="#d9d5ca" stroke="#55524b"/><rect x="670" y="200" width="30" height="30" fill="#1d1d1c"/><path d="M685.0 200V230M670 212.6H700" stroke="#3a3936" stroke-width="1.6"/>
+<path d="M194 236 L215.0 222 L236 236 Z" fill="#d3cfc4" stroke="#55524b"/><rect x="196" y="237" width="38" height="56" fill="#d9d5ca" stroke="#55524b"/><rect x="200" y="240" width="30" height="50" fill="#1d1d1c"/><path d="M215.0 240V290M200 261.0H230" stroke="#3a3936" stroke-width="1.6"/><rect x="191" y="290" width="48" height="5" fill="#cfcabd" stroke="#55524b"/><path d="M193 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M197 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M201 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M205 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M209 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M213 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M217 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M221 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M225 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M229 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M233 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M237 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M191 305H239" stroke="#2c2b29" stroke-width="2"/>
+<path d="M244 236 L265.0 222 L286 236 Z" fill="#d3cfc4" stroke="#55524b"/><rect x="246" y="237" width="38" height="56" fill="#d9d5ca" stroke="#55524b"/><rect x="250" y="240" width="30" height="50" fill="#e6b94a"/><path d="M265.0 240V290M250 261.0H280" stroke="#7b5a12" stroke-width="1.6"/><rect x="241" y="290" width="48" height="5" fill="#cfcabd" stroke="#55524b"/><path d="M243 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M247 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M251 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M255 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M259 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M263 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M267 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M271 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M275 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M279 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M283 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M287 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M241 305H289" stroke="#2c2b29" stroke-width="2"/>
+<path d="M316 236 L337.0 222 L358 236 Z" fill="#d3cfc4" stroke="#55524b"/><rect x="318" y="237" width="38" height="56" fill="#d9d5ca" stroke="#55524b"/><rect x="322" y="240" width="30" height="50" fill="#1d1d1c"/><path d="M337.0 240V290M322 261.0H352" stroke="#3a3936" stroke-width="1.6"/><rect x="313" y="290" width="48" height="5" fill="#cfcabd" stroke="#55524b"/><path d="M315 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M319 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M323 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M327 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M331 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M335 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M339 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M343 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M347 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M351 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M355 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M359 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M313 305H361" stroke="#2c2b29" stroke-width="2"/>
+<path d="M376 236 L397.0 222 L418 236 Z" fill="#d3cfc4" stroke="#55524b"/><rect x="378" y="237" width="38" height="56" fill="#d9d5ca" stroke="#55524b"/><rect x="382" y="240" width="30" height="50" fill="#1d1d1c"/><path d="M397.0 240V290M382 261.0H412" stroke="#3a3936" stroke-width="1.6"/><rect x="373" y="290" width="48" height="5" fill="#cfcabd" stroke="#55524b"/><path d="M375 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M379 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M383 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M387 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M391 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M395 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M399 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M403 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M407 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M411 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M415 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M419 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M373 305H421" stroke="#2c2b29" stroke-width="2"/>
+<path d="M436 236 L457.0 222 L478 236 Z" fill="#d3cfc4" stroke="#55524b"/><rect x="438" y="237" width="38" height="56" fill="#d9d5ca" stroke="#55524b"/><rect x="442" y="240" width="30" height="50" fill="#1d1d1c"/><path d="M457.0 240V290M442 261.0H472" stroke="#3a3936" stroke-width="1.6"/><rect x="433" y="290" width="48" height="5" fill="#cfcabd" stroke="#55524b"/><path d="M435 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M439 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M443 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M447 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M451 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M455 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M459 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M463 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M467 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M471 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M475 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M479 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M433 305H481" stroke="#2c2b29" stroke-width="2"/>
+<path d="M496 236 L517.0 222 L538 236 Z" fill="#d3cfc4" stroke="#55524b"/><rect x="498" y="237" width="38" height="56" fill="#d9d5ca" stroke="#55524b"/><rect x="502" y="240" width="30" height="50" fill="#1d1d1c"/><path d="M517.0 240V290M502 261.0H532" stroke="#3a3936" stroke-width="1.6"/><rect x="493" y="290" width="48" height="5" fill="#cfcabd" stroke="#55524b"/><path d="M495 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M499 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M503 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M507 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M511 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M515 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M519 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M523 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M527 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M531 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M535 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M539 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M493 305H541" stroke="#2c2b29" stroke-width="2"/>
+<path d="M556 236 L577.0 222 L598 236 Z" fill="#d3cfc4" stroke="#55524b"/><rect x="558" y="237" width="38" height="56" fill="#d9d5ca" stroke="#55524b"/><rect x="562" y="240" width="30" height="50" fill="#1d1d1c"/><path d="M577.0 240V290M562 261.0H592" stroke="#3a3936" stroke-width="1.6"/><rect x="553" y="290" width="48" height="5" fill="#cfcabd" stroke="#55524b"/><path d="M555 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M559 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M563 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M567 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M571 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M575 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M579 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M583 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M587 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M591 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M595 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M599 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M553 305H601" stroke="#2c2b29" stroke-width="2"/>
+<path d="M614 236 L635.0 222 L656 236 Z" fill="#d3cfc4" stroke="#55524b"/><rect x="616" y="237" width="38" height="56" fill="#d9d5ca" stroke="#55524b"/><rect x="620" y="240" width="30" height="50" fill="#1d1d1c"/><path d="M635.0 240V290M620 261.0H650" stroke="#3a3936" stroke-width="1.6"/><rect x="611" y="290" width="48" height="5" fill="#cfcabd" stroke="#55524b"/><path d="M613 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M617 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M621 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M625 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M629 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M633 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M637 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M641 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M645 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M649 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M653 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M657 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M611 305H659" stroke="#2c2b29" stroke-width="2"/>
+<path d="M664 236 L685.0 222 L706 236 Z" fill="#d3cfc4" stroke="#55524b"/><rect x="666" y="237" width="38" height="56" fill="#d9d5ca" stroke="#55524b"/><rect x="670" y="240" width="30" height="50" fill="#1d1d1c"/><path d="M685.0 240V290M670 261.0H700" stroke="#3a3936" stroke-width="1.6"/><rect x="661" y="290" width="48" height="5" fill="#cfcabd" stroke="#55524b"/><path d="M663 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M667 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M671 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M675 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M679 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M683 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M687 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M691 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M695 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M699 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M703 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M707 295V305" stroke="#2c2b29" stroke-width="1.2"/><path d="M661 305H709" stroke="#2c2b29" stroke-width="2"/>
+<rect x="196" y="331" width="38" height="50" fill="#d9d5ca" stroke="#55524b"/><rect x="200" y="334" width="30" height="44" fill="#1d1d1c"/><path d="M215.0 334V378M200 352.48H230" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="246" y="331" width="38" height="50" fill="#d9d5ca" stroke="#55524b"/><rect x="250" y="334" width="30" height="44" fill="#1d1d1c"/><path d="M265.0 334V378M250 352.48H280" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="318" y="331" width="38" height="50" fill="#d9d5ca" stroke="#55524b"/><rect x="322" y="334" width="30" height="44" fill="#1d1d1c"/><path d="M337.0 334V378M322 352.48H352" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="378" y="331" width="38" height="50" fill="#d9d5ca" stroke="#55524b"/><rect x="382" y="334" width="30" height="44" fill="#1d1d1c"/><path d="M397.0 334V378M382 352.48H412" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="498" y="331" width="38" height="50" fill="#d9d5ca" stroke="#55524b"/><rect x="502" y="334" width="30" height="44" fill="#1d1d1c"/><path d="M517.0 334V378M502 352.48H532" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="558" y="331" width="38" height="50" fill="#d9d5ca" stroke="#55524b"/><rect x="562" y="334" width="30" height="44" fill="#1d1d1c"/><path d="M577.0 334V378M562 352.48H592" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="616" y="331" width="38" height="50" fill="#d9d5ca" stroke="#55524b"/><rect x="620" y="334" width="30" height="44" fill="#1d1d1c"/><path d="M635.0 334V378M620 352.48H650" stroke="#3a3936" stroke-width="1.6"/>
+<rect x="666" y="331" width="38" height="50" fill="#d9d5ca" stroke="#55524b"/><rect x="670" y="334" width="30" height="44" fill="#1d1d1c"/><path d="M685.0 334V378M670 352.48H700" stroke="#3a3936" stroke-width="1.6"/>
+<circle cx="265" cy="265" r="46" fill="url(#fa-luz)" opacity=".55"/>
+<g fill="#3d2c06"><circle cx="261" cy="258" r="1.6"/><circle cx="269" cy="258" r="1.6"/></g>
+<rect x="420" y="300" width="60" height="100" fill="#d3cfc4" stroke="#55524b"/>
+<path d="M430 400 V336 Q450 312 470 336 V400 Z" fill="#1b1b1a"/>
+<rect x="409" y="300" width="10" height="100" fill="#e1ddd2" stroke="#55524b"/>
+<rect x="481" y="300" width="10" height="100" fill="#e1ddd2" stroke="#55524b"/>
+<rect x="402" y="292" width="96" height="9" fill="#d3cfc4" stroke="#55524b"/>
+<rect x="410" y="400" width="80" height="5" fill="#bdb9af" stroke="#6f6b62" stroke-width=".8"/>
+<rect x="402" y="405" width="96" height="5" fill="#bdb9af" stroke="#6f6b62" stroke-width=".8"/>
+<rect x="394" y="410" width="112" height="5" fill="#bdb9af" stroke="#6f6b62" stroke-width=".8"/>
+<rect x="386" y="415" width="128" height="5" fill="#bdb9af" stroke="#6f6b62" stroke-width=".8"/>
+<rect x="0" y="420" width="900" height="50" fill="#232321"/>
+<ellipse cx="190" cy="414" rx="26" ry="15.6" fill="#2f2f2c"/>
+<ellipse cx="240" cy="414" rx="18" ry="10.799999999999999" fill="#2f2f2c"/>
+<ellipse cx="650" cy="414" rx="24" ry="14.399999999999999" fill="#2f2f2c"/>
+<ellipse cx="705" cy="414" rx="20" ry="12.0" fill="#2f2f2c"/>
+<ellipse cx="330" cy="414" rx="14" ry="8.4" fill="#2f2f2c"/>
+<ellipse cx="570" cy="414" rx="16" ry="9.6" fill="#2f2f2c"/>
+<path d="M0 404H900M0 438H900" stroke="#121211" stroke-width="3"/>
+<path d="M4 404V446" stroke="#121211" stroke-width="2"/><path d="M1.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M13 404V446" stroke="#121211" stroke-width="2"/><path d="M10.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M22 404V446" stroke="#121211" stroke-width="2"/><path d="M19.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M31 404V446" stroke="#121211" stroke-width="2"/><path d="M28.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M40 404V446" stroke="#121211" stroke-width="2"/><path d="M37.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M49 404V446" stroke="#121211" stroke-width="2"/><path d="M46.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M58 404V446" stroke="#121211" stroke-width="2"/><path d="M55.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M67 404V446" stroke="#121211" stroke-width="2"/><path d="M64.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M76 404V446" stroke="#121211" stroke-width="2"/><path d="M73.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M85 404V446" stroke="#121211" stroke-width="2"/><path d="M82.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M94 404V446" stroke="#121211" stroke-width="2"/><path d="M91.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M103 404V446" stroke="#121211" stroke-width="2"/><path d="M100.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M112 404V446" stroke="#121211" stroke-width="2"/><path d="M109.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M121 404V446" stroke="#121211" stroke-width="2"/><path d="M118.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M130 404V446" stroke="#121211" stroke-width="2"/><path d="M127.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M139 404V446" stroke="#121211" stroke-width="2"/><path d="M136.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M148 404V446" stroke="#121211" stroke-width="2"/><path d="M145.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M157 404V446" stroke="#121211" stroke-width="2"/><path d="M154.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M166 404V446" stroke="#121211" stroke-width="2"/><path d="M163.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M175 404V446" stroke="#121211" stroke-width="2"/><path d="M172.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M184 404V446" stroke="#121211" stroke-width="2"/><path d="M181.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M193 404V446" stroke="#121211" stroke-width="2"/><path d="M190.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M202 404V446" stroke="#121211" stroke-width="2"/><path d="M199.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M211 404V446" stroke="#121211" stroke-width="2"/><path d="M208.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M220 404V446" stroke="#121211" stroke-width="2"/><path d="M217.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M229 404V446" stroke="#121211" stroke-width="2"/><path d="M226.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M238 404V446" stroke="#121211" stroke-width="2"/><path d="M235.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M247 404V446" stroke="#121211" stroke-width="2"/><path d="M244.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M256 404V446" stroke="#121211" stroke-width="2"/><path d="M253.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M265 404V446" stroke="#121211" stroke-width="2"/><path d="M262.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M274 404V446" stroke="#121211" stroke-width="2"/><path d="M271.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M283 404V446" stroke="#121211" stroke-width="2"/><path d="M280.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M292 404V446" stroke="#121211" stroke-width="2"/><path d="M289.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M301 404V446" stroke="#121211" stroke-width="2"/><path d="M298.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M310 404V446" stroke="#121211" stroke-width="2"/><path d="M307.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M319 404V446" stroke="#121211" stroke-width="2"/><path d="M316.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M328 404V446" stroke="#121211" stroke-width="2"/><path d="M325.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M337 404V446" stroke="#121211" stroke-width="2"/><path d="M334.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M346 404V446" stroke="#121211" stroke-width="2"/><path d="M343.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M355 404V446" stroke="#121211" stroke-width="2"/><path d="M352.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M364 404V446" stroke="#121211" stroke-width="2"/><path d="M361.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M373 404V446" stroke="#121211" stroke-width="2"/><path d="M370.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M382 404V446" stroke="#121211" stroke-width="2"/><path d="M379.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M391 404V446" stroke="#121211" stroke-width="2"/><path d="M388.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M400 404V446" stroke="#121211" stroke-width="2"/><path d="M397.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M409 404V446" stroke="#121211" stroke-width="2"/><path d="M406.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M418 404V446" stroke="#121211" stroke-width="2"/><path d="M415.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M427 404V446" stroke="#121211" stroke-width="2"/><path d="M424.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M436 404V446" stroke="#121211" stroke-width="2"/><path d="M433.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M445 404V446" stroke="#121211" stroke-width="2"/><path d="M442.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M454 404V446" stroke="#121211" stroke-width="2"/><path d="M451.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M463 404V446" stroke="#121211" stroke-width="2"/><path d="M460.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M472 404V446" stroke="#121211" stroke-width="2"/><path d="M469.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M481 404V446" stroke="#121211" stroke-width="2"/><path d="M478.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M490 404V446" stroke="#121211" stroke-width="2"/><path d="M487.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M499 404V446" stroke="#121211" stroke-width="2"/><path d="M496.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M508 404V446" stroke="#121211" stroke-width="2"/><path d="M505.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M517 404V446" stroke="#121211" stroke-width="2"/><path d="M514.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M526 404V446" stroke="#121211" stroke-width="2"/><path d="M523.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M535 404V446" stroke="#121211" stroke-width="2"/><path d="M532.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M544 404V446" stroke="#121211" stroke-width="2"/><path d="M541.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M553 404V446" stroke="#121211" stroke-width="2"/><path d="M550.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M562 404V446" stroke="#121211" stroke-width="2"/><path d="M559.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M571 404V446" stroke="#121211" stroke-width="2"/><path d="M568.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M580 404V446" stroke="#121211" stroke-width="2"/><path d="M577.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M589 404V446" stroke="#121211" stroke-width="2"/><path d="M586.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M598 404V446" stroke="#121211" stroke-width="2"/><path d="M595.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M607 404V446" stroke="#121211" stroke-width="2"/><path d="M604.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M616 404V446" stroke="#121211" stroke-width="2"/><path d="M613.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M625 404V446" stroke="#121211" stroke-width="2"/><path d="M622.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M634 404V446" stroke="#121211" stroke-width="2"/><path d="M631.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M643 404V446" stroke="#121211" stroke-width="2"/><path d="M640.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M652 404V446" stroke="#121211" stroke-width="2"/><path d="M649.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M661 404V446" stroke="#121211" stroke-width="2"/><path d="M658.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M670 404V446" stroke="#121211" stroke-width="2"/><path d="M667.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M679 404V446" stroke="#121211" stroke-width="2"/><path d="M676.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M688 404V446" stroke="#121211" stroke-width="2"/><path d="M685.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M697 404V446" stroke="#121211" stroke-width="2"/><path d="M694.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M706 404V446" stroke="#121211" stroke-width="2"/><path d="M703.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M715 404V446" stroke="#121211" stroke-width="2"/><path d="M712.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M724 404V446" stroke="#121211" stroke-width="2"/><path d="M721.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M733 404V446" stroke="#121211" stroke-width="2"/><path d="M730.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M742 404V446" stroke="#121211" stroke-width="2"/><path d="M739.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M751 404V446" stroke="#121211" stroke-width="2"/><path d="M748.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M760 404V446" stroke="#121211" stroke-width="2"/><path d="M757.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M769 404V446" stroke="#121211" stroke-width="2"/><path d="M766.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M778 404V446" stroke="#121211" stroke-width="2"/><path d="M775.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M787 404V446" stroke="#121211" stroke-width="2"/><path d="M784.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M796 404V446" stroke="#121211" stroke-width="2"/><path d="M793.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M805 404V446" stroke="#121211" stroke-width="2"/><path d="M802.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M814 404V446" stroke="#121211" stroke-width="2"/><path d="M811.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M823 404V446" stroke="#121211" stroke-width="2"/><path d="M820.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M832 404V446" stroke="#121211" stroke-width="2"/><path d="M829.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M841 404V446" stroke="#121211" stroke-width="2"/><path d="M838.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M850 404V446" stroke="#121211" stroke-width="2"/><path d="M847.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M859 404V446" stroke="#121211" stroke-width="2"/><path d="M856.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M868 404V446" stroke="#121211" stroke-width="2"/><path d="M865.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M877 404V446" stroke="#121211" stroke-width="2"/><path d="M874.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M886 404V446" stroke="#121211" stroke-width="2"/><path d="M883.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<path d="M895 404V446" stroke="#121211" stroke-width="2"/><path d="M892.5 404 l2.5 -7 l2.5 7Z" fill="#121211"/>
+<rect x="-6" y="392" width="12" height="60" fill="#121211"/><circle cx="0" cy="389" r="6" fill="#121211"/>
+<rect x="144" y="392" width="12" height="60" fill="#121211"/><circle cx="150" cy="389" r="6" fill="#121211"/>
+<rect x="294" y="392" width="12" height="60" fill="#121211"/><circle cx="300" cy="389" r="6" fill="#121211"/>
+<rect x="444" y="392" width="12" height="60" fill="#121211"/><circle cx="450" cy="389" r="6" fill="#121211"/>
+<rect x="594" y="392" width="12" height="60" fill="#121211"/><circle cx="600" cy="389" r="6" fill="#121211"/>
+<rect x="744" y="392" width="12" height="60" fill="#121211"/><circle cx="750" cy="389" r="6" fill="#121211"/>
+<rect x="894" y="392" width="12" height="60" fill="#121211"/><circle cx="900" cy="389" r="6" fill="#121211"/>
+<rect x="760" y="300" width="5" height="150" fill="#121211"/><path d="M752 300 h21 l-4 -18 h-13 Z" fill="#121211"/><circle cx="762.5" cy="292" r="22" fill="url(#fa-luz)" opacity=".5"/>
+<rect width="900" height="470" fill="#888" filter="url(#fa-grano)"/>
+</svg>
+  </figure>
+  <p class="pie-ilus">El palacio de los marqueses de Linares, en la plaza de Cibeles, una noche de otoño de 1920.</p>
+
+  <div class="cols">
+    <p class="capital"><span class="versal">Esta es la vieja aventura</span> de la casa encantada con la que tantos Guardianes empezaron, trasladada a Madrid. La casa es ahora el palacio que el marqués de Linares, don José de Murga y Reolid, levantó en el solar del antiguo Pósito, frente a la diosa Cibeles. Hoy es la sede de la Casa de América; en 1920 es un caserón cerrado del que el vecindario cuenta historias.</p>
+    <p>Todo Madrid conoce la leyenda: el fantasma de una niña, Raimundita, la hija que los marqueses nunca reconocieron, vaga por los salones. Los investigadores descubrirán que la niña es lo de menos. Quien sigue en la casa es el propio marqués, que se trató con una secta durante los últimos años de su vida y que dejó dispuesto en su testamento que lo enterraran en el sótano.</p>
+    <p>El texto conserva la estructura, las reglas y los consejos de «La maldición de la Casa Corbitt», la aventura de las <em>Reglas de inicio rápido</em> de la 7.ª edición, para que sirva igual que el original como primera partida, para Guardianes y para jugadores.</p>
+
+    <h4>Contenido</h4>
+    <ul class="indice">
+      <li><a href="#inicio">El secreto del Guardián</a><span>1</span></li>
+      <li><a href="#loc1">Localización 1: Introducción</a><span>1</span></li>
+      <li><a href="#loc2">Localización 2: El Imparcial</a><span>2</span></li>
+      <li><a href="#loc3">Localización 3: Biblioteca Nacional</a><span>3</span></li>
+      <li><a href="#loc4">Localización 4: Archivo de Villa</a><span>3</span></li>
+      <li><a href="#loc5">Localización 5: Audiencia y Gobernación</a><span>4</span></li>
+      <li><a href="#loc6">Localización 6: El vecindario</a><span>4</span></li>
+      <li><a href="#loc7">Localización 7: Ciempozuelos</a><span>5</span></li>
+      <li><a href="#loc8">Localización 8: La Capilla</a><span>5</span></li>
+      <li><a href="#loc9">Localización 9: El palacio</a><span>6</span></li>
+      <li><a href="#sotano">El sótano</a><span>9</span></li>
+      <li><a href="#conclusion">Conclusión y recompensas</a><span>12</span></li>
+      <li><a href="#marques">El marqués de Linares</a><span>13</span></li>
+      <li><a href="#historia">Historia y leyenda</a><span>14</span></li>
+      <li><a href="#ayudas">Ayudas de juego</a><span>15</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ HOJA 1 -->
+<section class="hoja" data-cabecera="" id="inicio">
+  <div class="marco-titulo">
+    <h2>La maldición del Palacio de Linares</h2>
+  </div>
+  <div class="cols">
+    <p class="capital"><span class="versal">Esta aventura ha sido concebida para jugadores</span> y Guardianes novatos. A lo largo del texto encontrarás consejos para el Guardián (<em>Notas para el Guardián</em>) sobre cuándo y cómo usar los dados y las reglas, junto con indicaciones para dirigir la partida. Cuando hayas leído la aventura entera y tus jugadores hayan creado a sus investigadores, estaréis listos para empezar.</p>
+    <p>Los textos en cursiva y sangrados son para leerlos en voz alta a los jugadores. Puedes leerlos tal cual o contarlos con tus propias palabras.</p>
+    <p>Las ayudas de juego aparecen señaladas en el texto y se han reunido también al final de la aventura, para que el Guardián pueda imprimirlas y entregarlas a los jugadores en el momento oportuno.</p>
+    <p>El año es 1920 y el lugar, Madrid. La aventura transcurre en otoño, con la ciudad en plena reforma: el Palacio de Comunicaciones acaba de estrenarse al otro lado de la calle de Alcalá, se derriban manzanas enteras para abrir la Gran Vía y el Metro lleva un año funcionando entre Sol y Cuatro Caminos.</p>
+
+    <h3 class="cap">El secreto del Guardián</h3>
+    <p>El cuerpo de don José de Murga y Reolid, primer marqués de Linares, está enterrado en el sótano de su palacio de la plaza de Cibeles. Su mente sigue viva y es consciente de todo lo que ocurre entre esas paredes. El marqués conoce cierta magia de los Mitos que le permite conservar su identidad y animar su cuerpo después de la muerte. A veces se alimenta de quienes viven en la casa, como un vampiro, y ahuyenta o mata a quienes descubren su secreto.</p>
+    <p>Para resolver el misterio, los investigadores tendrán que descubrir que el marqués sigue allí. En cuanto lo hagan, el marqués notará su presencia e intentará confundirlos y asustarlos. Su engaño favorito es la leyenda de Raimundita: prefiere que lo tomen por el fantasma de una niña. Si nada de eso funciona, intentará matarlos.</p>
+
+    <h3 class="cap">Preparación de la partida</h3>
+    <p>Acompaña a los jugadores mientras crean a sus investigadores. Los jugadores novatos entenderán mejor las reglas y a sus personajes si pasan por todo el proceso.</p>
+    <p>Cuéntales la premisa de la aventura:</p>
+    <div class="leer"><p>Os van a contratar para investigar un viejo palacio de Madrid, en el año 1920. ¡Dicen que está encantado!</p></div>
+    <p>Los jugadores deberían crear un grupo de detectives privados, periodistas, aficionados a lo oculto o amigos del propietario que se han ofrecido a echarle una mano. En el Madrid de 1920 encajan bien un reportero de <em>El Heraldo</em>, un médico de la Beneficencia, una estudiante de la Residencia de Señoritas, un agente retirado de la Policía o un abogado sin pleitos.</p>
+    <p>Reparte las hojas de personaje y guía a los jugadores paso a paso. Anímalos a hablar entre ellos de sus personajes y a inventar trasfondos y relaciones. Que todo vaya razonablemente rápido; no os atasquéis en detalles innecesarios.</p>
+    <p>Apunta el nombre de cada investigador, su Apariencia (<strong>APA</strong>), su Crédito y lo más llamativo de su trasfondo, para tenerlo a mano durante la partida.</p>
+
+    <h3 class="loc" id="loc1">Localización 1: Introducción</h3>
+    <div class="nota">
+      <p>Esta introducción puede tener lugar donde mejor convenga. Si los investigadores son detectives privados, en su despacho de la calle de la Montera; si son amigos del propietario, en su casa o en la tertulia de un café, como el Gijón o el Pombo. El sitio no es lo importante, pero tómate un momento para describirlo. Después, lee lo siguiente en voz alta e interpreta la conversación con el propietario.</p>
+    </div>
+    <div class="ayuda maquina">
+      <span class="rot">Ayuda de juego 1</span>
+      <p>Don Esteban Nogales, propietario, os pide que examinéis un viejo palacio que acaba de heredar en la plaza de Cibeles, conocido en todo Madrid como el Palacio de Linares. Los últimos inquilinos, la familia Montalvo, se vieron envueltos en una tragedia, y el propietario quiere entender lo que ocurrió allí y aclarar las cosas. Desde entonces no ha conseguido alquilar la casa, y espera que vosotros podáis explicar lo sucedido y devolverle el buen nombre. Os ofrece una compensación por vuestro tiempo y vuestras molestias, y os entrega las llaves, unas señas y ciento cincuenta pesetas en billetes como adelanto.</p>
+      <p>Como buenos profesionales, querréis hacer algunas averiguaciones antes de presentaros en el palacio. Podéis consultar los números atrasados en la redacción de <em>El Imparcial</em>, acercaros a la Biblioteca Nacional o pasar por el Archivo de Villa. La decisión es vuestra.</p>
+    </div>
+    <p>Entrega la Ayuda de juego 1 a los jugadores por si quieren consultarla más adelante. Dales tiempo para asimilar la información, comentarla y decidir qué hacen. Algunos querrán ir directamente al palacio; sugiéreles que les convendría investigar un poco antes.</p>
+    <p>Don Esteban Nogales ha heredado el palacio hace poco, por una rama lejana de la familia, y quiere sacarle provecho, sea alquilándolo o vendiéndolo. La reputación de la casa se lo ha impedido hasta ahora.</p>
+    <p>Pasa a la Localización 2, 3 o 4, según lo que decidan hacer los jugadores.</p>
+  </div>
+  <span class="folio">1</span>
+</section>
+
+<!-- ============================================================ HOJA 2 -->
+<section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES">
+  <div class="cols">
+    <h3 class="loc" id="loc2">Localización 2: El Imparcial</h3>
+    <p class="subtitulo-loc">Diario de la mañana, de los más leídos y respetados de Madrid, con redacción en un palacete de la calle del Duque de Alba.</p>
+    <div class="nota">
+      <p>Cuando los investigadores pregunten en la redacción, interpreta a las personas con las que se crucen: el conserje, un reportero, alguno de los redactores. No olvides mencionar el archivo, el depósito de números atrasados y recortes que el periódico guarda en el sótano.</p>
+    </div>
+    <div class="nota">
+      <p>Eres tú quien describe los lugares, y puedes hacerlo a tu gusto. Usa la imaginación y transmite cómo es el sitio: el traqueteo de las linotipias, el olor a tinta y a papel, el humo de los cigarrillos, los chicos que salen corriendo con las galeradas. No hace falta detenerse en los trayectos entre localizaciones; salta directamente al momento en que los investigadores llegan a la siguiente.</p>
+    </div>
+    <p>El archivo no está abierto al público, y los investigadores tendrán que convencer a don Arturo Villegas, redactor jefe de <em>El Imparcial</em>, de que les deje bajar. Don Arturo disfruta del poco poder que tiene e intentará cerrarles el paso. Interpreta su pomposidad y deja que los jugadores se esfuercen por llegar al archivo.</p>
+
+    <div class="dados">
+      <span class="rot">Utilizar los dados para… <b>acceder al archivo</b></span>
+      <div class="nota en-linea" style="margin-top:.2rem">Normalmente, en un encuentro con un personaje no jugador neutral deberías tirar contra la APA o el Crédito del investigador. Con don Arturo la decisión ya está tomada: estará poco dispuesto a ayudar.</div>
+      <p>Primero, fija con los jugadores un objetivo del tipo «conseguir acceso al archivo». Interpretad la conversación entre don Arturo y los investigadores. Según cómo se desarrolle, elige una de estas opciones:</p>
+      <ul class="vinetas">
+        <li>Si el investigador intenta ganárselo haciéndose su amigo, usa la habilidad <strong>Encanto</strong>.</li>
+        <li>Si el investigador se pone agresivo con él, usa <strong>Intimidar</strong>.</li>
+        <li>Si el investigador intenta convencerlo con argumentos razonables, usa <strong>Persuasión</strong>.</li>
+        <li>Si el investigador intenta engatusarlo, usa <strong>Charlatanería</strong>.</li>
+      </ul>
+      <p>Pide al jugador que lleve el peso de la conversación que haga una tirada porcentual (1D100) y la compare con la habilidad que corresponda. Si el resultado es igual o menor que la puntuación de la habilidad, el investigador consigue que el grupo pueda bajar.</p>
+      <div class="nota en-linea">La dificultad frente a don Arturo es Normal: su oficio no le exige un nivel profesional (50% o más) en Persuasión, Encanto, Intimidar ni Psicología. Si lo tuviera, la dificultad sería Difícil.</div>
+      <p>Vuelve a la escena y deja que el resultado se note en lo que dice don Arturo:</p>
+      <ul class="vinetas">
+        <li>Si los investigadores tienen éxito, haz que don Arturo ceda de la forma que te parezca adecuada y les deje bajar al archivo.</li>
+        <li>Si fallan, haz que se indigne y les pida que se marchen.</li>
+      </ul>
+      <p><strong>¿Forzar la tirada?</strong> Si fallan, pregunta a los jugadores si quieren insistir. Si deciden hacerlo, pueden intentar una tirada forzada, presionando a don Arturo de alguna otra manera (pueden cambiar de táctica y probar otro enfoque).</p>
+      <p>Tendrás que decidir qué pasa si vuelven a fallar (la consecuencia), según lo que estén haciendo. Por ejemplo:</p>
+      <ul class="vinetas">
+        <li>Si usan Intimidar, don Arturo no se arredra y la cosa acaba a empujones.</li>
+        <li>Si usan Encanto o Persuasión, don Arturo se ofende y les exige a gritos que se vayan.</li>
+      </ul>
+      <p>Sea cual sea la consecuencia, que pase algo más que una simple expulsión: por ejemplo, don Arturo llama a un par de cajistas fornidos para que los acompañen a la calle.</p>
+    </div>
+
+    <h4>El archivo</h4>
+    <p>Si los investigadores consiguen bajar, describe los estantes polvorientos del archivo.</p>
+    <div class="leer"><p>Rosario Blanco, la archivera, os hace bajar por una escalera estrecha hasta un sótano lleno de archivadores, legajos de periódicos atados con bramante y trastos de toda clase. El aire huele a cerrado y la caldera del rincón despide un calor sofocante.</p></div>
+    <p>Los recortes están ordenados por calles y números. Los jugadores ya han tenido que superar una tirada para llegar hasta aquí, y sería mezquino negarles lo que han venido a buscar, así que considera que esta es una pista evidente. Entrega a uno de los jugadores la Ayuda de juego 2.</p>
+
+    <div class="ayuda">
+      <span class="rot">Ayuda de juego 2</span>
+      <p>Galerada de <em>El Imparcial</em>, de este mismo año, con una crónica que nunca llegó a publicarse. Cuenta que en 1903, recién muerto el marqués, la familia de un secretario de la Embajada de Francia alquiló el palacio, pero lo dejó tras una serie de accidentes violentos que costaron la vida a los padres y dejaron impedidos a los niños. El palacio estuvo cerrado mucho tiempo.</p>
+      <p>En 1909 se instaló allí la familia de un naviero bilbaíno, y sus miembros no tardaron en caer enfermos. En 1914 el hijo mayor perdió el juicio y se quitó la vida con un cuchillo de cocina, y la familia, deshecha, se marchó. En 1918 una tercera familia, los Montalvo, alquiló el palacio, y hace unas semanas lo ha abandonado en circunstancias misteriosas.</p>
+    </div>
+    <p>Si un investigador coquetea o hace buenas migas con Rosario Blanco (no hace falta tirar; la información no es crucial), ella le comentará que el archivo empieza en 1867, el año en que se fundó el periódico. Si alguien escribió sobre el solar del Pósito antes de esa fecha, aquí no hay nada. También le dirá, bajando la voz, que la crónica no salió porque «alguien de arriba» llamó a la redacción esa misma noche.</p>
+  </div>
+  <span class="folio">2</span>
+</section>
+
+<!-- ============================================================ HOJA 3 -->
+<section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU">
+  <div class="cols">
+    <h3 class="loc" id="loc3">Localización 3: La Biblioteca Nacional</h3>
+    <p>La Biblioteca Nacional ocupa desde 1896 el gran Palacio de Biblioteca y Museos del paseo de Recoletos, a cinco minutos a pie del Palacio de Linares. En su sala de lectura se guardan, bien custodiados, varios documentos interesantes. Por cada media jornada que pasen investigando en la biblioteca, pide a cada jugador una tirada de <strong>Buscar libros</strong> (tienen que sacar un resultado igual o menor que su puntuación en esa habilidad con 1D100). Si fallan, no hace falta forzar la tirada: pueden volver a intentarlo tantas veces como quieran, pero cada intento les cuesta otra media jornada. Si la investigación se alarga más de un día, haz que don Esteban Nogales les mande recado para preguntar cómo van y meterles prisa; al fin y al cabo, el tiempo es oro.</p>
+    <p>Entrégales una de las siguientes ayudas de juego por cada éxito, por este orden.</p>
+    <div class="ayuda">
+      <span class="rot">Ayuda de juego 3</span>
+      <p>En 1872, don José de Murga y Reolid, que al año siguiente recibiría de Amadeo I el título de marqués de Linares, compró al Ayuntamiento el solar del antiguo Pósito, el granero de la villa. Las obras empezaron en 1877. Los marqueses se mudaron al palacio en 1884, aunque no se dio por terminado hasta 1900. Una crónica de la obra señala que el marqués mandó conservar bajo los cimientos los viejos silos del Pósito.</p>
+    </div>
+    <div class="ayuda">
+      <span class="rot">Ayuda de juego 4</span>
+      <p>En 1886, varios vecinos del paseo de Recoletos, con el apoyo de la parroquia de San José, se querellaron contra el marqués de Linares y pidieron que abandonase el lugar «por sus hábitos repugnantes y su conducta indecorosa».</p>
+    </div>
+    <div class="ayuda">
+      <span class="rot">Ayuda de juego 5</span>
+      <p>Por lo visto, el marqués ganó el pleito: su necrológica, publicada en <em>La Época</em> en abril de 1902, dice que murió en su palacio de Cibeles el día 9 de ese mes, seis meses después que su esposa. Añade que la familia se encontraba enfrentada al Ayuntamiento en un nuevo litigio, porque el marqués había dispuesto en su testamento que lo enterrasen en el sótano de su casa.</p>
+    </div>
+    <div class="ayuda">
+      <span class="rot">Ayuda de juego 6</span>
+      <p>No consta cómo terminó el segundo pleito. Las crónicas de sociedad solo dicen que el féretro salió del palacio camino de la Sacramental de San Justo.</p>
+    </div>
+    <div class="nota">
+      <p>El ataúd que se enterró en San Justo iba lleno de piedras. La familia ganó el pleito por la vía discreta: un auto que nunca se publicó permitió dar sepultura al marqués «en la capilla de su casa», y los fieles de la Capilla de la Contemplación lo bajaron de noche a las galerías del sótano. Para salvar las apariencias se celebró un entierro público, y en 1918, cuando «los restos» se trasladaron a la cripta del hospital que fundaron los marqueses, nadie abrió el ataúd. Si los investigadores consiguen que se abra ese ataúd, tendrán una prueba excelente y un problema con la Justicia; no es necesario para resolver la aventura.</p>
+    </div>
+
+    <h3 class="loc" id="loc4">Localización 4: El Archivo de Villa</h3>
+    <p>En la Casa de la Villa, en la plaza del mismo nombre, el Ayuntamiento guarda sus expedientes, sus pleitos y sus padrones. Pide una tirada de <strong>Buscar libros</strong>. Si la superan, entrega a los jugadores la Ayuda de juego 7. Usa las mismas indicaciones que en la Biblioteca Nacional.</p>
+    <div class="ayuda">
+      <span class="rot">Ayuda de juego 7</span>
+      <p>Las actas del pleito municipal muestran que el albacea testamentario del marqués de Linares fue el presbítero don Miguel Tomé, capellán de la Capilla de la Contemplación e Iglesia de Nuestro Señor Dador de Secretos. Un oficio del Obispado de Madrid-Alcalá, unido al expediente, deja constancia de que la Capilla de la Contemplación fue clausurada en 1912.</p>
+    </div>
+    <p>Si a los investigadores se les ocurre buscar la Capilla de la Contemplación en los libros de la Policía municipal, encontrarán referencias a ciertas actuaciones de 1912, pero los expedientes no están aquí. Si han tratado bien al oficial del archivo, este les explicará que los delitos graves pasan a la Audiencia, y que los atestados de los agentes que participaron en las detenciones y registros se archivan en la Dirección General de Seguridad, en el Ministerio de la Gobernación de la Puerta del Sol. Se puede obtener la misma información con una tirada de <strong>Derecho</strong>.</p>
+  </div>
+  <span class="folio">3</span>
+</section>
+
+<!-- ============================================================ HOJA 4 -->
+<section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES">
+  <div class="cols">
+    <h3 class="loc" id="loc5">Localización 5: La Audiencia y la Dirección General de Seguridad</h3>
+    <p>Desde el incendio que arrasó el palacio de las Salesas en 1915, la Audiencia despacha en dependencias provisionales, entre cajas de legajos medio chamuscados. En la Puerta del Sol, los atestados de la Policía se guardan bajo llave. Llegar hasta esos papeles será difícil, y exigirá que al menos un jugador supere una tirada de habilidad. Pueden usar una de estas:</p>
+    <ul class="vinetas">
+      <li><strong>Derecho:</strong> para establecer que el investigador tiene un conocido en la Audiencia que puede abrirles la puerta. Si falla, el jugador puede pedir forzar la tirada de Derecho para conseguir un contacto. En ese caso, haz tú la tirada en secreto por el jugador y no le digas el resultado. Pase lo que pase, el investigador conocerá a Carmen Bruno, oficial de la secretaría de la Audiencia. Si la tirada tiene éxito, Carmen será amable y les dejará ver el expediente (Ayuda de juego 8). Si falla, Carmen no tendrá escrúpulos: les pedirá una «gratificación», no cumplirá su parte y después jurará que no los ha visto en su vida.</li>
+      <li><strong>Crédito:</strong> si el jugador supera la tirada y su investigador tiene Crédito 75 o más, impresiona al funcionario lo bastante como para que le deje pasar.</li>
+      <li><strong>Persuasión:</strong> el jugador debería dar una buena razón para que les dejen consultar los papeles.</li>
+      <li><strong>Encanto:</strong> una mirada lánguida y un poco de conversación pueden abrirle la puerta a un investigador coqueto.</li>
+      <li><strong>Charlatanería:</strong> quizá enseñando de pasada una credencial falsa, maniobra arriesgada en pleno Ministerio de la Gobernación. Si la tirada tiene éxito, entrega al jugador la Ayuda de juego 8.</li>
+    </ul>
+    <div class="ayuda maquina">
+      <span class="rot">Ayuda de juego 8</span>
+      <p>El atestado describe una operación reservada contra la Capilla de la Contemplación, en los tejares que hay detrás del Retiro. La motivaron varias denuncias juradas que acusaban a los fieles de la capilla de la desaparición de algunos niños del barrio. Durante el asalto murieron tres guardias de Seguridad y diecisiete miembros de la secta, por los disparos o por el fuego. Los informes de las autopsias son extrañamente vagos, como si el forense no hubiera llegado a examinar los cuerpos.</p>
+      <p>Aunque se detuvo a cincuenta y cuatro miembros de la secta, todos menos ocho quedaron en libertad. Los informes dan a entender que un alto cargo intervino de forma irregular en el sumario, lo que explicaría que los periódicos no publicaran una sola línea sobre la operación, la mayor que ha visto Madrid.</p>
+      <p>El capellán, don Miguel Tomé, fue detenido y condenado a cadena perpetua por cinco asesinatos. En agosto de 1917, aprovechando los motines de los días de la huelga general, se fugó del penal de Ocaña y se le perdió la pista.</p>
+    </div>
+    <p>Si los jugadores fallan, pregúntales si quieren redoblar sus esfuerzos. Tendrán que justificar la tirada forzada. Si usan Crédito, Persuasión o Encanto, corren el riesgo de pasarse de la raya, con consecuencias como ofender a quien no deben y ganarse la antipatía de la Policía (y quizá una reprimenda o una advertencia).</p>
+
+    <h3 class="loc" id="loc6">Localización 6: El vecindario</h3>
+    <p>De quienes vivían en el barrio antes de la guerra europea, casi todos se han mudado o han muerto. El paseo de Recoletos y la calle de Alcalá se han llenado de bancos, ministerios y casinos. Al otro lado de Alcalá se alza la mole blanca y recién estrenada del Palacio de Comunicaciones, y enfrente, el Banco de España. Entre todos ellos, el Palacio de Linares, con su jardín cubierto de maleza tras la verja, es la única casa particular de toda la plaza. Si los investigadores hacen preguntas por los alrededores, acabarán dando con Ceferino, el sereno del barrio, un asturiano que lleva treinta años cantando las horas en Cibeles y lo sabe todo de todos.</p>
+
+    <div class="dados">
+      <span class="rot">Utilizar los dados para… <b>determinar la reacción de Ceferino</b></span>
+      <p>Tira 1D100 y compara el resultado con la APA o el Crédito del investigador que se dirija a él (el mayor de los dos). Si el resultado es igual o menor, Ceferino reacciona bien. Si no, se muestra poco hablador con ese investigador en particular. Otro investigador puede intentar una tirada de Charlatanería, Persuasión, Encanto o Intimidar para tirarle de la lengua. Un duro en la mano, o una copa de aguardiente en la taberna de la calle del Almirante donde desayuna al acabar el turno, también ayuda.</p>
+    </div>
+
+    <h4>Ceferino canta</h4>
+    <p>Si los jugadores consiguen que Ceferino hable y le preguntan por la Capilla de la Contemplación, les dirá dónde estaba: en los tejares de detrás del Retiro, camino del Niño Jesús. Si le preguntan por la casa, la llamará «el palacio del marqués» y se santiguará.</p>
+    <p>Anima a los jugadores a interpretar a sus personajes y a charlar con Ceferino. Ve soltando estos datos en la conversación:</p>
+    <ul class="vinetas">
+      <li>Los Montalvo, una familia de indianos que volvió rica de Cuba, se instalaron en el palacio hace un par de años.</li>
+      <li>Al año, el padre, don Vicente, tuvo un accidente grave y al poco perdió el juicio y se volvió violento.</li>
+      <li>Dicen que hablaba de una figura fantasmal con los ojos encendidos.</li>
+      <li>Hace cosa de un mes, la señora, doña Gabriela, también perdió la razón.</li>
+      <li>Ahora está con su marido en Ciempozuelos, en los manicomios de los frailes y las monjas, a una hora larga de tren de Madrid.</li>
+      <li>Los niños están con unos parientes en Santander.</li>
+      <li>Y lo que sabe todo Madrid: que en ese palacio anda el fantasma de Raimundita, la niña que los marqueses tuvieron y escondieron, porque resultó que eran hermanos. Ceferino jura que alguna noche la ha oído cantar.</li>
+    </ul>
+    <div class="nota">
+      <p>Interpreta a Ceferino como quieras e improvisa con libertad; no todo lo que dicen los personajes no jugadores tiene que ser verdad, y Ceferino es muy dado a adornar. Lo de Raimundita es un rumor de barrio. El canto que oye Ceferino es cosa del marqués, que lo usa para que nadie piense en él.</p>
+    </div>
+  </div>
+  <span class="folio">4</span>
+</section>
+
+<!-- ============================================================ HOJA 5 -->
+<section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU">
+  <div class="cols">
+    <h3 class="loc" id="loc7">Localización 7: Los manicomios de Ciempozuelos</h3>
+    <p>Ciempozuelos es un pueblo de la vega del Jarama, a una hora larga de tren por la línea de Aranjuez. Allí tienen sus manicomios los Hermanos de San Juan de Dios, para hombres, y las Hermanas Hospitalarias, para mujeres, separados por unos cientos de pasos de tierra y olivar.</p>
+    <p>Si los jugadores deciden ir, descubrirán que don Vicente Montalvo está completamente trastornado. Aprieta un misal contra el pecho. En algún momento puede abrirlo por cualquier página (tú decides cuál), señalar un versículo y fingir que lo lee: «¡El diablo será vencido con sus propias armas!». No es una cita auténtica de las Escrituras, pero sí una pista útil: si se acuerdan de ella más adelante, un jugador atento podría darse cuenta de que el marqués puede morir atravesado por su propio puñal. No lo subrayes; deja que sean los jugadores quienes reparen en ella, o no. No se puede sacar nada más de don Vicente.</p>
+    <p>Doña Gabriela Montalvo está lúcida y se puede hablar con ella. Contará que en su casa vivía una presencia maligna. Algunas noches, al despertar, la encontraba inclinada sobre ella: un hombre, nada de una niña, por mucho que dijeran en el barrio. Cuando se enfurecía, aquella cosa podía hacer volar los platos y otros objetos por la habitación. A quien más odiaba era a su marido, y contra él dirigía casi toda su rabia.</p>
+    <p>El Guardián puede responder a más preguntas, pero doña Gabriela no sabrá dar detalles más concretos. Termina pronto la entrevista: las preguntas de los investigadores la alteran mucho, y la hermana que los acompaña acabará pidiéndoles que se marchen.</p>
+    <p>Los dos hijos pequeños de los Montalvo viven con unos tíos en Santander. Los investigadores pueden visitarlos, pero lo único que saben es que echan de menos a sus padres y que en el palacio tenían pesadillas con un señor viejo y raro, con los ojos de lumbre.</p>
+
+    <h3 class="loc" id="loc8">Localización 8: La Capilla de la Contemplación</h3>
+    <p>Lee lo siguiente a los jugadores:</p>
+    <div class="leer"><p>Los restos de la vieja capilla están al final de una calleja sucia y retorcida, entre los hornos apagados de los tejares que se extienden detrás del Retiro. Las ruinas han sufrido tanto la intemperie y están tan comidas por las zarzas que los escombros grises parecen más piedra del terreno que muros y cimientos. Pasáis junto a una pared inclinada en la que alguien ha pintado con cal unos símbolos que parecen recientes: tres letras «Y» dispuestas en triángulo, de modo que los brazos de cada una tocan a las otras dos. Entre las tres rodean un ojo que mira fijamente.</p></div>
+    <p>La Ayuda de juego 9 reproduce este símbolo. Enséñasela a los jugadores.</p>
+    <figure style="max-width:11rem;margin:.6rem auto 1rem"><svg viewBox="0 0 240 240" role="img" aria-label="Tres letras Y dispuestas en triángulo, tocándose por los brazos, alrededor de un ojo abierto, pintadas con cal sobre piedra.">
+<defs>
+<filter id="sim0-cal" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
+<filter id="sim0-piedra"><feTurbulence type="fractalNoise" baseFrequency=".035 .08" numOctaves="4" seed="9"/><feColorMatrix values="0 0 0 0 .32  0 0 0 0 .31  0 0 0 0 .29  0 0 0 .9 0"/></filter>
+</defs>
+<rect width="240" height="240" fill="#4b4944"/>
+<rect width="240" height="240" filter="url(#sim0-piedra)" opacity=".7"/>
+<g filter="url(#sim0-cal)" stroke="#f1eee6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M120.0,10.0 L120.0,42.0 M96.1,101.8 L120.0,42.0 L143.9,101.8 M23.0,178.0 L50.7,162.0 M114.5,152.8 L50.7,162.0 L90.6,111.4 M217.0,178.0 L189.3,162.0 M149.4,111.4 L189.3,162.0 L125.5,152.8" stroke-width="9"/>
+<path d="M108,122 Q120,112 132,122 Q120,132 108,122 Z" stroke-width="3.5"/>
+<circle cx="120" cy="122" r="3.8" fill="#f1eee6" stroke="none"/>
+</g>
+</svg><figcaption style="text-align:center">Ayuda de juego 9</figcaption></figure>
+    <p>Cuando los investigadores se acerquen a los símbolos, describe con sutileza cómo empiezan a notar un cosquilleo en la frente, parecido a un dolor de cabeza pero no del todo igual. La molestia desaparece en cuanto se alejan.</p>
+    <p>Anima a los jugadores a explorar las ruinas; describe la escena y pregúntales qué hacen. Dentro de la capilla encontrarán sobre todo sillares de granito, vigas a medio quemar y basura vieja. En algún momento deberían darse cuenta de que la tierra que pisan cubre unos tablones podridos. Pide una tirada de <strong>Suerte</strong>; quienes la fallen deberán hacer una tirada de <strong>Saltar</strong> para apartarse a tiempo, o caerán cuando ceda el suelo. Hay tres metros hasta el sótano.</p>
+    <ul class="vinetas">
+      <li>Si fallan la tirada de Saltar, pregunta a los jugadores si pueden hacer algo que justifique forzarla; quizá agarrarse al borde en el último segundo.</li>
+    </ul>
+    <p>Todo investigador que caiga sufre 1D6 puntos de daño. Si el jugador falló una tirada forzada, empeora las consecuencias: en lugar de limitarte a aumentar el daño, puedes hacer que pierda o rompa alguna de sus pertenencias.</p>
+    <div class="nota">
+      <p>Puede que la caída sea el primer daño físico de la partida. Di al jugador que reste el daño de sus Puntos de vida actuales y consulta las reglas sobre puntos de vida, heridas y curación para saber si sufre una herida grave y cómo se trata y se recupera.</p>
+    </div>
+    <p>Si algún investigador cae, lee lo siguiente:</p>
+    <div class="leer"><p>Has caído en una parte del sótano que alguien aisló a propósito del resto, a la que antes se bajaba por una escalera propia, enterrada ahora bajo toneladas de escombro. Junto a un armario hay dos esqueletos vestidos con harapos de seda que fueron túnicas; quizá se escondieron de la Policía y murieron en el incendio.</p></div>
+    <p>Si los jugadores registran el armario, encontrarán los papeles enmohecidos de la capilla. Si no se les ocurre mirar debajo del armario, pide una tirada de <strong>Descubrir</strong>. Si la fallan, no menciones el diario ni el libro. Deja que fuercen la tirada si están dispuestos a hacer un registro más largo y concienzudo; si fallan la tirada forzada, quizá se claven un clavo o se les estropee la ropa.</p>
+    <p>Con un éxito en Descubrir, el investigador encuentra un diario (de las actividades de la secta) y un libro. Lee o parafrasea lo siguiente:</p>
+    <div class="leer"><p>El diario, viejo y húmedo, se deshace al pasar las páginas, pero un nombre te llama la atención: el marqués de Linares. Una anotación de abril de 1902 dice que el marqués fue enterrado bajo su casa, «según su voluntad y la de Aquel que aguarda en la oscuridad», y que el ataúd de San Justo «se llenó con piedras del tejar».</p>
+    <p>Junto al diario hay un volumen enorme, manuscrito en latín, tan podrido y carcomido que hay pasajes enteros ilegibles.</p></div>
+    <p>El libro es una copia del <em>Liber Ivonis</em>. Basta un vistazo para ver que está en latín y que trata de asuntos esotéricos. Una primera lectura (que exige tener 50% o más en Otras lenguas (Latín), o superar una tirada de esa habilidad) lleva al menos tres horas. Si un investigador dedica ese tiempo a leerlo, dale un 2% en Mitos de Cthulhu (y reduce su Cordura máxima en la misma cantidad, de 99 a 97).</p>
+  </div>
+  <span class="folio">5</span>
+</section>
+
+<!-- ============================================================ HOJA 6 -->
+<section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES">
+  <div class="cols">
+    <h3 class="loc" id="loc9">Localización 9: El Palacio de Linares</h3>
+    <p>Lee lo siguiente a los jugadores:</p>
+    <div class="leer"><p>El palacio ocupa la esquina del paseo de Recoletos con la calle de Alcalá, detrás de una verja de hierro y de un jardín invadido por la maleza. Es un edificio enorme, de piedra clara ennegrecida por el humo de los tranvías, con torreones de pizarra en las esquinas y la fachada principal mirando a la Cibeles. Las dependencias de servicio y la cochera dan al jardín de atrás, al que se llega por dos portillos laterales; uno de ellos cuelga de una sola bisagra.</p></div>
+    <p>Quien lo observe con atención notará que el palacio parece encogerse a la sombra de los edificios nuevos que lo rodean, sobre todo del Palacio de Comunicaciones, y que tiene todas las persianas echadas y las cortinas corridas, de modo que no se ve nada del interior.</p>
+    <p>La puerta principal tiene una sola cerradura, para la que don Esteban les ha dado llave, pero por dentro alguien ha añadido cuatro cerrojos en los dos últimos años. Si los investigadores prueban suerte con las ventanas de la planta baja, verán que están todas claveteadas, también por dentro.</p>
+    <p>Consulta el plano del palacio. Dibuja cada planta en una hoja de papel a medida que los investigadores la vayan explorando.</p>
+    <div class="nota">
+      <p>El palacio tiene muchas más estancias de las que aparecen en el plano. Los Montalvo, como las familias anteriores, vivían solo en el ala de Recoletos y tenían cerrados los grandes salones de la planta principal: el salón de baile, la sala de los tapices, el comedor de gala y la capilla. Si los investigadores entran en ellos, describe muebles cubiertos con sábanas, arañas de cristal envueltas en tela, espejos velados y techos dorados con ninfas y dioses que nadie mira desde hace años. En esas salas no hay nada que encontrar, pero son un buen escenario para los golpes y los pasos del marqués.</p>
+    </div>
+  </div>
+
+  <figure class="ancho" id="plano">
+    <svg viewBox="0 0 900 760" role="img" aria-label="Plano de tres plantas del ala habitada del Palacio de Linares: planta principal con cuatro estancias, planta baja con seis y sótano con cuatro, entre ellas el escondrijo del marqués.">
+<defs>
+<pattern id="pl-cuad" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#c9c6be" stroke-width=".8"/></pattern>
+<pattern id="pl-rayas" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V8" stroke="#8d8a83" stroke-width="2"/></pattern>
+<pattern id="pl-tierra" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2" cy="3" r="1" fill="#8b857a"/><circle cx="7" cy="8" r=".8" fill="#8b857a"/></pattern>
+</defs>
+<style>
+.pl-t{font-family:'Alegreya Sans','Segoe UI',sans-serif;fill:#1d1c1a}
+.pl-n{font-family:'Alegreya Sans','Segoe UI',sans-serif;font-weight:800;font-size:44px;fill:#1d1c1a;text-anchor:middle}
+.pl-e{font-family:'Alegreya Sans','Segoe UI',sans-serif;font-weight:700;font-size:15px;fill:#1d1c1a;text-anchor:middle}
+.pl-p{font-family:'Alegreya Sans','Segoe UI',sans-serif;font-weight:700;font-size:21px;fill:#1d1c1a}
+.pl-m{stroke:#1d1c1a;stroke-width:6;fill:#f6f4ee}
+.pl-mi{stroke:#1d1c1a;stroke-width:4;fill:none}
+</style>
+<rect width="900" height="760" fill="#dcdad4"/>
+<rect x="10" y="10" width="880" height="740" fill="none" stroke="#1d1c1a" stroke-width="2"/>
+<text x="40" y="58" class="pl-t" style="font-family:Alegreya,Georgia,serif;font-weight:800;font-size:36px">Palacio de Linares</text>
+<text x="860" y="58" class="pl-t" style="font-size:15px;font-style:italic" text-anchor="end">ala de Recoletos</text>
+<text x="40" y="92" class="pl-p">Planta principal</text>
+<rect x="40" y="112" width="200" height="110" class="pl-m"/><rect x="43" y="115" width="194" height="104" fill="url(#pl-cuad)"/><text x="140.0" y="175.0" class="pl-n">1</text><text x="140.0" y="210" class="pl-e">Dormitorio</text>
+<rect x="240" y="112" width="180" height="110" class="pl-m"/><rect x="243" y="115" width="174" height="104" fill="url(#pl-cuad)"/><text x="330.0" y="175.0" class="pl-n">2</text><text x="330.0" y="210" class="pl-e">Dormitorio</text>
+<rect x="420" y="112" width="180" height="110" class="pl-m"/><rect x="423" y="115" width="174" height="104" fill="url(#pl-cuad)"/><text x="510.0" y="175.0" class="pl-n">3</text><text x="510.0" y="210" class="pl-e">Dormitorio</text>
+<rect x="600" y="112" width="90" height="110" class="pl-m"/><rect x="603" y="115" width="84" height="104" fill="url(#pl-cuad)"/><text x="645.0" y="175.0" class="pl-n">4</text><text x="645.0" y="210" class="pl-e">Baño</text>
+<rect x="690" y="112" width="170" height="146" class="pl-m"/><rect x="693" y="115" width="164" height="140" fill="url(#pl-rayas)"/>
+<rect x="712" y="154" width="126" height="44" fill="#f6f4ee" stroke="#1d1c1a" stroke-width="1.5"/><text x="775" y="173" class="pl-e" style="font-size:13px">a los salones</text><text x="775" y="190" class="pl-e" style="font-size:13px">cerrados &#8594;</text>
+<rect x="40" y="222" width="650" height="36" class="pl-m"/>
+<rect x="560" y="225" width="90" height="30" fill="#f6f4ee" stroke="#1d1c1a" stroke-width="2"/><path d="M570.0 225V255" stroke="#1d1c1a" stroke-width="1.5"/><path d="M580.0 225V255" stroke="#1d1c1a" stroke-width="1.5"/><path d="M590.0 225V255" stroke="#1d1c1a" stroke-width="1.5"/><path d="M600.0 225V255" stroke="#1d1c1a" stroke-width="1.5"/><path d="M610.0 225V255" stroke="#1d1c1a" stroke-width="1.5"/><path d="M620.0 225V255" stroke="#1d1c1a" stroke-width="1.5"/><path d="M630.0 225V255" stroke="#1d1c1a" stroke-width="1.5"/><path d="M640.0 225V255" stroke="#1d1c1a" stroke-width="1.5"/>
+<text x="300" y="246" class="pl-e" style="font-size:13px;font-style:italic;font-weight:500">pasillo</text>
+<rect x="150" y="218" width="26" height="8" fill="#f6f4ee"/>
+<rect x="320" y="218" width="26" height="8" fill="#f6f4ee"/>
+<rect x="470" y="218" width="26" height="8" fill="#f6f4ee"/>
+<rect x="620" y="218" width="26" height="8" fill="#f6f4ee"/>
+<rect x="686" y="228" width="8" height="26" fill="#f6f4ee"/>
+<path d="M60 112h22" stroke="#f6f4ee" stroke-width="4"/><path d="M60 112h22" stroke="#1d1c1a" stroke-width="1"/><path d="M130 112h22" stroke="#f6f4ee" stroke-width="4"/><path d="M130 112h22" stroke="#1d1c1a" stroke-width="1"/><path d="M200 112h22" stroke="#f6f4ee" stroke-width="4"/><path d="M200 112h22" stroke="#1d1c1a" stroke-width="1"/><path d="M270 112h22" stroke="#f6f4ee" stroke-width="4"/><path d="M270 112h22" stroke="#1d1c1a" stroke-width="1"/><path d="M340 112h22" stroke="#f6f4ee" stroke-width="4"/><path d="M340 112h22" stroke="#1d1c1a" stroke-width="1"/><path d="M410 112h22" stroke="#f6f4ee" stroke-width="4"/><path d="M410 112h22" stroke="#1d1c1a" stroke-width="1"/><path d="M480 112h22" stroke="#f6f4ee" stroke-width="4"/><path d="M480 112h22" stroke="#1d1c1a" stroke-width="1"/><path d="M550 112h22" stroke="#f6f4ee" stroke-width="4"/><path d="M550 112h22" stroke="#1d1c1a" stroke-width="1"/>
+<text x="60" y="106" class="pl-e" style="font-size:12px;text-anchor:start;font-weight:500;font-style:italic">balcones a Cibeles &#183; la 3 tiene ventana al jardín</text>
+
+<text x="40" y="306" class="pl-p">Planta baja</text>
+<rect x="40" y="316" width="270" height="64" class="pl-m"/><rect x="43" y="319" width="264" height="58" fill="url(#pl-cuad)"/>
+<text x="90" y="364" class="pl-n" style="font-size:36px">1</text><text x="190" y="354" class="pl-e">Trastero</text>
+<rect x="310" y="316" width="250" height="64" class="pl-m"/><rect x="313" y="319" width="244" height="58" fill="url(#pl-cuad)"/>
+<text x="360" y="364" class="pl-n" style="font-size:36px">2</text><text x="455" y="354" class="pl-e">Trastero</text>
+<rect x="560" y="316" width="300" height="64" class="pl-m"/><rect x="563" y="319" width="294" height="58" fill="url(#pl-cuad)"/>
+<text x="595" y="364" class="pl-n" style="font-size:36px">3</text><text x="660" y="354" class="pl-e">Vestíbulo</text>
+<rect x="735" y="322" width="105" height="52" fill="#f6f4ee" stroke="#1d1c1a" stroke-width="2"/><path d="M745.5 322V374" stroke="#1d1c1a" stroke-width="1.5"/><path d="M756.0 322V374" stroke="#1d1c1a" stroke-width="1.5"/><path d="M766.5 322V374" stroke="#1d1c1a" stroke-width="1.5"/><path d="M777.0 322V374" stroke="#1d1c1a" stroke-width="1.5"/><path d="M787.5 322V374" stroke="#1d1c1a" stroke-width="1.5"/><path d="M798.0 322V374" stroke="#1d1c1a" stroke-width="1.5"/><path d="M808.5 322V374" stroke="#1d1c1a" stroke-width="1.5"/><path d="M819.0 322V374" stroke="#1d1c1a" stroke-width="1.5"/><path d="M829.5 322V374" stroke="#1d1c1a" stroke-width="1.5"/>
+<rect x="40" y="380" width="820" height="30" class="pl-m"/>
+<rect x="40" y="410" width="300" height="110" class="pl-m"/><rect x="43" y="413" width="294" height="104" fill="url(#pl-cuad)"/><text x="190.0" y="473.0" class="pl-n">4</text><text x="190.0" y="508" class="pl-e">Salón</text>
+<rect x="340" y="410" width="270" height="110" class="pl-m"/><rect x="343" y="413" width="264" height="104" fill="url(#pl-cuad)"/><text x="475.0" y="473.0" class="pl-n">5</text><text x="475.0" y="508" class="pl-e">Comedor</text>
+<rect x="610" y="410" width="250" height="110" class="pl-m"/><rect x="613" y="413" width="244" height="104" fill="url(#pl-cuad)"/><text x="735.0" y="473.0" class="pl-n">6</text><text x="735.0" y="508" class="pl-e">Cocina</text>
+<rect x="830" y="420" width="20" height="26" fill="#1d1c1a"/><text x="824" y="436" class="pl-e" style="font-size:11px;text-anchor:end;font-weight:500">plomos</text>
+<rect x="150" y="376" width="26" height="8" fill="#f6f4ee"/>
+<rect x="420" y="376" width="26" height="8" fill="#f6f4ee"/>
+<rect x="600" y="376" width="26" height="8" fill="#f6f4ee"/>
+<rect x="160" y="406" width="26" height="8" fill="#f6f4ee"/>
+<rect x="450" y="406" width="26" height="8" fill="#f6f4ee"/>
+<rect x="700" y="406" width="26" height="8" fill="#f6f4ee"/>
+<rect x="856" y="336" width="8" height="26" fill="#f6f4ee"/>
+<text x="868" y="346" class="pl-e" style="font-size:11px;text-anchor:start;font-weight:500" transform="rotate(90 868 346)">al jardín</text>
+<path d="M790 520 v-14 h40 v14" fill="none" stroke="#1d1c1a" stroke-width="2"/><text x="810" y="502" class="pl-e" style="font-size:11px;font-weight:500">al sótano &#8595;</text>
+<text x="40" y="574" class="pl-p">Sótano</text>
+<rect x="40" y="584" width="420" height="120" class="pl-m"/>
+<rect x="43" y="587" width="414" height="114" fill="url(#pl-tierra)"/>
+<path d="M70 587V701" stroke="#a9a49a" stroke-width="1.2" stroke-dasharray="4 5"/>
+<path d="M108 587V701" stroke="#a9a49a" stroke-width="1.2" stroke-dasharray="4 5"/>
+<path d="M146 587V701" stroke="#a9a49a" stroke-width="1.2" stroke-dasharray="4 5"/>
+<path d="M184 587V701" stroke="#a9a49a" stroke-width="1.2" stroke-dasharray="4 5"/>
+<path d="M222 587V701" stroke="#a9a49a" stroke-width="1.2" stroke-dasharray="4 5"/>
+<path d="M260 587V701" stroke="#a9a49a" stroke-width="1.2" stroke-dasharray="4 5"/>
+<path d="M298 587V701" stroke="#a9a49a" stroke-width="1.2" stroke-dasharray="4 5"/>
+<path d="M336 587V701" stroke="#a9a49a" stroke-width="1.2" stroke-dasharray="4 5"/>
+<path d="M374 587V701" stroke="#a9a49a" stroke-width="1.2" stroke-dasharray="4 5"/>
+<path d="M412 587V701" stroke="#a9a49a" stroke-width="1.2" stroke-dasharray="4 5"/>
+<ellipse cx="250" cy="654" rx="58" ry="15" fill="#b5ae9f" stroke="#1d1c1a" stroke-width="2"/>
+<text x="250" y="630" class="pl-n">4</text>
+<text x="250" y="691" class="pl-e">Escondrijo del marqués</text>
+<rect x="60" y="596" width="40" height="26" fill="#f6f4ee" stroke="#1d1c1a" stroke-width="1.5"/><text x="80" y="614" class="pl-e" style="font-size:10px">mesa</text>
+<path d="M37 606 h-18 M37 622 h-18" stroke="#1d1c1a" stroke-width="3"/><path d="M22 606 v16" stroke="#1d1c1a" stroke-width="3" stroke-dasharray="3 3"/>
+<path d="M37 666 h-18 M37 682 h-18" stroke="#1d1c1a" stroke-width="3"/><path d="M22 666 v16" stroke="#1d1c1a" stroke-width="3" stroke-dasharray="3 3"/>
+<text x="50" y="648" class="pl-e" style="font-size:11px;font-weight:500;text-anchor:start;font-style:italic">&#8592; galerías tapiadas</text>
+<rect x="460" y="584" width="40" height="120" class="pl-m"/>
+<text x="480" y="696" class="pl-e" style="font-size:26px;font-weight:800">3</text>
+<text x="476" y="594" class="pl-e" style="font-size:11px;text-anchor:start;font-weight:500" transform="rotate(90 476 594)">entre tabiques</text>
+<path d="M500 584 H730 V644 H860 V704 H500 Z" class="pl-m"/>
+<path d="M503 587 H727 V647 H857 V701 H503 Z" fill="url(#pl-cuad)"/>
+<text x="640" y="664" class="pl-n">1</text><text x="640" y="692" class="pl-e">Trastero</text>
+<rect x="730" y="584" width="130" height="60" class="pl-m"/>
+<text x="770" y="628" class="pl-n" style="font-size:34px">2</text><text x="815" y="620" class="pl-e" style="font-size:12px">Carbonera</text>
+<rect x="520" y="592" width="100" height="30" fill="#f6f4ee" stroke="#1d1c1a" stroke-width="2"/><path d="M532.5 592V622" stroke="#1d1c1a" stroke-width="1.5"/><path d="M545.0 592V622" stroke="#1d1c1a" stroke-width="1.5"/><path d="M557.5 592V622" stroke="#1d1c1a" stroke-width="1.5"/><path d="M570.0 592V622" stroke="#1d1c1a" stroke-width="1.5"/><path d="M582.5 592V622" stroke="#1d1c1a" stroke-width="1.5"/><path d="M595.0 592V622" stroke="#1d1c1a" stroke-width="1.5"/><path d="M607.5 592V622" stroke="#1d1c1a" stroke-width="1.5"/>
+<rect x="760" y="640" width="26" height="8" fill="#f6f4ee"/>
+<path d="M500 587 V701" stroke="#7a756b" stroke-width="3" stroke-dasharray="6 4"/>
+<path d="M460 587 V701" stroke="#7a756b" stroke-width="3" stroke-dasharray="6 4"/>
+<g transform="translate(560 738)"><rect width="60" height="8" fill="#1d1c1a"/><rect x="60" width="60" height="8" fill="#f6f4ee" stroke="#1d1c1a"/><rect x="120" width="60" height="8" fill="#1d1c1a"/><text x="190" y="8" class="pl-t" style="font-size:13px">6 metros</text></g>
+<text x="40" y="744" class="pl-t" style="font-size:12px;font-style:italic">Línea discontinua: tablones que suenan a hueco.</text>
+</svg>
+    <figcaption>Plano del ala de Recoletos, la parte habitada del palacio. Las estancias se numeran por plantas, como en el texto.</figcaption>
+  </figure>
+  <span class="folio">6</span>
+</section>
+
+<!-- ============================================================ HOJA 7 -->
+<section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU">
+  <div class="cols">
+    <h3 class="cap">Planta baja</h3>
+    <h4 class="sala"><b>Habitación 1,</b> Trastero</h4>
+    <div class="leer"><p>Fue una biblioteca: aún quedan los estantes vacíos en las paredes. Ahora está llena de cajas y trastos, como un depósito de agua oxidado, rollos de alfombra y una bicicleta vieja. Al fondo, a la derecha, hay un armario aparador con las puertas tapiadas con tablas clavadas.</p></div>
+    <p>Si los investigadores arrancan las tablas del aparador, encontrarán dentro tres tomos encuadernados en piel: los diarios de un tal J. de M., según reza la guarda del primero. Los <em>Diarios del marqués</em> están escritos en un castellano llano, aunque a veces con giros extraños, y salpicados de frases en inglés de sus años en Londres, adonde lo mandó su padre de joven. Leer los tres volúmenes lleva dos días, añade un +4% a la habilidad Mitos de Cthulhu y cuesta 1D4 puntos de Cordura. Los diarios describen varios experimentos ocultistas, entre ellos la invocación de algún tipo de espíritu del más allá, y explican con claridad un hechizo llamado «Invocar a Aquel que abre el camino» (otro nombre del hechizo Convocar/Atar a un vagabundo dimensional). No contienen otros hechizos. Una vez leídos, se tarda 2D6 semanas en aprender el hechizo.</p>
+    <div class="nota">
+      <p>No se pretende que el hechizo se use en esta aventura; está ahí como detalle de ambientación. Es poco probable que la investigación dure lo bastante para que sirva de algo, y, en cualquier caso, ¡convocar a un vagabundo dimensional tampoco es que vaya a resultar muy beneficioso! El <em>Manual del Guardián</em> de La llamada de Cthulhu trae más detalles sobre el hechizo.</p>
+    </div>
+
+    <h4 class="sala"><b>Habitación 2,</b> Un segundo trastero</h4>
+    <div class="leer"><p>Era la sala de billar; la mesa sigue aquí, sin paño, debajo de una montaña de muebles viejos que se podrían romper para echarlos a la estufa.</p></div>
+
+    <h4 class="sala"><b>Habitación 3,</b> Vestíbulo</h4>
+    <div class="leer"><p>Arranca aquí la gran escalera de mármol blanco que sube a la planta principal. En el perchero quedan abrigos, chanclos, sombreros y paraguas, y junto a la pared hay varios sacos de carbón para la estufa del salón. Os fijáis en que la puerta lateral que da al jardín tiene tres candados y dos cerraduras.</p></div>
+
+    <h4 class="sala"><b>Habitación 4,</b> Salón</h4>
+    <div class="leer"><p>Era el salón de música de los marqueses, de estilo Luis XVI. Ahora tiene toda clase de muebles y objetos corrientes: un gramófono, un sofá, sillas pasadas de moda y vitrinas llenas de chucherías. Hasta para una casa de Madrid os llama la atención la cantidad de crucifijos, estampas de la Virgen, escapularios y pilas de agua bendita que hay por todas partes; sobre la chimenea preside un Sagrado Corazón entronizado.</p></div>
+    <div class="nota">
+      <p>Procura crear un ambiente inquietante a medida que los jugadores exploran la casa. Recuerda que el marqués está en todas partes y que en cualquier momento puede oírse algún ruido procedente de la planta principal (Dormitorio 3).</p>
+    </div>
+
+    <h4 class="sala"><b>Habitación 5,</b> Comedor</h4>
+    <div class="leer"><p>Es el comedor de diario, con una mesa larga de caoba, un aparador empotrado y siete sillas. En la mesa hay tres cubiertos puestos que nadie llegó a usar, y en una sopera se pudre una sopa de fideos.</p></div>
+
+    <h4 class="sala"><b>Habitación 6,</b> Cocina</h4>
+    <p>Las cocinas de verdad están en el sótano, pero los Montalvo convirtieron el antiguo <em>office</em> en una cocina corriente, con una fresquera, una cocina económica de carbón con horno y una despensa poco surtida. En la pared está la caja de plomos de la instalación eléctrica.</p>
+    <p>Algunos alimentos aún se pueden comer: latas de sardinas y de carne, garbanzos, arroz, fideos y unas botellas de Valdepeñas. Lo que no se ha estropeado se lo han comido las ratas, a juzgar por el rastro que han dejado.</p>
+
+    <h3 class="cap">Planta principal</h3>
+    <h4 class="sala"><b>Habitación 1,</b> Dormitorio principal</h4>
+    <div class="leer"><p>Un dormitorio corriente, con una cama de matrimonio, una librería y un balcón que da a la plaza de Cibeles. Parece el cuarto de don Vicente y doña Gabriela. Aquí hay más crucifijos y muchas velas, y sobre una de las mesillas de noche descansan un rosario y un devocionario.</p></div>
+
+    <h4 class="sala"><b>Habitación 2,</b> Dormitorio de los niños</h4>
+    <div class="leer"><p>Esta habitación tiene dos camas pequeñas, juguetes y cómodas. Los dibujos de aeroplanos y de toreros clavados en la pared dejan claro que era el cuarto de los niños. En el papel pintado, a la altura de un crío, alguien ha dibujado con lápices de cera un hombre muy alto y muy flaco, con dos redondeles amarillos en lugar de ojos.</p></div>
+
+    <h4 class="sala"><b>Habitación 3,</b> Dormitorio de invitados</h4>
+    <div class="leer"><p>En esta habitación solo hay el bastidor de una cama de hierro con los muelles al aire y una cómoda vacía. Aunque no se usa, se parece a los otros dos dormitorios. La ventana da al jardín.</p></div>
+    <p>Este fue el dormitorio del propio marqués en sus últimos años. Pasó tanto tiempo en él que su influencia psíquica perdura y puede hacer que aquí ocurran ciertas cosas. Cada vez que eso suceda se notará un hedor espantoso: ¡una señal característica de los Mitos de Cthulhu! Las criadas de los Montalvo lo llamaban «el cuarto de la niña», y se negaban a entrar.</p>
+  </div>
+  <span class="folio">7</span>
+</section>
+
+<!-- ============================================================ HOJA 8 -->
+<section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES">
+  <div class="cols">
+    <div class="nota">
+      <p>Aunque al principio el marqués será discreto, si los investigadores parecen decididos a desentrañar los secretos de la casa intentará convencerlos de que esta habitación es el origen de los fenómenos, y de que lo que la ronda es el fantasma de Raimundita. Para ello hará aparecer charcos de sangre, cantará con voz de niña y procurará ahuyentarlos con fuertes golpes en puertas y paredes. Si algún investigador no se deja impresionar por la función, el marqués intentará atraerlo a este dormitorio para matarlo (véase <em>El ataque de la cama</em>), tamborileando en el cristal de la ventana para que se acerque.</p>
+    </div>
+    <p>Elige cualquiera de estos sucesos para que ocurra cuando quieras:</p>
+    <ul class="vinetas">
+      <li>El marqués puede hacer que de esta habitación salgan fuertes golpes, que se oyen desde cualquier punto de la casa.</li>
+      <li>El marqués puede formar un charco de sangre en el suelo, o hacer que gotee del techo o de las paredes.</li>
+      <li>El marqués puede hacer que se oigan arañazos o tamborileos en la puerta o en el cristal de la ventana.</li>
+      <li>El marqués puede hacer que se oiga, muy bajito, una voz de niña que canta «Al pasar la barca». Si alguien entra, la canción se corta en seco.</li>
+      <li>El marqués puede lanzar la cama a la velocidad suficiente para golpear con fuerza cualquier cosa que haya en la habitación (véase a continuación).</li>
+    </ul>
+
+    <h4>El ataque de la cama</h4>
+    <p>El marqués atraerá a los investigadores para que examinen la ventana del dormitorio de invitados y entonces lanzará la cama a toda velocidad a través de la habitación, contra algún investigador desafortunado. Pide una tirada de <strong>Descubrir</strong> al jugador cuyo investigador esté examinando la ventana: si la supera, podrá intentar una tirada de <strong>Esquivar</strong> para evitar el golpe.</p>
+    <div class="nota">
+      <p>Como Guardián, es importante que seas imparcial. Cuando vaya a ocurrirles algo peligroso a los investigadores, lo más justo es elegir a la víctima al azar, o escoger al que tenga menos Suerte. Para el ataque de la cama, ten claro quiénes están cerca de la ventana y elige a uno de ellos al azar.</p>
+    </div>
+    <p>Si la cama alcanza al investigador, lo lanza por la ventana. La caída al jardín y los cristales rotos le causan 1D6+2 puntos de daño. Cualquiera que vea moverse la cama por sí sola debe hacer una tirada de Cordura (COR 1/1D4): quienes la superen pierden 1 punto de Cordura, y quienes la fallen tiran 1D4 para ver cuántos pierden.</p>
+    <div class="nota">
+      <p>El ataque de la cama podría causar una herida grave a un investigador. En el caso improbable de que alguno muera, introduce a don Esteban Nogales (el propietario) para que lo lleve ese jugador.</p>
+    </div>
+
+    <h4 class="sala"><b>Habitación 4,</b> Cuarto de baño</h4>
+    <div class="leer"><p>Un cuarto de baño con lavabo, una bañera de patas y un inodoro con cisterna alta y cadena. Todavía quedan toallas y otras cosas propias de una familia de cuatro personas. En la bañera se ha formado un charco de agua turbia que gotea de un grifo que no cierra del todo.</p></div>
+
+    <h3 class="cap">El jardín y la casa de muñecas</h3>
+    <div class="leer"><p>Detrás del palacio, entre setos sin podar y estatuas verdes de musgo, hay una casita de juguete con su tejado, sus ventanas y su puerta pequeña, como un palacio de bolsillo. Dentro hay muebles a escala infantil, una mesa de té con sus tazas y una muñeca de porcelana sentada en una silla.</p></div>
+    <p>Todo Madrid dice que el marqués la mandó construir para Raimundita. Los hijos de los Montalvo jugaban aquí; en la pared, con la letra torcida de un niño, alguien ha escrito a lápiz: «AQUÍ NO ENTRA».</p>
+    <div class="nota">
+      <p>La casa de muñecas está fuera del palacio, y el poder del marqués no llega hasta aquí: es el único sitio de la finca donde no pasa nada. Úsala para dar un respiro a los jugadores, o para que sospechen de ella en vano. Si alguno la registra, la muñeca tiene los ojos tapados con dos trocitos de esparadrapo.</p>
+    </div>
+  </div>
+  <span class="folio">8</span>
+</section>
+
+<!-- ============================================================ HOJA 9 -->
+<section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU" id="sotano">
+  <div class="cols">
+    <h3 class="cap">El sótano</h3>
+    <h4 class="sala"><b>Habitación 1:</b> Trastero</h4>
+    <p>La puerta del sótano, junto a la cocina, tiene una cerradura y tres candados que solo se pueden abrir desde la planta baja. Abajo están las antiguas cocinas del palacio, convertidas en el trastero principal. La escalera de servicio está en mal estado y la bombilla no funciona. Las paredes están cubiertas de estantes repletos de cosas.</p>
+    <p>El marqués ha cortado la luz del sótano en la caja de plomos de la cocina. Si los investigadores la vuelven a dar, el marqués podrá cortarla otra vez cuando más le convenga.</p>
+    <p>La escalera es peligrosa, sobre todo porque el marqués puede hacer que se mueva. De uno en uno, pide a los investigadores que bajen una tirada de <strong>DES</strong> o de <strong>Trepar</strong>. Trátala como una tirada combinada: el jugador tira una sola vez y compara el resultado con su DES y con su Trepar. Basta con sacar un resultado igual o menor que cualquiera de los dos.</p>
+    <p>Al que falle la tirada de DES/Trepar dile que la escalera es demasiado peligrosa y que seguir bajando podría ser arriesgado. Tendrá que decidir: quedarse en la planta baja o forzar la tirada y arriesgarse a caer. Si falla la tirada forzada, resbala y se estrella contra el suelo del sótano: pierde 1D6 Puntos de vida.</p>
+    <div class="nota">
+      <p>En una situación así, un investigador que haya bajado sin problemas podría ofrecerse a ayudar a otro. Tendrás que aplicar las reglas con un poco de imaginación. Como ya hay un investigador que lo ha conseguido, da un dado de bonificación al segundo jugador; pero esta vez, si falla, caen los dos y ambos sufren el daño. Así, el investigador que fuerza la tirada tiene más posibilidades de éxito, pero los dos jugadores comparten el riesgo.</p>
+      <p>Esto crea un momento de tensión y de drama, que es exactamente lo que deberían conseguir las tiradas de dados.</p>
+    </div>
+    <p>Di a los jugadores que el trastero está lleno de herramientas, cañerías, cacharros de cocina viejos, cubos de basura, clavos, tornillos y demás. Si algún investigador rebusca en ese desorden, pídele una tirada de <strong>Descubrir</strong>. Considéralo una pista oculta (si falla, no le des la pista). Puede forzar la tirada dedicando más tiempo a un registro más concienzudo. Puedes anunciarle las consecuencias de fallar señalando que entre tanto trasto hay muchos objetos afilados y que podría hacerse daño.</p>
+    <p>Si supera la tirada de Descubrir, el investigador encuentra el puñal del marqués (véase <em>El puñal volador</em>) y puede cogerlo. En cuanto lo tiene en la mano, el puñal forcejea para soltarse y lo ataca (véase <em>Retener el puñal</em>).</p>
+    <p>Si falla la tirada forzada, el desdichado agarra el puñal embrujado por la hoja y se hace un corte que le causa 1D4+2 puntos de daño.</p>
+    <div class="nota">
+      <p>Fíjate en que se puede causar daño automáticamente como consecuencia de fallar una tirada forzada. Aquí no hace falta tirada de ataque: el daño es la consecuencia del fallo.</p>
+    </div>
+    <p>Las paredes del fondo están forradas de tablones de madera, y un examen cuidadoso revela que suenan a hueco (habitaciones 2 y 3).</p>
+
+    <h4>El puñal volador</h4>
+    <p>Un puñal viejo con la empuñadura labrada y la hoja cubierta de un óxido extrañamente grueso. Es el puñal mágico del marqués, y el óxido es en realidad sangre seca de sus víctimas. Si los jugadores lo encuentran, el marqués los atacará con él. Si no, los atacará cuando empiecen a echar abajo la pared de madera que oculta su cadáver.</p>
+
+    <div class="dados">
+      <span class="rot">Utilizar los dados para… <b>atacar con el puñal</b></span>
+      <p>El puñal flota en el aire y apuñala a un investigador. Al marqués le cuesta 1 Punto de Magia por asalto de combate. El puñal puede atacar una vez por asalto.</p>
+      <ul class="vinetas">
+        <li>Tira 1D100 y compara el resultado con el POD del marqués.</li>
+        <li>Pide al jugador que tire 1D100 y lo compare con el Esquivar de su investigador.</li>
+        <li>Compara los niveles de éxito para ver si el investigador recibe el golpe:
+          <ul class="puntos">
+            <li>Si el marqués fracasa (91 o más), el investigador esquiva el puñal.</li>
+            <li>Si el marqués saca un éxito Normal (de 46 a 90) y el investigador fracasa, le causa 1D4+2 puntos de daño.</li>
+            <li>Si el marqués saca un éxito Difícil (de 19 a 45) y el investigador fracasa o saca un éxito Normal, le causa 1D4+2 puntos de daño.</li>
+            <li>Si el marqués saca un éxito Extremo (18 o menos) y el investigador fracasa o saca un éxito Normal o Difícil, el puñal lo empala y le alcanza los órganos vitales: 6+1D4+2 puntos de daño.</li>
+          </ul>
+        </li>
+        <li>Si el investigador agarra la tapa de un cubo de basura o una sartén para protegerse, dale un dado de bonificación en la tirada de Esquivar.</li>
+        <li>Si el investigador no sabe que lo atacan, pide al jugador una tirada de Descubrir para ver el puñal flotando. Si no lo ve, añade un dado de bonificación a la tirada de ataque y no permitas tirar Esquivar. El ataque causa 1D4+2 puntos de daño, o 6+1D4+2 con un éxito Extremo, y solo falla con una pifia (100).</li>
+        <li>Ver atacar al puñal exige una tirada de Cordura (COR 1/1D4). Si la supera, el investigador pierde 1 punto de Cordura; si la falla, pierde 1D4.</li>
+      </ul>
+    </div>
+  </div>
+  <span class="folio">9</span>
+</section>
+
+<!-- ============================================================ HOJA 10 -->
+<section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES">
+  <div class="cols">
+    <div class="nota">
+      <p>En cuanto el puñal se eleve en el aire, empieza un asalto de combate. La DES del marqués es muy baja, así que lo más probable es que los investigadores actúen antes. Si huyen, el puñal atacará a quien se quede en el sótano o al último que llegue a la escalera (vuela bastante deprisa). Tú decides si persigue a sus víctimas por la casa.</p>
+    </div>
+    <p><strong>Usar una maniobra de combate para agarrar el puñal.</strong> Los investigadores pueden intentar atrapar el puñal en el aire con las reglas de maniobras de combate. El objetivo del jugador será agarrarlo. Los jugadores usarán la habilidad Combatir (Pelea) de su investigador contra el POD del marqués.</p>
+    <p>Si el jugador consigue un nivel de éxito mayor que el del marqués, ha atrapado el puñal. En caso de empate, gana quien tenga el turno: si era la acción del marqués, el puñal acierta; si era la del investigador, este lo agarra. Normalmente, para resolver una maniobra de combate habría que comparar la Corpulencia del investigador con la de su adversario, pero aquí puede ignorarse, porque en realidad nadie empuña el puñal. Si los jugadores se las ingenian, por ejemplo usando un abrigo grueso para atraparlo, dales un dado de bonificación.</p>
+    <div class="nota">
+      <p>Todos los personajes presentes en el sótano pueden hacer una acción por asalto de combate, y eso incluye al marqués, que usa su puñal volador. El Punto de Magia que gasta para activarlo cubre todo lo que haga con él durante ese asalto.</p>
+    </div>
+    <p><strong>Retener el puñal.</strong> Si un investigador consigue atraparlo, el marqués puede intentar soltarlo a tirones en los asaltos siguientes, gastando otro Punto de Magia por asalto. Para retenerlo, el jugador tiene que ganar una tirada enfrentada de su FUE contra el POD del marqués.</p>
+
+    <h4 class="sala"><b>Habitación 2:</b> Carbonera vacía</h4>
+    <p>Un depósito donde antes se guardaba el carbón. La trampilla de la bajada del carbón, que da a la calle, está bien clavada.</p>
+
+    <h4 class="sala"><b>Habitación 3:</b> La ratonera</h4>
+    <p>Si se rompen o arrancan los tablones del trastero, aparece un hueco entre dos tabiques de madera. De él sale un olor repugnante: el de las ratas que anidan dentro.</p>
+    <p>Una camada de ratas vive entre estas paredes. Si los investigadores no les dejan sitio para escapar, atacarán a quien intente meterse en el hueco. Las ratas usan su ataque de Abrumar contra un investigador. En cuanto muere una, las demás huyen.</p>
+
+    <div class="ficha">
+      <p class="nombre">Camada de ratas</p>
+      <p class="epiteto">Una rata sola no es rival digno, pero una plaga entera puede resultar abrumadora. Supón que cada camada tiene diez ejemplares. Cualquier ataque con éxito de un investigador mata a una o dos ratas y hace huir al resto. Las camadas de ratas solo existen a efectos de reglas.</p>
+      <table class="carac">
+        <tr><td><b>FUE</b> 35</td><td><b>CON</b> 55</td><td><b>TAM</b> 35</td></tr>
+        <tr><td><b>DES</b> 70</td><td><b>POD</b> 50</td><td></td></tr>
+      </table>
+      <p class="lin"><b>PV:</b> 9</p>
+      <p class="lin"><b>Bonificación al daño media:</b> −1</p>
+      <p class="lin"><b>Corpulencia media:</b> −1</p>
+      <p class="lin"><b>Movimiento:</b> 9</p>
+      <p class="rot">Ataques</p>
+      <p class="lin"><b>Ataques por asalto:</b> 1</p>
+      <p class="lin"><b>Ataques de combate:</b> las ratas atacan con garras y dientes.</p>
+      <p class="lin"><b>Abrumar (maniobra de combate):</b> la camada puede lanzarse en masa sobre una persona con las reglas de maniobras de combate, y tiene un dado de bonificación en el ataque por su número. Las ratas trepan por la víctima, mordiendo y arañando.</p>
+      <p class="lin"><i>Combatir</i> 40% (20/8), daño 1D3</p>
+      <p class="lin"><i>Abrumar</i> (maniobra de combate), daño 2D6</p>
+      <p class="lin"><i>Esquivar</i> 42% (21/8)</p>
+    </div>
+    <p>En la cara interior del hueco hay unas palabras grabadas con letras torcidas y raspadas: «Capilla de la Contemplación» (considéralo una pista evidente; no pidas tiradas de Descubrir, porque pasarla por alto no aporta nada al juego).</p>
+    <p>Si los investigadores rompen y atraviesan esta pared, llegarán a la Habitación 4.</p>
+
+    <div class="nota rotulo-propio" data-rotulo="Opción: el marqués lanza el hechizo Dominar">
+      <p>El marqués puede lanzar su hechizo Dominar en cualquier momento, tanto si se ha movido como si no (véase <em>Hechizos del marqués</em>). No necesita moverse lo más mínimo para lanzarlo, y su efecto es instantáneo. Si lo lanza, suma 50 a la DES del marqués para determinar su posición en el orden de iniciativa del asalto. Lanzarlo durante un combate le ocupa la acción del asalto. También puede lanzarlo mientras los investigadores están atravesando la pared.</p>
+    </div>
+  </div>
+  <span class="folio">10</span>
+</section>
+
+<!-- ============================================================ HOJA 11 -->
+<section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU">
+  <div class="cols">
+    <h4 class="sala"><b>Habitación 4:</b> El escondrijo del marqués</h4>
+    <p>Al otro lado del tabique empieza una galería abovedada de ladrillo viejo, uno de los silos del antiguo Pósito que el marqués mandó conservar bajo los cimientos. Más allá, tapiadas, se adivinan otras bocas de galería.</p>
+    <div class="leer"><p>Inmóvil, y al parecer muerto, sobre un túmulo de tierra en el centro de la bóveda yace un hombre marchito, acartonado y macilento de casi un metro ochenta, consumido y desnudo, con unos ojos espantosos, grandes y brillantes, y una nariz afilada como la hoja de un cuchillo. Lleva una especie de cadena al cuello, de la que cuelga una cruz esmaltada. Ha perdido casi todo el pelo, y las encías resecas hacen que sus dientes parezcan larguísimos. De él sale un olor entre acre y dulzón, como de membrillo podrido.</p>
+    <p>El suelo es de tierra. En el rincón del suroeste hay una mesa con varios papeles enrollados.</p></div>
+    <p>La cruz es la de la Orden de Carlos III, que el marqués lucía en vida; un investigador que supere una tirada de Historia, o con Crédito 50 o más, la reconocerá.</p>
+    <p>Si se tocan, los papeles de la mesa se deshacen en polvo. Lo poco que se distingue en ellos parece un horóscopo. Si los investigadores consiguen fotografiarlos o rescatar algo, el Guardián deberá revelar su verdadera naturaleza en alguna aventura posterior. Lo que sean lo decide el Guardián: se incluyen como semilla de futuras aventuras para este mismo grupo.</p>
+    <p><strong>El marqués ataca.</strong> El marqués puede gastar 2 Puntos de Magia para mover su cuerpo durante 5 asaltos de combate. Como le supone un gran esfuerzo, no se moverá a menos que se vea amenazado.</p>
+    <p><strong>Tiradas de Cordura.</strong> Cuando el marqués se levante de su túmulo, pide a todos los jugadores con un investigador presente una tirada de Cordura (COR 1/1D8). Quienes la fallen hacen algo involuntario a elección del Guardián, como soltar el arma o gritar. Si un investigador pierde 5 o más puntos de Cordura, el jugador debe hacer una tirada de INT. Si la supera, el investigador ha comprendido todo lo que implica lo que está viendo y sufre una locura temporal (véase <em>Locura temporal en el encuentro con el marqués</em>). Si la falla, queda conmocionado pero conserva la razón.</p>
+
+    <div class="dados">
+      <span class="rot">Utilizar los dados para… <b>resolver el combate</b></span>
+      <p>Cuando el marqués haga su primer movimiento empieza un asalto de combate. Haz una lista con los investigadores y el marqués por orden de DES, de mayor a menor.</p>
+      <ul class="vinetas">
+        <li>Si un personaje tiene un arma de fuego preparada, suma 50 a su DES. Si un investigador desenfunda en ese momento, el arma estará lista para usarse en su DES normal de este asalto.</li>
+        <li>Empieza por el primer nombre de la lista. Como el marqués tiene DES 35, lo normal es que actúe antes un investigador, salvo que el marqués haya lanzado Dominar, en cuyo caso actúa en su DES+50 (en los asaltos en que no lance el hechizo, sigue usando su DES 35). Pregunta al jugador qué hace.</li>
+        <li>Si un investigador ataca al marqués con su habilidad Combatir, el marqués responde con su propia habilidad Combatir, y hará lo mismo con los demás ataques de ese asalto.</li>
+        <li>El segundo investigador que ataque al marqués con Combatir recibe un dado de bonificación por superarlo en número.</li>
+        <li>Si un investigador ataca al marqués con Armas de fuego, basta con tirar para impactar. El marqués no se pone a cubierto. Si están lo bastante cerca, los disparos son a quemarropa y reciben un dado de bonificación.</li>
+      </ul>
+    </div>
+
+    <h4>Locura temporal en el encuentro con el marqués</h4>
+    <p><strong>Episodio de locura:</strong> si un investigador sufre una locura temporal, tira 1D10 y consulta la tabla <em>Episodios de locura</em>. Si el investigador está con otros, representa el resultado asalto a asalto. Si está solo, puedes usar el resultado para contar cómo lo encuentran más tarde en un estado lamentable, tal vez encerrado en un armario o borracho en una tasca.</p>
+    <p><strong>Trasfondo:</strong> toma la hoja del investigador y añade una anotación adecuada según la naturaleza del episodio de locura.</p>
+    <p><strong>Alucinaciones:</strong> el investigador sigue trastornado durante 1D10 horas o hasta que salga del palacio y duerma una noche de un tirón. Hasta entonces es propenso a las alucinaciones; pero como lo único de la aventura que puede volver loco a alguien ocurre en la escena final, las alucinaciones tendrán poco recorrido. Algunas sugerencias:</p>
+    <ul class="vinetas">
+      <li>Si el investigador alucinado huye del sótano, haz que encuentre en la casa una fotografía que parezca demostrar que el marqués es su antepasado: aparecen juntos el marqués y el abuelo del investigador, con un pie que los llama hermanos (aunque en realidad no es más que un recorte de periódico viejo).</li>
+      <li>Si se queda en el sótano, pasa al jugador una nota diciéndole que la cara y la voz de otro investigador han cambiado y que ahora murmura algo en latín (es solo una alucinación, claro).</li>
+    </ul>
+  </div>
+  <span class="folio">11</span>
+</section>
+
+<!-- ============================================================ HOJA 12 -->
+<section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES" id="conclusion">
+  <div class="cols">
+    <p><strong>Tirada de toma de conciencia:</strong> si el jugador duda de una alucinación, sugiérele que su investigador puede hacer una «tirada de toma de conciencia» para distinguir lo que es real. Si quiere hacerla, pídele una tirada de Cordura:</p>
+    <ul class="vinetas">
+      <li>Si la supera, la alucinación se desvanece y no sufrirá ninguna otra.</li>
+      <li>Si la falla, el investigador pierde 1 punto de Cordura y sufre otro episodio de locura, con alucinaciones más intensas.</li>
+    </ul>
+    <p>Como la locura temporal la ha causado una manifestación de los Mitos de Cthulhu, suma un 5% a la habilidad Mitos de Cthulhu del investigador.</p>
+
+    <h3 class="cap">Conclusión</h3>
+    <p>Si los investigadores resuelven el misterio y acaban con el marqués, don Esteban Nogales les pagará lo acordado, sin demora y de buena gana.</p>
+    <p>Si no consiguen librarse del marqués y se limitan a decirle a don Esteban que allí no pasa nada raro, el propietario pasará una noche en el palacio para comprobarlo, y el puñal del marqués lo matará a puñaladas en el sótano. En ese caso, la Policía irá a buscar a los investigadores, que tendrán que demostrar su inocencia.</p>
+    <p>Por supuesto, puede que las cosas no les salgan tan bien. El puñal y el marqués son peligrosos y, según caigan los dados, la investigación puede acabar en muerte o en locura.</p>
+    <p>Un posible final es narrar un breve epílogo para cada jugador: quizá el marqués use su magia para reanimar a los investigadores muertos, que repararán los tabiques del sótano antes de que sus cuerpos se conviertan en polvo. Los investigadores que hayan enloquecido huirán gritando por el paseo de Recoletos y no volverán jamás.</p>
+    <p>Si los investigadores salen victoriosos, puedes pasar por alto los efectos permanentes de las garras del marqués.</p>
+
+    <h4>Recompensas</h4>
+    <ul class="vinetas">
+      <li>Si los investigadores vencen y destruyen al marqués, cada participante gana 1D6 puntos de Cordura.</li>
+      <li>Los investigadores pueden quedarse con el libro carcomido de la Capilla.</li>
+      <li>Por último, el propietario les paga encantado sus honorarios y una gratificación.</li>
+    </ul>
+
+    <div class="locura">
+      <h4>Episodios de locura</h4>
+      <p class="tira">(tira 1D10)</p>
+      <ol>
+        <li><b>Amnesia:</b> el investigador no recuerda nada de lo ocurrido desde la última vez que estuvo a salvo. Por ejemplo, le parece que hace un momento estaba desayunando y de pronto se encuentra frente a un monstruo. Dura 1D10 asaltos.</li>
+        <li><b>Discapacidad psicosomática:</b> el investigador sufre ceguera o sordera psicosomática, o parálisis de uno o varios miembros, durante 1D10 asaltos.</li>
+        <li><b>Violencia:</b> una niebla roja se apodera del investigador, que estalla en una oleada de violencia y destrucción indiscriminada contra lo que le rodea, aliados y enemigos por igual, durante 1D10 asaltos.</li>
+        <li><b>Paranoia:</b> el investigador sufre una paranoia aguda durante 1D10 asaltos. ¡Todos están contra él! ¡No puede fiarse de nadie! Lo espían, alguien lo ha traicionado y todo lo que ve es una farsa.</li>
+        <li><b>Allegado:</b> repasa los allegados del trasfondo del investigador. El investigador confunde a alguien presente en la escena con su allegado y actúa según la relación que tengan. Dura 1D10 asaltos.</li>
+        <li><b>Desmayo:</b> el investigador se desmaya. Vuelve en sí al cabo de 1D10 asaltos.</li>
+        <li><b>Huida presa del pánico:</b> el investigador no puede evitar huir lo más lejos posible por cualquier medio a su alcance, aunque eso suponga llevarse el único automóvil y dejar a todos atrás. Huye durante 1D10 asaltos.</li>
+        <li><b>Histeria física o estallido emocional:</b> el investigador queda incapacitado por la risa, el llanto, los gritos, etc., durante 1D10 asaltos.</li>
+        <li><b>Fobia:</b> el investigador adquiere una fobia nueva, como la claustrofobia (miedo a los espacios cerrados), la demonofobia (miedo a los espíritus y los demonios) o la catsaridafobia (miedo a las cucarachas). Aunque el objeto de la fobia no esté presente, el investigador cree que sí durante los próximos 1D10 asaltos.</li>
+        <li><b>Manía:</b> el investigador adquiere una manía nueva, como la ablutomanía (compulsión por lavarse), la pseudomanía (compulsión irracional por mentir) o la helmintomanía (gusto excesivo por los gusanos). Intenta satisfacerla durante los próximos 1D10 asaltos.</li>
+      </ol>
+    </div>
+  </div>
+  <span class="folio">12</span>
+</section>
+
+<!-- ============================================================ HOJA 13 -->
+<section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU" id="marques">
+  <div class="cols">
+    <h3 class="cap">Ampliar la aventura</h3>
+    <p>El Guardián recordará el símbolo pintado hace poco en las ruinas de la capilla, el ataúd lleno de piedras de San Justo y las pruebas del encubrimiento que siguió a la operación de 1912. ¿Quién llamó a <em>El Imparcial</em> en 1918 para que no saliera la crónica? ¿Quién protegió a los fieles de la Capilla en el sumario? Y ¿dónde está ahora el capellán Tomé? Estas conexiones con lo que podría ser una gran conspiración quedan a su disposición para aventuras futuras.</p>
+    <p>Recuerda también el extraño documento podrido que parecía un horóscopo: ¿tiene que ver con la conspiración o es algo completamente distinto? Y las galerías tapiadas del Pósito siguen ahí, debajo de la plaza de Cibeles, camino de quién sabe qué otros sótanos.</p>
+    <p>Cualquiera de estas pistas puede llevar a otras aventuras de tu propia invención para este grupo de investigadores.</p>
+
+    <div class="ficha">
+      <p class="nombre">José de Murga y Reolid, marqués de Linares</p>
+      <p class="epiteto">diabólico muerto viviente</p>
+      <table class="carac">
+        <tr><td><b>FUE</b> 90</td><td><b>CON</b> 115</td><td><b>TAM</b> 55</td><td><b>DES</b> 35</td></tr>
+        <tr><td><b>APA</b> 05</td><td><b>INT</b> 80</td><td><b>POD</b> 90</td><td><b>EDU</b> 80</td></tr>
+      </table>
+      <p class="lin"><b>COR</b> 0 (no paga los costes de Cordura de los hechizos)</p>
+      <p class="lin"><b>PV</b> 16</p>
+      <p class="lin"><b>Bonificación al daño:</b> +1D4</p>
+      <p class="lin"><b>Corpulencia:</b> 1</p>
+      <p class="lin"><b>Movimiento:</b> 8</p>
+      <p class="lin"><b>Puntos de Magia:</b> 18 (si los gasta, recupera 1 por hora)</p>
+      <p class="rot">Ataques</p>
+      <p class="lin"><b>Ataques por asalto:</b> 1</p>
+      <p class="lin sangria"><b>Ataques de combate:</b> cuando anima su cuerpo, el marqués puede atacar con normalidad (puñetazos, patadas, etc.). Las heridas de sus uñas, parecidas a garras, pueden transmitir una enfermedad grave: si impacta a un investigador, este debe hacer una tirada de Suerte. Si la falla, las garras lo han arañado; al día siguiente la víctima empieza a delirar y debe hacer una tirada de CON:<br>
+      <b>Fracaso:</b> el delirio dura 1D10 días; pierde 1D10 de CON.<br>
+      <b>Éxito:</b> el delirio dura 1D6 días; no pierde CON.<br>
+      Repite el procedimiento hasta que el investigador se cure o muera. La CON perdida no se recupera.</p>
+      <p class="lin sangria"><b>Armas:</b> puñal mágico volador (véase <em>El puñal volador</em>). Gastar un Punto de Magia para que el puñal ataque durante un asalto cuenta como la acción de combate del marqués en ese asalto.</p>
+      <p class="lin"><i>Combatir</i> 50% (25/10), daño 1D3 + bonificación al daño (1D4) + posible infección</p>
+      <p class="lin"><i>Esquivar</i> 17% (8/3)</p>
+      <p class="lin sangria"><b>Armadura:</b> cada punto de armadura reduce en 1 el daño recibido. El marqués ya ha lanzado Protección corporal: tira 1D6 para su armadura, y redúcela en un punto por cada punto de daño que absorba.</p>
+      <p class="lin sangria"><b>Hechizos:</b> Dominar (variante, véase a continuación), Protección corporal, Convocar/Atar a un vagabundo dimensional.</p>
+      <p class="lin"><b>Objetos mágicos:</b> puñal volador.</p>
+      <p class="lin sangria"><b>Habilidades:</b> Escuchar 60%, Intimidar 64%, Juego de manos 30%, Mitos de Cthulhu 17%, Sigilo 72%.</p>
+      <p class="lin"><b>Pérdida de Cordura:</b> verlo moverse cuesta 1/1D8 puntos de Cordura.</p>
+    </div>
+    <div class="nota">
+      <p>Solo se dan algunas habilidades del marqués, las que es más probable que entren en juego. Puedes improvisar otras si hace falta.</p>
+    </div>
+
+    <h4>Acerca del marqués</h4>
+    <p>Al principio permanecerá en silencio, pero llegará un momento del enfrentamiento en el que resultará más eficaz que gruña, chille, se carcajee o se burle. No respira.</p>
+    <p>El marqués no es un auténtico vampiro ni ningún otro monstruo conocido, sino un hechicero que se está transformando en algo completamente inhumano.</p>
+    <p>La luz del sol le hace daño y le resulta demasiado intensa para sus ojos, siempre abiertos. De hecho, el sol podría matarlo, pero eso lo decide el Guardián. Aunque se alimenta de sangre, también podría alimentarse de zanahorias; la sangre, sencillamente, le divierte más.</p>
+    <p>Su hechizo de Protección corporal funciona como se explica más abajo, pero describe sus efectos así: las balas y los golpes solo le arrancan pedazos del cuerpo, con lo que su aspecto es cada vez más horrible. Mientras dura el hechizo, su piel, seca y dura como el hierro, es invulnerable; pero si el daño supera la armadura, sus puntos de vida se reducen con normalidad. Nunca se cura y no puede quedar inconsciente. Cuando sus puntos de vida llegan a 0, se convierte en polvo y muere definitivamente.</p>
+    <p>El marqués controla el puñal volador; pero si los investigadores consiguen atraparlo, hacerse con él y clavárselo, se convierte en polvo y cenizas al instante, sea cual sea el hechizo que lo proteja.</p>
+
+    <h4>Para interpretar al marqués</h4>
+    <ul class="vinetas">
+      <li>El marqués rebosa maldad e intentará dividir a los investigadores y volverlos unos contra otros.</li>
+      <li>Busca emociones y una diversión perversa a costa de los investigadores.</li>
+      <li>Intentará quedarse con cualquier fuente de conocimiento de los Mitos que entre en la casa (como el <em>Liber Ivonis</em>).</li>
+      <li>Mientras pueda, se esconderá detrás de la leyenda de Raimundita.</li>
+    </ul>
+  </div>
+  <span class="folio">13</span>
+</section>
+
+<!-- ============================================================ HOJA 14 -->
+<section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES" id="historia">
+  <div class="cols">
+    <div class="nota">
+      <p>Lleva un control minucioso de los Puntos de Magia del marqués, y recuerda que los recupera a razón de 1 por hora. El marqués lanza Protección corporal en cuanto alguien entra en la casa. Si los intrusos van directos a por su cadáver, podrían encontrarlo antes de que haya recuperado esos dos puntos.</p>
+    </div>
+
+    <h3 class="cap">Hechizos del marqués</h3>
+    <h4>Dominar (variante del marqués)</h4>
+    <p><strong>Coste:</strong> 1 Punto de Magia. <strong>Tiempo de lanzamiento:</strong> 1 asalto.</p>
+    <p>Con esta versión del hechizo Dominar, el marqués puede nublar la mente de un investigador, siempre que la víctima esté físicamente dentro del palacio. El jugador debe hacer una tirada enfrentada de POD contra el POD 90 del marqués.</p>
+    <p>Si gana el marqués, la víctima queda aturdida durante 1D6+1 asaltos de combate. Mientras dura el aturdimiento, obedece las órdenes telepáticas del marqués, que pueden tomar la forma de alucinaciones sutiles y siniestras o de órdenes directas, a discreción del Guardián. La víctima no hará nada suicida, pero sí puede cometer actos homicidas, estúpidos o temerarios (como intentar tragarse un cuchillo de carnicero). Al despertar no recordará nada de lo ocurrido.</p>
+
+    <h4>Protección corporal</h4>
+    <p>El marqués ya ha lanzado este hechizo para protegerse antes de que los investigadores den con él (véase <em>Armadura</em>, más arriba).</p>
+    <p><strong>Coste:</strong> Puntos de Magia y de Cordura variables. <strong>Tiempo de lanzamiento:</strong> 5 asaltos.</p>
+    <p>Este hechizo protege de los ataques físicos. Cada Punto de Magia invertido da al hechicero (o al objetivo que elija) 1D6 puntos de armadura contra los ataques que no sean mágicos. La protección se va gastando a medida que absorbe daño. Por ejemplo, si un personaje tiene 12 puntos de armadura gracias a Protección corporal y recibe un golpe de 8 puntos de daño, no sufre ningún daño y su Protección corporal baja a 4 puntos. El hechizo dura 24 horas o hasta que se agota la protección.</p>
+    <p>Una vez lanzado, no se puede reforzar invirtiendo más Puntos de Magia, ni repetir hasta que se haya agotado la protección.</p>
+
+    <div class="historia">
+      <h4>Historia y leyenda</h4>
+      <p>El palacio y sus dueños son reales; lo demás es ficción. José de Murga y Reolid (Madrid, 1833-1902), primer marqués de Linares y vizconde de Llanteno, fue banquero, senador por Segovia y gran filántropo, heredero de una fortuna vasca hecha en Cuba y en los ferrocarriles. Se casó en 1858 con Raimunda de Osorio y Ortega, que murió en octubre de 1901; él la siguió el 9 de abril de 1902, en su palacio. No tuvieron hijos reconocidos.</p>
+      <p>El palacio se levantó entre 1877 y 1900 en el solar del Pósito, con proyecto de Carlos Colubí sobre trazas de Adolf Ombrecht. Tiene sótano y un subsótano con galerías tapiadas bajo el jardín, y en el jardín, una casa de muñecas. La leyenda de Raimundita (que los marqueses eran hermanastros sin saberlo, que obtuvieron una bula para vivir en castidad, que tuvieron una hija y la hicieron desaparecer) no tiene base documental, y se hizo famosa en 1990 con unas supuestas psicofonías grabadas en el palacio abandonado. En la aventura se da por conocida ya en 1920: es una licencia.</p>
+      <p>En la realidad, los marqueses fueron enterrados en la Sacramental de San Justo, y en 1918 sus restos se trasladaron a la cripta del Hospital de San José y San Raimundo, que ellos fundaron. La redacción de <em>El Imparcial</em> estaba en la calle del Duque de Alba, la Biblioteca Nacional en Recoletos desde 1896 y el Ministerio de la Gobernación en la Puerta del Sol. La Capilla de la Contemplación, don Esteban Nogales, los Montalvo y el capellán Tomé son inventados.</p>
+    </div>
+  </div>
+  <span class="folio">14</span>
+</section>
+
+<!-- ============================================================ AYUDAS -->
+<section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU" id="ayudas">
+  <h3 class="cap" style="margin-top:.4rem">Sección de ayudas de juego para los jugadores</h3>
+  <p class="tijeras">recortar por la línea</p>
+  <div class="cols">
+    <div class="ayuda maquina">
+      <span class="rot">Ayuda de juego 1</span>
+      <p>Don Esteban Nogales, propietario, os pide que examinéis un viejo palacio que acaba de heredar en la plaza de Cibeles, conocido en todo Madrid como el Palacio de Linares. Los últimos inquilinos, la familia Montalvo, se vieron envueltos en una tragedia, y el propietario quiere entender lo que ocurrió allí y aclarar las cosas. Desde entonces no ha conseguido alquilar la casa, y espera que vosotros podáis explicar lo sucedido y devolverle el buen nombre. Os ofrece una compensación por vuestro tiempo y vuestras molestias, y os entrega las llaves, unas señas y ciento cincuenta pesetas en billetes como adelanto.</p>
+      <p>Como buenos profesionales, querréis hacer algunas averiguaciones antes de presentaros en el palacio. Podéis consultar los números atrasados en la redacción de <em>El Imparcial</em>, acercaros a la Biblioteca Nacional o pasar por el Archivo de Villa.</p>
+      <p>La decisión es vuestra.</p>
+    </div>
+
+    <div class="ayuda recorte">
+      <span class="rot">Ayuda de juego 2</span>
+      <div class="cab">El Imparcial</div>
+      <div class="fecha">Galerada &middot; Madrid, 1920 &middot; Sección de sucesos</div>
+      <div class="tit">La casa que nadie quiere</div>
+      <p>Pocos madrileños que crucen la plaza de Cibeles reparan en la casa que se esconde tras la verja de la esquina de Recoletos. En 1903, recién muerto su dueño, la alquiló la familia de un secretario de la Embajada de Francia, que la abandonó tras una serie de accidentes violentos que costaron la vida a los padres y dejaron impedidos a los niños. El palacio estuvo cerrado mucho tiempo.</p>
+      <p>En 1909 se instaló allí la familia de un naviero bilbaíno, y sus miembros no tardaron en caer enfermos. En 1914 el hijo mayor perdió el juicio y se quitó la vida con un cuchillo de cocina, y la familia, deshecha, se marchó. En 1918 una tercera familia, los Montalvo, alquiló el palacio, y hace unas semanas lo ha abandonado en circunstancias misteriosas.</p>
+      <span class="lapiz">NO SALE. Orden de arriba. — A. V.</span>
+    </div>
+
+    <div class="ayuda">
+      <span class="rot">Ayuda de juego 3</span>
+      <p>En 1872, don José de Murga y Reolid, que al año siguiente recibiría de Amadeo I el título de marqués de Linares, compró al Ayuntamiento el solar del antiguo Pósito, el granero de la villa. Las obras empezaron en 1877. Los marqueses se mudaron al palacio en 1884, aunque no se dio por terminado hasta 1900. Una crónica de la obra señala que el marqués mandó conservar bajo los cimientos los viejos silos del Pósito.</p>
+    </div>
+
+    <div class="ayuda">
+      <span class="rot">Ayuda de juego 4</span>
+      <p>En 1886, varios vecinos del paseo de Recoletos, con el apoyo de la parroquia de San José, se querellaron contra el marqués de Linares y pidieron que abandonase el lugar «por sus hábitos repugnantes y su conducta indecorosa».</p>
+    </div>
+
+    <div class="ayuda esquela">
+      <span class="rot">Ayuda de juego 5</span>
+      <div class="cruz">✝</div>
+      <div class="rip">Rogad a Dios en caridad por el alma del</div>
+      <div class="nombre">Excmo. Sr. D. José de Murga y Reolid</div>
+      <div>Marqués de Linares &middot; Vizconde de Llanteno<br>Gran Cruz de Carlos III</div>
+      <div style="margin-top:.3rem">que falleció en su palacio de Cibeles<br>el día 9 de abril de 1902</div>
+      <p class="letra-menuda"><em>De La Época, sección de necrologías.</em> Muere el marqués seis meses después que su esposa. Según nuestras noticias, la testamentaría se halla enfrentada al Ayuntamiento en un nuevo litigio, pues el finado dispuso en su testamento ser sepultado en el sótano de su casa.</p>
+    </div>
+
+    <div class="ayuda">
+      <span class="rot">Ayuda de juego 6</span>
+      <p>No consta cómo terminó el segundo pleito. Las crónicas de sociedad solo dicen que el féretro salió del palacio camino de la Sacramental de San Justo.</p>
+    </div>
+  </div>
+  <span class="folio">15</span>
+</section>
+
+<section class="hoja" data-cabecera="LA MALDICIÓN DEL PALACIO DE LINARES">
+  <p class="tijeras">recortar por la línea</p>
+  <div class="cols">
+    <div class="ayuda maquina">
+      <span class="rot">Ayuda de juego 7</span>
+      <p>Las actas del pleito municipal muestran que el albacea testamentario del marqués de Linares fue el presbítero don Miguel Tomé, capellán de la Capilla de la Contemplación e Iglesia de Nuestro Señor Dador de Secretos. Un oficio del Obispado de Madrid-Alcalá, unido al expediente, deja constancia de que la Capilla de la Contemplación fue clausurada en 1912.</p>
+    </div>
+
+    <div class="ayuda maquina">
+      <span class="rot">Ayuda de juego 8</span>
+      <p style="text-align:center;letter-spacing:.08em">DIRECCIÓN GENERAL DE SEGURIDAD<br>— RESERVADO —</p>
+      <p>El atestado describe una operación reservada contra la Capilla de la Contemplación, en los tejares que hay detrás del Retiro. La motivaron varias denuncias juradas que acusaban a los fieles de la capilla de la desaparición de algunos niños del barrio. Durante el asalto murieron tres guardias de Seguridad y diecisiete miembros de la secta, por los disparos o por el fuego. Los informes de las autopsias son extrañamente vagos, como si el forense no hubiera llegado a examinar los cuerpos.</p>
+      <p>Aunque se detuvo a cincuenta y cuatro miembros de la secta, todos menos ocho quedaron en libertad. Los informes dan a entender que un alto cargo intervino de forma irregular en el sumario, lo que explicaría que los periódicos no publicaran una sola línea sobre la operación, la mayor que ha visto Madrid.</p>
+      <p>El capellán, don Miguel Tomé, fue detenido y condenado a cadena perpetua por cinco asesinatos. En agosto de 1917, aprovechando los motines de los días de la huelga general, se fugó del penal de Ocaña y se le perdió la pista.</p>
+    </div>
+
+    <div class="ayuda" style="text-align:center">
+      <span class="rot">Ayuda de juego 9</span>
+      <div style="max-width:15rem;margin:.4rem auto .2rem"><svg viewBox="0 0 240 240" role="img" aria-label="Tres letras Y dispuestas en triángulo, tocándose por los brazos, alrededor de un ojo abierto, pintadas con cal sobre piedra.">
+<defs>
+<filter id="sim1-cal" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5"/></filter>
+<filter id="sim1-piedra"><feTurbulence type="fractalNoise" baseFrequency=".035 .08" numOctaves="4" seed="9"/><feColorMatrix values="0 0 0 0 .32  0 0 0 0 .31  0 0 0 0 .29  0 0 0 .9 0"/></filter>
+</defs>
+<rect width="240" height="240" fill="#4b4944"/>
+<rect width="240" height="240" filter="url(#sim1-piedra)" opacity=".7"/>
+<g filter="url(#sim1-cal)" stroke="#f1eee6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M120.0,10.0 L120.0,42.0 M96.1,101.8 L120.0,42.0 L143.9,101.8 M23.0,178.0 L50.7,162.0 M114.5,152.8 L50.7,162.0 L90.6,111.4 M217.0,178.0 L189.3,162.0 M149.4,111.4 L189.3,162.0 L125.5,152.8" stroke-width="9"/>
+<path d="M108,122 Q120,112 132,122 Q120,132 108,122 Z" stroke-width="3.5"/>
+<circle cx="120" cy="122" r="3.8" fill="#f1eee6" stroke="none"/>
+</g>
+</svg></div>
+    </div>
+  </div>
+
+  <div class="creditos" style="margin-top:2rem;border-top:2px solid var(--tinta);padding-top:.8rem">
+    <p><strong>La maldición del Palacio de Linares</strong> es una adaptación libre y no oficial de «La maldición de la Casa Corbitt», la aventura incluida en las <em>Reglas de inicio rápido</em> de <em>La llamada de Cthulhu</em>, 7.ª edición, (Chaosium Inc.; edición en español de Edge Entertainment). La aventura original es de Sandy Petersen; la versión para la 7.ª edición, de Mike Mason y Paul Fricker. Se conservan la estructura, el reglamento y los consejos para el Guardián de la aventura original; el escenario, los personajes no jugadores y las ayudas de juego se han trasladado al Madrid de 1920.</p>
+    <p><em>La llamada de Cthulhu</em> es una marca registrada de Chaosium Inc. Este material es una creación de aficionados, gratuita y sin ánimo de lucro, no publicada ni avalada por Chaosium Inc. ni por Edge Entertainment. Para jugarla necesitas las reglas de inicio rápido o el <em>Manual del Guardián</em>, que puedes conseguir en <a href="https://www.chaosium.com/">chaosium.com</a>.</p>
+    <p>Adaptación y maquetación: rpg.nephei.org, 2026.</p>
+  </div>
+  <span class="folio">16</span>
+</section>
+
+
+</body>
+</html>
