@@ -340,6 +340,11 @@ table.anotar td{height:1.9em}
   border-left:3px solid var(--regla);padding:.1rem 0 .1rem .65rem;margin:.1rem 0 .6rem}
 .ambiente b{font-family:var(--f-caja-sc);font-weight:700;letter-spacing:.06em;color:var(--tinta)}
 @media print{.ambiente{font-size:8.4pt}}
+.spoilers{max-width:60rem;margin:.4rem auto 0;padding:.7rem 1rem;background:#6e1a14;color:#f6efe2;font-family:var(--f-caja);font-size:.98rem;border:2px solid #2a0c08}
+.spoilers a{color:#fff;border-bottom-color:rgba(255,255,255,.6)}
+@media print{.spoilers{display:none}}
+html.paginado .spoilers{display:none}
+@media screen and (max-width:760px){.spoilers{margin:.4rem 0 0}}
 .creditos{font-family:var(--f-caja);font-size:.86rem;color:var(--tinta-2)}
 .creditos p{margin-bottom:.5em}
 
@@ -496,9 +501,11 @@ html.paginado .imprimir{position:fixed;right:1.2rem;bottom:1.2rem;z-index:9;padd
 <body>
 
 <nav class="barra">
-  <a href="/">&laquo; rpg.nephei.org</a>
+  <a href="/la-maldicion-de-linares/guardian">&laquo; Recursos del Guardián</a>
   <span><a class="descarga" href="aventura.pdf" download>Descargar en PDF (A4)</a> &middot; <a class="descarga" href="aventura?paginar">Versión para imprimir</a> &middot; La llamada de Cthulhu &middot; 7.ª edición &middot; Madrid, 1920</span>
 </nav>
+
+<div class="spoilers"><strong>Recurso para el Guardián: contiene todos los secretos de la aventura.</strong> Si vas a jugarla como investigador, ve a los <a href="/la-maldicion-de-linares/players">recursos de los jugadores</a>.</div>
 
 <!-- ============================================================ PORTADA -->
 <section class="hoja" data-cabecera="LA LLAMADA DE CTHULHU" id="portada">
